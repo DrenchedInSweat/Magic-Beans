@@ -10,6 +10,19 @@ public class Player : Character
     private Rigidbody _rb;
     private PlayerControls _controls;
 
+    [Header("Player Controls")]
+    [SerializeField] private float mouseSensitivity;
+    [Tooltip("Limits the max rotation of the cam")]
+    [SerializeField, Range(0,89.9f)] private float viewLockY;
+
+    [SerializeField] private Transform head;
+
+    private bool tryingToJump;
+    private Vector2 mouseDir;
+    
+    
+    //TODO: If we go in the route of shooting,use Impulse Source -- Do this for landing aswell
+
     // Start is called before the first frame update
     protected override void Awake()
     {
@@ -18,8 +31,12 @@ public class Player : Character
         _controls = new PlayerControls();
         _controls.InGame.Enable();
 
-        _controls.InGame.Jump.performed += x => Jump();
-        _controls.InGame.Movement.performed += ctx => directionVector = ctx.ReadValue<Vector2>();
+        _controls.InGame.Jump.performed += x =>  tryingToJump = !tryingToJump;
+        _controls.InGame.LeftRight.performed += ctx => directionVector.z = ctx.ReadValue<float>();
+        _controls.InGame.ForwardBack.performed += ctx => directionVector.x = ctx.ReadValue<float>();
+        _controls.InGame.CameraX.performed += ctx => mouseDir.y = ctx.ReadValue<float>();
+        _controls.InGame.CameraY.performed += ctx => mouseDir.x = ctx.ReadValue<float>();
+        
         _controls.InGame.Interact.performed += x => Interact(); // This should 
     }
 
@@ -34,7 +51,31 @@ public class Player : Character
     
     protected override void MovePlayer()
     {
-        _rb.AddForce(moveSpeed * Time.fixedDeltaTime * new Vector3(directionVector.x, 0, directionVector.y), ForceMode.Impulse);
+        _rb.AddForce(moveSpeed * Time.fixedDeltaTime * directionVector.x * transform.forward, ForceMode.Impulse);
+        _rb.AddForce(moveSpeed * Time.fixedDeltaTime * directionVector.z * transform.right, ForceMode.Impulse);
+    }
+
+    private void RotateCamera()
+    {
+        head.rotation *= Quaternion.AngleAxis(mouseDir.x * mouseSensitivity, Vector3.up);
+        head.rotation *= Quaternion.AngleAxis(mouseDir.y * mouseSensitivity, Vector3.right);
+        
+        Vector3 angles = head.localEulerAngles;
+
+        angles.z = 0;
+        
+        //Up/Down clamped
+        if (angles.x > 180 && angles.x < 360 - viewLockY)
+        {
+            angles.x = 360 - viewLockY;
+        }
+        else if (angles.x < 180 && angles.x > viewLockY)
+        {
+            angles.x = viewLockY;
+        }
+
+
+        head.localEulerAngles = angles;
     }
 
     private void Jump()
@@ -70,5 +111,8 @@ public class Player : Character
     protected override void Update()
     {
         base.Update();
+        if(tryingToJump)
+            Jump();
+        RotateCamera();
     }
 }

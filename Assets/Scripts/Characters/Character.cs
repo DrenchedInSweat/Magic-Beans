@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
     protected const float MaxJumpTime = 0.2f;
     protected float jumpTime;
 
-    protected Vector2 directionVector;
+    protected Vector3 directionVector;
     protected bool isGrounded;
 
 
