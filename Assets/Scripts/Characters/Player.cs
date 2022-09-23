@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Player : Character
@@ -17,9 +19,41 @@ public class Player : Character
 
     [SerializeField] private Transform head;
 
+    [Header("Wall Running")]
+    [Tooltip("Speed on wall")]
+    [SerializeField] private float wallSpeed;
+    [Tooltip("How long the player can wall run for")]
+    [SerializeField] private float maxWallRunDuration;
+    [Tooltip("Time until fully recovered")]
+    [SerializeField] private float wallRecoverySpeed = 1;
+    [Tooltip("Time until recovery starts")]
+    [SerializeField] private float wallRecoveryDelay = 2;
+    private float delayTimer;
+    
+    [Tooltip("The gravity on the wall")]
+    [SerializeField] private float wallRunGravity;
+    
+    private float wallRunTime;
+    private float wallDist = 0.75f;
+
+    private RaycastHit leftWallCast;
+    private bool onLeftWall;
+    private RaycastHit rightWallCast;
+    private bool onRightWall;
+
+    private int wallRunScalar; // Used to help the player run backwards and rotate the cam
+
+    private GameObject lastWall;
+
+    private bool isWallRunning;
+
     private bool tryingToJump;
     private Vector2 mouseDir;
-    
+
+    private Vector3 wallForward;
+
+    [Header("UI")] [SerializeField] private Slider slider;
+    [SerializeField] private CinemachineVirtualCamera cmv;
     
     //TODO: If we go in the route of shooting,use Impulse Source -- Do this for landing aswell
 
@@ -32,12 +66,16 @@ public class Player : Character
         _controls.InGame.Enable();
 
         _controls.InGame.Jump.performed += x =>  tryingToJump = !tryingToJump;
+        _controls.InGame.Jump.canceled += x =>  tryingToJump = !tryingToJump;
         _controls.InGame.LeftRight.performed += ctx => directionVector.z = ctx.ReadValue<float>();
         _controls.InGame.ForwardBack.performed += ctx => directionVector.x = ctx.ReadValue<float>();
         _controls.InGame.CameraX.performed += ctx => mouseDir.y = ctx.ReadValue<float>();
         _controls.InGame.CameraY.performed += ctx => mouseDir.x = ctx.ReadValue<float>();
         
         _controls.InGame.Interact.performed += x => Interact(); // This should 
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     /// <summary>
@@ -49,20 +87,53 @@ public class Player : Character
     }
 
     
-    protected override void MovePlayer()
+    protected override void Move()
     {
-        _rb.AddForce(moveSpeed * Time.fixedDeltaTime * directionVector.x * transform.forward, ForceMode.Impulse);
-        _rb.AddForce(moveSpeed * Time.fixedDeltaTime * directionVector.z * transform.right, ForceMode.Impulse);
+
+
+        //End the wall run if there is no input
+        if (directionVector == Vector3.zero)
+        {
+            isWallRunning = false;
+        }
+
+        if (isWallRunning)
+        {
+            //Cast a ray from player to wall,
+            //if the angle between wall and camera is positive, move in ap ositive direction
+            //else move in a negative direction
+            print(Mathf.RoundToInt(Vector3.Dot(wallForward, transform.forward)));
+
+            float dir = wallRunScalar;
+
+            //Gives backwards control
+            if (directionVector.x < 0 || directionVector.z < 0)
+            {
+                dir *= -0.6f; // Also reduce speed to 60%
+            }
+            _rb.AddForce(wallSpeed * Time.fixedDeltaTime * dir * wallForward, ForceMode.Force);
+        }
+        else
+        {
+            _rb.AddForce(moveSpeed * Time.fixedDeltaTime * directionVector.x * transform.forward, ForceMode.Force);
+            _rb.AddForce(moveSpeed * Time.fixedDeltaTime * directionVector.z * transform.right, ForceMode.Force);
+        }
+
+        //Handle drag
+        _rb.drag = isGrounded ? floorDrag : airDrag;
+        
+        //Clamp speed
+        _rb.velocity = Vector3.ClampMagnitude(_rb.velocity , maxSpeed);
     }
 
     private void RotateCamera()
     {
-        head.rotation *= Quaternion.AngleAxis(mouseDir.x * mouseSensitivity, Vector3.up);
+        transform.rotation *= Quaternion.AngleAxis(mouseDir.x * mouseSensitivity, Vector3.up);
         head.rotation *= Quaternion.AngleAxis(mouseDir.y * mouseSensitivity, Vector3.right);
         
-        Vector3 angles = head.localEulerAngles;
+        Vector3 angles = Vector3.zero;
 
-        angles.z = 0;
+        angles.x = head.localEulerAngles.x;
         
         //Up/Down clamped
         if (angles.x > 180 && angles.x < 360 - viewLockY)
@@ -84,14 +155,29 @@ public class Player : Character
         //Implement a delay to prevent all jumps from being used instantly
         if (jumpTime >= MaxJumpTime)
         {
-            print("Time valid");
+            print("Time valid: " + (curJump + 1) + " < " + maxJumps);
             //If the player can jump OR is grounded
-            if (++curJump < maxJumps || isGrounded) // ORDER IS IMPORTANT!
+            if (curJump < maxJumps)
             {
                 print("Jump valid");
                 jumpTime = 0;
-                _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-                _rb.AddForce(jumpForce * Time.fixedDeltaTime  * Vector3.up, ForceMode.Impulse);
+                if (isWallRunning)
+                {
+                    print("Wall Jump");
+                    //Reflection into the walls surface?
+                    //Add force orthagonal to the wall?
+                    _rb.AddForce(jumpForce * Time.fixedDeltaTime * Vector3.Cross(-wallForward, Vector3.up), ForceMode.Impulse);
+                    _rb.AddForce(jumpForce * Time.fixedDeltaTime * Vector3.up, ForceMode.Impulse);
+                    curJump++;
+                    
+                }
+                else if (isGrounded) // ORDER IS IMPORTANT!
+                {
+                    print("Floor Jump");
+                    _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+                    _rb.AddForce(jumpForce * Time.fixedDeltaTime * Vector3.up, ForceMode.Impulse);
+                    curJump++;
+                }
             }
         }
     }
@@ -114,5 +200,82 @@ public class Player : Character
         if(tryingToJump)
             Jump();
         RotateCamera();
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+            Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+        
+        HandleWallRun();
+        slider.value = GetRemainingWallPercent();
     }
+
+    private void HandleWallRun()
+    {
+        
+        
+        onRightWall = Physics.Raycast(transform.position, transform.right, out rightWallCast, wallDist, floorLayers);
+        onLeftWall = Physics.Raycast(transform.position, -transform.right, out leftWallCast, wallDist, floorLayers);
+        
+        #if UNITY_EDITOR
+        Debug.DrawRay(transform.position, transform.right * wallDist, onRightWall?Color.green:Color.red);
+        Debug.DrawRay(transform.position, -transform.right * wallDist, onLeftWall?Color.green:Color.red);
+        Debug.DrawRay(transform.position, transform.forward * wallDist, isWallRunning?Color.cyan:Color.yellow);
+        #endif
+
+        if (!isGrounded && (onLeftWall || onRightWall) && wallRunTime > 0)
+        {
+            wallRunTime -= Time.deltaTime;
+            //Add custom gravity
+            _rb.velocity = new Vector3(_rb.velocity.x, wallRunGravity, _rb.velocity.z);
+            if (!isWallRunning) // DO not repeat this code when already wall running!
+            {
+                isWallRunning = true;
+                curJump = 0;
+                Vector3 wallNormal = onLeftWall ? leftWallCast.normal : rightWallCast.normal;
+                wallRunScalar = Mathf.RoundToInt(Vector3.Dot(wallForward, transform.forward));
+                wallForward = Vector3.Cross(wallNormal, Vector3.up);
+                
+                StartCoroutine(SmoothRotCam(wallRunScalar * -15, 0.2f));
+                
+            }
+
+        }
+        else
+        {
+            //ONLY RUNS ONCE
+            if (isWallRunning)
+            {
+                delayTimer = wallRecoveryDelay;
+                StartCoroutine(SmoothRotCam(0, 0.2f));
+            }
+
+            isWallRunning = false;
+            delayTimer -= Time.deltaTime;
+            if (delayTimer <= 0)
+            {
+                wallRunTime = Mathf.Min(Time.deltaTime * wallRecoverySpeed + wallRunTime, maxWallRunDuration);
+            }
+        }
+    }
+
+    private IEnumerator SmoothRotCam(int newRot, float duration)
+    {
+        float prvRot = cmv.m_Lens.Dutch;
+        float curTime = 0;
+        while (curTime < duration)
+        {
+            curTime += Time.deltaTime;
+            cmv.m_Lens.Dutch = Mathf.Lerp(prvRot,newRot, curTime / duration);
+            yield return null;
+        }
+
+        yield return null;
+    }
+
+
+    //For my UI friends
+    public float GetRemainingWallPercent()
+    {
+        return wallRunTime / maxWallRunDuration;
+    }
+
 }

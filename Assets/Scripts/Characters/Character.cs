@@ -10,8 +10,18 @@ public class Character : MonoBehaviour
     
     //----------------------MOVEMENT--------------------//
     [Header("Movement")]
+    
     [Tooltip("XZ move speed of the character")]
     [SerializeField, Min(0)] protected float moveSpeed;
+    
+    [Tooltip("The Absolute speed limit of the object")]
+    [SerializeField] protected float maxSpeed;
+
+    [Tooltip("The drag against the player while on the ground (Limiting slide)")]
+    [SerializeField] protected float floorDrag;
+    
+    [Tooltip("The drag against the player while on the ground (Limiting slide)")]
+    [SerializeField] protected float airDrag;
 
     [Tooltip("Jump force of the character")]
     [SerializeField, Min(0)] protected float jumpForce;
@@ -52,7 +62,7 @@ public class Character : MonoBehaviour
     protected virtual void Update()
     {
         jumpTime += Time.deltaTime;
-        MovePlayer();
+        Move();
         CheckFloor();
     }
 
@@ -61,7 +71,13 @@ public class Character : MonoBehaviour
     /// </summary>
     private void CheckFloor()
     {
-        isGrounded = Physics.CheckSphere(feetCenter.position, range, floorLayers);
+       
+        isGrounded = Physics.Raycast(feetCenter.position, Vector3.down, range, floorLayers);
+        
+        #if UNITY_EDITOR
+        Debug.DrawRay(feetCenter.position, Vector3.down * range, isGrounded?Color.green:Color.red);
+        #endif
+        
         if (isGrounded)
         {
             curJump = 0;
@@ -102,16 +118,9 @@ public class Character : MonoBehaviour
         maxJumps = newMaxJumps;
     }
 
-    protected virtual void MovePlayer()
+    protected virtual void Move()
     {
         
     }
-
-#if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(feetCenter.position, range);
-    }
-#endif
 
 }
