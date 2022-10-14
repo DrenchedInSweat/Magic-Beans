@@ -46,6 +46,11 @@ public class Character : MonoBehaviour
     protected Vector3 directionVector;
     protected bool isGrounded;
 
+    [Header("Shooting")]
+    protected bool tryingToShoot;
+    [SerializeField] private Weapon weaponPrefab;
+    [SerializeField] private Transform weaponSpot;
+    private Weapon weapon;
 
 
     //------------------Character Stats---------------//
@@ -57,6 +62,7 @@ public class Character : MonoBehaviour
     protected virtual void Awake()
     {
         _animator = GetComponent<Animator>();
+        weapon = Instantiate(weaponPrefab, weaponSpot);
     }
 
     protected virtual void Update()
@@ -64,6 +70,10 @@ public class Character : MonoBehaviour
         jumpTime += Time.deltaTime;
         Move();
         CheckFloor();
+        if (tryingToShoot)
+        {
+            weapon.TryShoot();
+        }
     }
 
     /// <summary>
@@ -122,5 +132,7 @@ public class Character : MonoBehaviour
     {
         
     }
+
+    
 
 }

@@ -7,18 +7,20 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance {get; private set;}
 
-
+    [SerializeField] private Transform bulletParent;
+    public Transform BulletParent => bulletParent;
 
     private void Awake()
     {
         if (Instance == null || Instance != this)
         {
-            Destroy(this);
+            Instance = this;
         }
         else
         {
-            Instance = this;
+            Destroy(this);
         }
+        DontDestroyOnLoad(gameObject);
     }
 
 

@@ -67,10 +67,13 @@ public class Player : Character
 
         _controls.InGame.Jump.performed += x =>  tryingToJump = !tryingToJump;
         _controls.InGame.Jump.canceled += x =>  tryingToJump = !tryingToJump;
+        _controls.InGame.Shoot.performed += x =>  tryingToShoot = !tryingToShoot;
+        _controls.InGame.Shoot.canceled += x =>  tryingToShoot = !tryingToShoot;
         _controls.InGame.LeftRight.performed += ctx => directionVector.z = ctx.ReadValue<float>();
         _controls.InGame.ForwardBack.performed += ctx => directionVector.x = ctx.ReadValue<float>();
         _controls.InGame.CameraX.performed += ctx => mouseDir.y = ctx.ReadValue<float>();
         _controls.InGame.CameraY.performed += ctx => mouseDir.x = ctx.ReadValue<float>();
+        
         
         _controls.InGame.Interact.performed += x => Interact(); // This should 
 
