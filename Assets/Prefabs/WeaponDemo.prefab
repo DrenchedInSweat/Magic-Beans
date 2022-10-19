@@ -45,16 +45,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletsPerMag: 10
-  maxMags: 20
+  maxMags: 40
   timeBetweenShots: 0.4
-  projectile: {fileID: 6613542069916021430, guid: 76ed955973c21d1449c0ee60bf9cb79e,
+  projectile: {fileID: 1672836808930510384, guid: 76ed955973c21d1449c0ee60bf9cb79e,
     type: 3}
   baseDamage: 1
-  forcePerShot: 1000
-  spread: 0.2
+  forcePerShot: 40
+  spread: 0.4
   ammoPerShot: 1
-  projectilesFired: 21
+  projectilesFired: 4
   sprayPattern: 3
   effectiveLayers:
     serializedVersion: 2
     m_Bits: 2147483647
+  projectileType: 1

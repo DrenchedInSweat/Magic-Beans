@@ -10,6 +10,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform bulletParent;
     public Transform BulletParent => bulletParent;
 
+    [SerializeField] private LayerMask playerLayer;
+    public LayerMask PlayerLayer => playerLayer;
+    
+    [SerializeField] private LayerMask enemyLayer;
+    public LayerMask EnemyLayer => enemyLayer;
+    
+    [SerializeField] private LayerMask hittableLayers;
+    public LayerMask HittableLayers => hittableLayers;
+    
+    [SerializeField] private LayerMask electricLayers;
+    public LayerMask ElectricLayers => electricLayers;
+
+
     private void Awake()
     {
         if (Instance == null || Instance != this)

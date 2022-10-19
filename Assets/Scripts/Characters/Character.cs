@@ -62,7 +62,11 @@ public class Character : MonoBehaviour
     protected virtual void Awake()
     {
         _animator = GetComponent<Animator>();
-        weapon = Instantiate(weaponPrefab, weaponSpot);
+        if (weaponPrefab)
+        {
+            weapon = Instantiate(weaponPrefab, weaponSpot);
+            weapon.Init(this);
+        }
     }
 
     protected virtual void Update()
@@ -99,7 +103,7 @@ public class Character : MonoBehaviour
     /// </summary>
     /// <param name="attacker"></param>
     /// <param name="amount"></param>
-    protected void TakeDamage(Character attacker, float amount)
+    public void TakeDamage(Character attacker, float amount)
     {
         health -= amount;
         if (health < 0)
@@ -132,7 +136,6 @@ public class Character : MonoBehaviour
     {
         
     }
-
     
 
 }

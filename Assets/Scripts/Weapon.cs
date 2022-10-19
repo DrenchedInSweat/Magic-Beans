@@ -5,6 +5,16 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public enum EProjectileType
+{
+    Shock, //{Pointer finger} On hit, eletricutes enemy -- When hitting a Slime, slime becomes conductive. This means that the slime will eletricute any water, and do electric damage -- Also makes the slime resistant to electric attacks..., also activates electronic stuff
+    Electric, //{Wavey Hands} Same as shock but, nearest enemy is electricuted up to X times.
+    Punch, //{Fist} Pushes back an enemy 
+    Explosive, //{Boxing Glove} Same as punch, but explode too.    
+    Pull, // {Finger wagling} Pulls an enemy towards you
+    Fling // {Like throwing a BBall 1 hand} // Throws self in desired direction 
+}
+
 public class Weapon : MonoBehaviour
 {
     [Header("Handling")]
@@ -26,6 +36,8 @@ public class Weapon : MonoBehaviour
     private int curMag;
     private float curShotTime;
 
+    
+    
 
     //--------------------------------- HANDLING ---------------------------------//
 
@@ -33,7 +45,7 @@ public class Weapon : MonoBehaviour
     //--------------------------------- SHOOTING ---------------------------------//
 
     [SerializeField]
-    private GameObject projectile; // TODO --> Convert to custom projectile type.
+    private Projectile projectile; // TODO --> Convert to custom projectile type.
     
     [SerializeField]
     private float baseDamage;
@@ -61,8 +73,10 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] private ESprayPattern sprayPattern;
     [SerializeField] private LayerMask effectiveLayers; // USED FOR DOUBLE DAMAGE AGAINST ENEMY TYPES
+    [SerializeField] private EProjectileType projectileType;
 
     private Transform camTrans;
+    private Character owner;
     
         //--------------------------------- SHOOTING ---------------------------------//
 
@@ -70,6 +84,11 @@ public class Weapon : MonoBehaviour
     {
         curMag = bulletsPerMag;
         camTrans = Camera.main.transform;
+    }
+
+    public void Init(Character owner)
+    {
+        this.owner = owner;
     }
 
     private void Update()
@@ -138,7 +157,7 @@ public class Weapon : MonoBehaviour
         
 
         Vector2[] bulletPositions = new Vector2[projectilesFired];
-        bulletPositions[0] = new Vector2(0, 0);
+        bulletPositions[0] = Vector2.zero;
         
         if(projectilesFired > 1)
         {
@@ -270,14 +289,24 @@ public class Weapon : MonoBehaviour
             Vector3 thisDir = vec * bulletPos;//Vector3.RotateTowards(bulletPos, transform.forward, 1, 1);
             //Vector3 BulletDir = Vector3.Cross(bulletPos, Vector3.forward);
 
-            GameObject go = Instantiate(projectile, transform.position + thisDir, vec, GameManager.Instance.BulletParent);
-            go.GetComponent<Rigidbody>().AddForce(Time.deltaTime * forcePerShot * camTrans.forward, ForceMode.Impulse);
+            Projectile go = Instantiate(projectile, transform.position + thisDir, vec, GameManager.Instance.BulletParent);
+            go.Init(owner, projectileType);
+            
+            go.GetComponent<Rigidbody>().AddForce(forcePerShot * camTrans.forward, ForceMode.Impulse);
             #if UNITY_EDITOR
-            Debug.DrawRay(transform.position, Time.deltaTime * forcePerShot * (camTrans.forward), Color.blue, 2f, false);
+            Debug.DrawRay(go.transform.position, 5 * (camTrans.forward), Color.blue, 2f, false);
             #endif
-            Destroy(go, 7);
+            Destroy(go.gameObject, 7);
         }
     }
+
+    //Because I can
+    public static Weapon operator +(Weapon weapon, UpgradeScriptableObject upgrade)
+    {
+        //Do upgrade stuff.
+        return weapon;
+    }
+
 
 
 }
