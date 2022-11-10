@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -30,7 +31,7 @@ public class Weapon : MonoBehaviour
 
     //public float TimeBetweenShots => timeBetweenShots;
 
-
+    [SerializeField] private Vector3 recoil;
 
     private int curBullets;
     private int curMag;
@@ -273,8 +274,10 @@ public class Weapon : MonoBehaviour
                         }
                     }
                     break;
+                
             }
         }
+        
         
         //Imagine now that we have our forward vector. Let's transform this vector into a plane using the cross product;
 
@@ -289,15 +292,19 @@ public class Weapon : MonoBehaviour
             Vector3 thisDir = vec * bulletPos;//Vector3.RotateTowards(bulletPos, transform.forward, 1, 1);
             //Vector3 BulletDir = Vector3.Cross(bulletPos, Vector3.forward);
 
-            Projectile go = Instantiate(projectile, transform.position + thisDir, vec, GameManager.Instance.BulletParent);
+            Projectile go = Instantiate(projectile, transform.position + thisDir, vec * projectile.transform.rotation, GameManager.Instance.BulletParent);
             go.Init(owner, projectileType);
             
             go.GetComponent<Rigidbody>().AddForce(forcePerShot * camTrans.forward, ForceMode.Impulse);
             #if UNITY_EDITOR
             Debug.DrawRay(go.transform.position, 5 * (camTrans.forward), Color.blue, 2f, false);
             #endif
-            Destroy(go.gameObject, 7);
+            print("Reached");
+            Destroy(go.gameObject, 4);
         }
+        //TODO: move to more appropriate spot
+       // if(owner is Player player)
+        //    player.AddRecoil(new Vector3(Random.Range(-recoil.x, recoil.x), Random.Range(-recoil.y, recoil.y), Random.Range(-recoil.z, recoil.z)));
     }
 
     //Because I can

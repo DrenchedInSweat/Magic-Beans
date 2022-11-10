@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using System;using System.Collections;
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -54,6 +51,8 @@ public class Player : Character
 
     [Header("UI")] [SerializeField] private Slider slider;
     [SerializeField] private CinemachineVirtualCamera cmv;
+
+    [SerializeField] private RecoilController rc;
     
     //TODO: If we go in the route of shooting,use Impulse Source -- Do this for landing aswell
 
@@ -93,19 +92,12 @@ public class Player : Character
     protected override void Move()
     {
 
-
-        //End the wall run if there is no input
-        if (directionVector == Vector3.zero)
-        {
-            isWallRunning = false;
-        }
-
         if (isWallRunning)
         {
             //Cast a ray from player to wall,
-            //if the angle between wall and camera is positive, move in ap ositive direction
+            //if the angle between wall and camera is positive, move in a positive direction
             //else move in a negative direction
-            print(Mathf.RoundToInt(Vector3.Dot(wallForward, transform.forward)));
+            //print(Mathf.RoundToInt(Vector3.Dot(wallForward, transform.forward)));
 
             float dir = wallRunScalar;
 
@@ -126,7 +118,8 @@ public class Player : Character
         _rb.drag = isGrounded ? floorDrag : airDrag;
         
         //Clamp speed
-        _rb.velocity = Vector3.ClampMagnitude(_rb.velocity , maxSpeed);
+        Vector2 clamped = Vector2.ClampMagnitude(new Vector2(_rb.velocity.x, _rb.velocity.z), maxSpeed);
+        _rb.velocity = new Vector3(clamped.x, _rb.velocity.y, clamped.y);
     }
 
     private void RotateCamera()
@@ -137,7 +130,7 @@ public class Player : Character
         Vector3 angles = Vector3.zero;
 
         angles.x = head.localEulerAngles.x;
-        
+        print($"rotating {angles}");
         //Up/Down clamped
         if (angles.x > 180 && angles.x < 360 - viewLockY)
         {
@@ -154,33 +147,26 @@ public class Player : Character
 
     private void Jump()
     {
-        print("Attempted jump");
         //Implement a delay to prevent all jumps from being used instantly
         if (jumpTime >= MaxJumpTime)
         {
-            print("Time valid: " + (curJump + 1) + " < " + maxJumps);
             //If the player can jump OR is grounded
-            if (curJump < maxJumps)
+            if (curJump++ < maxJumps)
             {
-                print("Jump valid");
                 jumpTime = 0;
                 if (isWallRunning)
                 {
-                    print("Wall Jump");
                     //Reflection into the walls surface?
                     //Add force orthagonal to the wall?
-                    _rb.AddForce(jumpForce * Time.fixedDeltaTime * Vector3.Cross(-wallForward, Vector3.up), ForceMode.Impulse);
-                    _rb.AddForce(jumpForce * Time.fixedDeltaTime * Vector3.up, ForceMode.Impulse);
-                    curJump++;
                     
+                    _rb.AddForce(jumpForce * 100 *  Vector3.Cross(-wallForward, Vector3.up), ForceMode.Impulse);
+                    _rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
                 }
-                else if (isGrounded) // ORDER IS IMPORTANT!
+                else if (!isGrounded) // ORDER IS IMPORTANT!
                 {
-                    print("Floor Jump");
                     _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-                    _rb.AddForce(jumpForce * Time.fixedDeltaTime * Vector3.up, ForceMode.Impulse);
-                    curJump++;
                 }
+                _rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
             }
         }
     }
@@ -213,8 +199,6 @@ public class Player : Character
 
     private void HandleWallRun()
     {
-        
-        
         onRightWall = Physics.Raycast(transform.position, transform.right, out rightWallCast, wallDist, floorLayers);
         onLeftWall = Physics.Raycast(transform.position, -transform.right, out leftWallCast, wallDist, floorLayers);
         
@@ -224,7 +208,8 @@ public class Player : Character
         Debug.DrawRay(transform.position, transform.forward * wallDist, isWallRunning?Color.cyan:Color.yellow);
         #endif
 
-        if (!isGrounded && (onLeftWall || onRightWall) && wallRunTime > 0)
+        //print("iSGrounded: " + isGrounded);
+        if (!isGrounded && directionVector != Vector3.zero && (onLeftWall || onRightWall) && wallRunTime > 0)
         {
             wallRunTime -= Time.deltaTime;
             //Add custom gravity
@@ -234,8 +219,10 @@ public class Player : Character
                 isWallRunning = true;
                 curJump = 0;
                 Vector3 wallNormal = onLeftWall ? leftWallCast.normal : rightWallCast.normal;
-                wallRunScalar = Mathf.RoundToInt(Vector3.Dot(wallForward, transform.forward));
                 wallForward = Vector3.Cross(wallNormal, Vector3.up);
+                wallRunScalar = Mathf.RoundToInt(Vector3.Dot(wallForward, transform.forward));
+                print($"Dot: {Vector3.Dot(wallForward, transform.forward)} - Rounded: {wallRunScalar}");
+                
                 
                 StartCoroutine(SmoothRotCam(wallRunScalar * -15, 0.2f));
                 
@@ -247,8 +234,8 @@ public class Player : Character
             //ONLY RUNS ONCE
             if (isWallRunning)
             {
-                delayTimer = wallRecoveryDelay;
-                StartCoroutine(SmoothRotCam(0, 0.2f));
+                print("off the wall");
+                StopWallRun();
             }
 
             isWallRunning = false;
@@ -258,6 +245,12 @@ public class Player : Character
                 wallRunTime = Mathf.Min(Time.deltaTime * wallRecoverySpeed + wallRunTime, maxWallRunDuration);
             }
         }
+    }
+
+    private void StopWallRun()
+    {
+        delayTimer = wallRecoveryDelay;
+        StartCoroutine(SmoothRotCam(0, 0.2f));
     }
 
     private IEnumerator SmoothRotCam(int newRot, float duration)
@@ -281,4 +274,10 @@ public class Player : Character
         return wallRunTime / maxWallRunDuration;
     }
 
+    public void AddRecoil(Vector3 recoilPattern)
+    {
+        rc.AddRecoil(recoilPattern);
+    }
+    
+    
 }

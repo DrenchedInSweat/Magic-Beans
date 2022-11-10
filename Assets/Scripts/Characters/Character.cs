@@ -85,18 +85,18 @@ public class Character : MonoBehaviour
     /// </summary>
     private void CheckFloor()
     {
-       
         isGrounded = Physics.Raycast(feetCenter.position, Vector3.down, range, floorLayers);
-        
-        #if UNITY_EDITOR
+
+#if UNITY_EDITOR
         Debug.DrawRay(feetCenter.position, Vector3.down * range, isGrounded?Color.green:Color.red);
         #endif
         
-        if (isGrounded)
+        if (isGrounded && jumpTime > MaxJumpTime)
         {
             curJump = 0;
         }
     }
+
 
     /// <summary>
     /// Makes a character take damage. Attacker can be used to handle achievements
@@ -136,6 +136,13 @@ public class Character : MonoBehaviour
     {
         
     }
+    
+    #if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(feetCenter.position, Vector3.down * range);
+    }
+#endif
     
 
 }
