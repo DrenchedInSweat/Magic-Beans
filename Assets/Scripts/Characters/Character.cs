@@ -50,7 +50,10 @@ public class Character : MonoBehaviour
     protected bool tryingToShoot;
     [SerializeField] private Weapon weaponPrefab;
     [SerializeField] private Transform weaponSpot;
-    private Weapon weapon;
+    protected Weapon weapon;
+
+    
+    
 
 
     //------------------Character Stats---------------//

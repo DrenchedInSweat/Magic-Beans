@@ -47,7 +47,7 @@ MonoBehaviour:
   bulletsPerMag: 10
   maxMags: 40
   timeBetweenShots: 0.1
-  recoil: {x: 0, y: 0, z: 0}
+  recoil: {x: 0.05, y: -0.4}
   projectile: {fileID: 1812082987790279449, guid: 00a27f0075d27ba45988b1fc9a65e305,
     type: 3}
   baseDamage: 1

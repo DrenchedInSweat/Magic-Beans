@@ -10,10 +10,10 @@ public class Player : Character
     private PlayerControls _controls;
 
     [Header("Player Controls")]
-    [SerializeField] private float mouseSensitivity;
+    public float mouseSensitivity;
     [Tooltip("Limits the max rotation of the cam")]
     [SerializeField, Range(0,89.9f)] private float viewLockY;
-
+    [SerializeField] private float recoilResetTime = 0.4f;
     [SerializeField] private Transform head;
 
     [Header("Wall Running")]
@@ -32,7 +32,8 @@ public class Player : Character
     
     private float wallRunTime;
     private float wallDist = 0.75f;
-
+    private float curRecoilTime = 0f;
+    
     private RaycastHit leftWallCast;
     private bool onLeftWall;
     private RaycastHit rightWallCast;
@@ -52,7 +53,19 @@ public class Player : Character
     [Header("UI")] [SerializeField] private Slider slider;
     [SerializeField] private CinemachineVirtualCamera cmv;
 
-    [SerializeField] private RecoilController rc;
+    private Vector2 intendedDirection;
+    
+    #region Getters
+    public Weapon Weapon => weapon;
+    public float WallSpeed => wallSpeed;
+    public float MaxWallRunDuration => maxWallRunDuration;
+    public float WallRecoverySpeed => wallRecoverySpeed;
+    public float JumpForce => jumpForce;
+    public float MoveSpeed => moveSpeed;
+    public int MaxJumps => maxJumps;
+    
+    #endregion
+    
     
     //TODO: If we go in the route of shooting,use Impulse Source -- Do this for landing aswell
 
@@ -87,6 +100,67 @@ public class Player : Character
     {
         
     }
+    
+    private void RotateCamera()
+    {
+        transform.rotation *= Quaternion.AngleAxis(intendedDirection.x * mouseSensitivity, Vector3.up);
+        head.rotation *= Quaternion.AngleAxis(intendedDirection.y * mouseSensitivity, Vector3.right);
+        
+        Vector3 angles = Vector3.zero;
+
+        angles.x = head.localEulerAngles.x;
+        print($"rotating {angles}");
+        //Up/Down clamped
+        if (angles.x > 180 && angles.x < 360 - viewLockY)
+        {
+            angles.x = 360 - viewLockY;
+        }
+        else if (angles.x < 180 && angles.x > viewLockY)
+        {
+            angles.x = viewLockY;
+        }
+
+
+        head.localEulerAngles = angles;
+    }
+    
+    // Update is called once per frame
+    protected override void Update()
+    {
+        base.Update();
+        if(tryingToJump)
+            Jump();
+        RotateCamera();
+
+        HandleWallRun();
+        slider.value = GetRemainingWallPercent();
+
+        //Recoil
+        if (curRecoilTime != 0)
+        {
+            
+            print($"Performing the Action: {mouseDir}, {intendedDirection} --> {curRecoilTime / recoilResetTime}");
+            curRecoilTime += Time.deltaTime;
+            
+            
+            intendedDirection = Vector2.Lerp(intendedDirection, mouseDir, curRecoilTime / recoilResetTime);
+            
+            if (curRecoilTime > recoilResetTime) // this may be sketchy
+                curRecoilTime = 0;
+            
+            
+        }
+        else
+        {
+            intendedDirection = mouseDir;
+        }
+    }
+
+    #region Movement
+
+    #region CoreMovement
+
+    
 
     
     protected override void Move()
@@ -121,30 +195,6 @@ public class Player : Character
         Vector2 clamped = Vector2.ClampMagnitude(new Vector2(_rb.velocity.x, _rb.velocity.z), maxSpeed);
         _rb.velocity = new Vector3(clamped.x, _rb.velocity.y, clamped.y);
     }
-
-    private void RotateCamera()
-    {
-        transform.rotation *= Quaternion.AngleAxis(mouseDir.x * mouseSensitivity, Vector3.up);
-        head.rotation *= Quaternion.AngleAxis(mouseDir.y * mouseSensitivity, Vector3.right);
-        
-        Vector3 angles = Vector3.zero;
-
-        angles.x = head.localEulerAngles.x;
-        print($"rotating {angles}");
-        //Up/Down clamped
-        if (angles.x > 180 && angles.x < 360 - viewLockY)
-        {
-            angles.x = 360 - viewLockY;
-        }
-        else if (angles.x < 180 && angles.x > viewLockY)
-        {
-            angles.x = viewLockY;
-        }
-
-
-        head.localEulerAngles = angles;
-    }
-
     private void Jump()
     {
         //Implement a delay to prevent all jumps from being used instantly
@@ -154,51 +204,34 @@ public class Player : Character
             if (curJump++ < maxJumps)
             {
                 jumpTime = 0;
+                Vector3 newDir = Vector3.up;
                 if (isWallRunning)
                 {
                     //Reflection into the walls surface?
                     //Add force orthagonal to the wall?
                     
-                    _rb.AddForce(jumpForce * 100 *  Vector3.Cross(-wallForward, Vector3.up), ForceMode.Impulse);
-                    _rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
+                    //15 degs
+                    //40% force
+                    print(jumpForce * 0.4f);
+                    newDir = 4 * Vector3.RotateTowards(Vector3.Cross(-wallForward, Vector3.up), Vector3.up, 0.26f, 1);
                 }
                 else if (!isGrounded) // ORDER IS IMPORTANT!
                 {
+                    //Stop current velocity
                     _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
                 }
-                _rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
+                Debug.DrawRay(transform.position, newDir * 10, Color.red, 5);
+                _rb.AddForce(jumpForce * newDir, ForceMode.Impulse);
             }
         }
     }
+    #endregion
 
-    /*
-    private void OnEnable()
-    {
-        _controls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _controls.Disable();
-    } */
-
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
-        if(tryingToJump)
-            Jump();
-        RotateCamera();
-
-        if (Input.GetKeyDown(KeyCode.Tab))
-            Time.timeScale = Time.timeScale == 0 ? 1 : 0;
-        
-        HandleWallRun();
-        slider.value = GetRemainingWallPercent();
-    }
-
+    #region WallRunning
     private void HandleWallRun()
     {
+        if (jumpTime < MaxJumpTime)
+            return;
         onRightWall = Physics.Raycast(transform.position, transform.right, out rightWallCast, wallDist, floorLayers);
         onLeftWall = Physics.Raycast(transform.position, -transform.right, out leftWallCast, wallDist, floorLayers);
         
@@ -209,7 +242,7 @@ public class Player : Character
         #endif
 
         //print("iSGrounded: " + isGrounded);
-        if (!isGrounded && directionVector != Vector3.zero && (onLeftWall || onRightWall) && wallRunTime > 0)
+        if (!isGrounded && jumpTime > MaxJumpTime && directionVector != Vector3.zero && (onLeftWall || onRightWall) && wallRunTime > 0)
         {
             wallRunTime -= Time.deltaTime;
             //Add custom gravity
@@ -266,17 +299,20 @@ public class Player : Character
 
         yield return null;
     }
-
-
+    
     //For my UI friends
     public float GetRemainingWallPercent()
     {
         return wallRunTime / maxWallRunDuration;
     }
-
-    public void AddRecoil(Vector3 recoilPattern)
+    #endregion
+    #endregion
+    
+    public void AddRecoil(Vector2 recoilPattern)
     {
-        rc.AddRecoil(recoilPattern);
+        print("Adding recoil");
+        curRecoilTime = 0.01f;
+        intendedDirection += recoilPattern;
     }
     
     

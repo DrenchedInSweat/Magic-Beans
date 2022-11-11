@@ -20,26 +20,16 @@ public class Weapon : MonoBehaviour
 {
     [Header("Handling")]
     //--------------------------------- HANDLING ---------------------------------//
-    [SerializeField]
-    private int bulletsPerMag = 10;
-    //public int BulletsPerMag => bulletsPerMag;
-
-    [SerializeField] private int maxMags;
-    //public int MaxMags => maxMags;
-
     [SerializeField] private float timeBetweenShots;
 
     //public float TimeBetweenShots => timeBetweenShots;
-
-    [SerializeField] private Vector3 recoil;
+    [SerializeField] private float recoilMultiplier = 1;
+    [SerializeField] private Vector2 recoil;
 
     private int curBullets;
-    private int curMag;
     private float curShotTime;
 
     
-    
-
     //--------------------------------- HANDLING ---------------------------------//
 
     [Header("Shooting")]
@@ -51,13 +41,10 @@ public class Weapon : MonoBehaviour
     [SerializeField]
     private float baseDamage;
 
-    [SerializeField] private float forcePerShot = 1000;
+    [SerializeField] private float bulletSpeed = 1000;
 
-    [SerializeField] private float spread = 0.4f;
-    //public float BaseDamage => baseDamage;
-
-    [Tooltip("This is how much ammo is used per shot")] [SerializeField]
-    private int ammoPerShot;
+    [SerializeField] private float randomSpread = 0.4f;
+    
     //public int AmmoPerShot => ammoPerShot;
 
     [Tooltip("This is how many bullets are shot")] [SerializeField]
@@ -73,7 +60,6 @@ public class Weapon : MonoBehaviour
     }
 
     [SerializeField] private ESprayPattern sprayPattern;
-    [SerializeField] private LayerMask effectiveLayers; // USED FOR DOUBLE DAMAGE AGAINST ENEMY TYPES
     [SerializeField] private EProjectileType projectileType;
 
     private Transform camTrans;
@@ -81,9 +67,21 @@ public class Weapon : MonoBehaviour
     
         //--------------------------------- SHOOTING ---------------------------------//
 
+    #region Getters
+    public int ProjectilesFired => projectilesFired;
+    public float TimeBetweenShots => timeBetweenShots;
+    public float RecoilMultiplier => recoilMultiplier;
+    public float BaseDamage => baseDamage;
+    public float BulletSpeed => bulletSpeed;
+    public float RandomRandomSpread => randomSpread;
+    public Projectile Projectile => projectile;
+    public ESprayPattern SprayPattern => sprayPattern;
+    
+    #endregion
+        
+
     private void Awake()
     {
-        curMag = bulletsPerMag;
         camTrans = Camera.main.transform;
     }
 
@@ -98,65 +96,21 @@ public class Weapon : MonoBehaviour
     }
 
     public void TryShoot()
-    {
-        if(IsMagEmpty() && CanReload())
-        {
-            Reload();
-        }
-        else if (CanShoot())
+    { 
+        if (CanShoot())
         {
             Shoot();
             curShotTime = 0;
         }
-        else
-        {
-            print("Weapon is out of ammo!");
-        }
     }
-
-    public void TryReload()
-    {
-        if (CanReload())
-        {
-            Reload();
-        }
-    }
-
-    //Need a co-route somewhere inbetween come back here...
-    private void Reload()
-    {
-        int ammoGiven = Mathf.Min(bulletsPerMag - curMag, curBullets); // Ammo to give || Say we need 5 bullelts // but we have 3 left. (5, 3)
-        curBullets -= ammoGiven;
-        curMag += ammoGiven;
-    }
-
-    public void StopReload()
-    {
-        
-    }
-
-
-    private bool CanReload()
-    {
-        return curBullets > 0;
-    }
-    
 
     private bool CanShoot()
     {
         return (curShotTime > timeBetweenShots && projectilesFired > 0);
     }
 
-    private bool IsMagEmpty()
-    {
-        return (curMag - ammoPerShot < 1);
-    }
-
     private void Shoot()
     {
-
-        
-
         Vector2[] bulletPositions = new Vector2[projectilesFired];
         bulletPositions[0] = Vector2.zero;
         
@@ -176,7 +130,7 @@ public class Weapon : MonoBehaviour
                     {
                         
                         //SOH --> Sin(Ang) = Opp/Hyp, CAH --> Cos(Ang) = Adj / Hyp
-                        bulletPositions[i] = new Vector2(spread * Mathf.Cos(curAngle), spread * Mathf.Sin(curAngle));
+                        bulletPositions[i] = new Vector2(randomSpread * Mathf.Cos(curAngle), randomSpread * Mathf.Sin(curAngle));
                         curAngle += angle;
                         
                     }
@@ -190,7 +144,7 @@ public class Weapon : MonoBehaviour
                     {
                         if ((i & 1) == 1) // Let's say I is 6 110 & 001 ==> 0 EVEN but, if I is 7, 111 & 001 ==> 1
                         {
-                            dist += spread; // Only add ever other time.
+                            dist += randomSpread; // Only add ever other time.
                         }
                         dist = -dist; // Neg then pos then neg then ... 
                         bulletPositions[i] = new Vector2(dist, 0);
@@ -201,7 +155,7 @@ public class Weapon : MonoBehaviour
                     //Start at one, the first shot should be 100% accurate
                     for (int i = 1; i < projectilesFired; i++)
                     {
-                        bulletPositions[i] = new Vector2(Random.Range(-spread, spread), Random.Range(-spread, spread));
+                        bulletPositions[i] = new Vector2(Random.Range(-randomSpread, randomSpread), Random.Range(-randomSpread, randomSpread));
                     }
                     break;
                 case ESprayPattern.Star:
@@ -262,7 +216,7 @@ public class Weapon : MonoBehaviour
                         for (int i = 1; i < projectilesFired; i++)
                         {
                             //SOH --> Sin(Ang) = Opp/Hyp, CAH --> Cos(Ang) = Adj / Hyp
-                            bulletPositions[i] = new Vector2(curStep * spread * Mathf.Cos(curAng), curStep * spread * Mathf.Sin(curAng));
+                            bulletPositions[i] = new Vector2(curStep * randomSpread * Mathf.Cos(curAng), curStep * randomSpread * Mathf.Sin(curAng));
                             curAng += ang;
                             print(curStep);
                             if (--stepCount == 0) //
@@ -295,7 +249,7 @@ public class Weapon : MonoBehaviour
             Projectile go = Instantiate(projectile, transform.position + thisDir, vec * projectile.transform.rotation, GameManager.Instance.BulletParent);
             go.Init(owner, projectileType);
             
-            go.GetComponent<Rigidbody>().AddForce(forcePerShot * camTrans.forward, ForceMode.Impulse);
+            go.GetComponent<Rigidbody>().AddForce(bulletSpeed * camTrans.forward, ForceMode.Impulse);
             #if UNITY_EDITOR
             Debug.DrawRay(go.transform.position, 5 * (camTrans.forward), Color.blue, 2f, false);
             #endif
@@ -303,8 +257,8 @@ public class Weapon : MonoBehaviour
             Destroy(go.gameObject, 4);
         }
         //TODO: move to more appropriate spot
-       // if(owner is Player player)
-        //    player.AddRecoil(new Vector3(Random.Range(-recoil.x, recoil.x), Random.Range(-recoil.y, recoil.y), Random.Range(-recoil.z, recoil.z)));
+       if(owner is Player player)
+            player.AddRecoil(new Vector2(recoil.x, recoil.y));
     }
 
     //Because I can
