@@ -38,8 +38,6 @@ public class Character : MonoBehaviour
     [SerializeField] protected float range;
     [SerializeField] protected LayerMask floorLayers; // TODO: Make safe accessible elsewhere
     
-    
-
     protected const float MaxJumpTime = 0.2f;
     protected float jumpTime;
 
@@ -51,10 +49,6 @@ public class Character : MonoBehaviour
     [SerializeField] private Weapon weaponPrefab;
     [SerializeField] private Transform weaponSpot;
     protected Weapon weapon;
-
-    
-    
-
 
     //------------------Character Stats---------------//
     [Header("Character Stats")]

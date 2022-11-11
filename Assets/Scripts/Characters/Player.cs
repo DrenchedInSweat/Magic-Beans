@@ -62,6 +62,7 @@ public class Player : Character
     public float WallRecoverySpeed => wallRecoverySpeed;
     public float JumpForce => jumpForce;
     public float MoveSpeed => moveSpeed;
+    public float MaxHealth => health;
     public int MaxJumps => maxJumps;
     
     #endregion
