@@ -234,7 +234,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 730901218930730491}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &730901218930730480
 GameObject:
@@ -270,9 +270,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 730901219336788429}
   - {fileID: 730901218642034059}
   - {fileID: 730901219125762772}
+  - {fileID: 730901219336788429}
   - {fileID: 730901219566772270}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -392,11 +392,11 @@ MonoBehaviour:
   moveSpeed: 3000
   maxSpeed: 14
   floorDrag: 5
-  airDrag: 1
-  jumpForce: 1200
-  maxJumps: 1
+  airDrag: 0
+  jumpForce: 12
+  maxJumps: 7
   feetCenter: {fileID: 730901218642034059}
-  range: 0.75
+  range: 0.5
   floorLayers:
     serializedVersion: 2
     m_Bits: 1
@@ -405,16 +405,16 @@ MonoBehaviour:
   weaponSpot: {fileID: 730901218614887216}
   health: 0
   mouseSensitivity: 0.16
-  viewLockY: 30
+  viewLockY: 60
+  recoilResetTime: 0.4
   head: {fileID: 730901219336788429}
   wallSpeed: 4500
-  maxWallRunDuration: 5
+  maxWallRunDuration: 50
   wallRecoverySpeed: 3
   wallRecoveryDelay: 2
   wallRunGravity: 0.1
   slider: {fileID: 0}
   cmv: {fileID: 730901219125762773}
-  rc: {fileID: 0}
 --- !u!1 &730901219125762775
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +447,7 @@ Transform:
   m_Children:
   - {fileID: 730901218154162486}
   m_Father: {fileID: 730901218930730491}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &730901219125762773
 MonoBehaviour:
@@ -465,7 +465,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 730901219336788429}
@@ -547,7 +547,7 @@ Transform:
   m_Children:
   - {fileID: 730901218614887216}
   m_Father: {fileID: 730901218930730491}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &730901219566772256
 GameObject:

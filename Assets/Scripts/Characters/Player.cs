@@ -148,8 +148,6 @@ public class Player : Character
             
             if (curRecoilTime > recoilResetTime) // this may be sketchy
                 curRecoilTime = 0;
-            
-            
         }
         else
         {
