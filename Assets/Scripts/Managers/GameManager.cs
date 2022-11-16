@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
-    public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
     {
         public static GameManager Instance {get; private set;}
 
@@ -21,6 +22,10 @@ using UnityEngine;
         [SerializeField] private LayerMask electricLayers;
         public LayerMask ElectricLayers => electricLayers;
 
+        [field: SerializeField] public float SpawnScale { get; private set; }
+        [field: SerializeField] public int Seed { get; private set; }
+
+
 
         private void Awake()
         {
@@ -33,6 +38,7 @@ using UnityEngine;
                 Destroy(this);
             }
             DontDestroyOnLoad(gameObject);
+            Random.InitState(Seed);
         }
 
 
