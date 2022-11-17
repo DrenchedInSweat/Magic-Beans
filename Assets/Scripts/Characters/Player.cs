@@ -50,7 +50,7 @@ public class Player : Character
 
     private Vector3 wallForward;
 
-    [Header("UI")] [SerializeField] private Slider slider;
+    [Header("UI")] [SerializeField] //private Slider slider;
     [SerializeField] private CinemachineVirtualCamera cmv;
 
     private Vector2 intendedDirection;
@@ -134,7 +134,7 @@ public class Player : Character
         RotateCamera();
 
         HandleWallRun();
-        slider.value = GetRemainingWallPercent();
+        //slider.value = GetRemainingWallPercent();
 
         //Recoil
         if (curRecoilTime != 0)

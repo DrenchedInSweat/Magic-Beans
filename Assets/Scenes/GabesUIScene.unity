@@ -11682,28 +11682,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   core: {fileID: 1087559538}
-  type: 2
-  layout: 0
+  type: 0
+  layout: 1
   chanceToSpawn: 0.4
-  maxObjectsToSpawn: 10
-  maxSizeOfObjects: 10
-  minObjectsToSpawn: 3
-  minSizeOfObjects: 0.19
+  maxObjectsToSpawn: 12
+  maxSizeOfObjects: 24.66
+  minObjectsToSpawn: 4
+  minSizeOfObjects: 13.73
   distBetweenSpawns: 20
   mustBeMatching: 1
-  spawnPoints:
-  - {x: -47.935455, y: 50.086697, z: -61.164055}
-  - {x: -44.794304, y: 49.354538, z: -47.76805}
-  - {x: -49.229584, y: 21.26171, z: -44.67977}
-  - {x: -52.35069, y: 47.22935, z: -60.54828}
-  - {x: -46.404434, y: 19.905655, z: -52.697765}
-  - {x: -60.234444, y: 26.160606, z: -44.295486}
-  - {x: -45.714924, y: 49.119576, z: -69.1371}
-  - {x: -45.93778, y: 44.266567, z: -38.676792}
-  - {x: -46.792244, y: 49.11995, z: -59.578644}
-  - {x: -32.098427, y: 43.90808, z: -49.398598}
-  displayAlways: 0
   spawnableObjects: []
+  displayAlways: 0
 --- !u!4 &1260025515
 Transform:
   m_ObjectHideFlags: 0
@@ -11711,14 +11700,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260025513}
-  m_LocalRotation: {x: -0.441847, y: 0.039909143, z: -0.7204777, w: -0.5330013}
-  m_LocalPosition: {x: -47.03, y: 37.16, z: -54.33}
+  m_LocalRotation: {x: -0.3537135, y: 0.8290795, z: -0.18816583, w: 0.39000973}
+  m_LocalPosition: {x: -76, y: 65.5, z: -31.6}
   m_LocalScale: {x: 1, y: 1, z: 1.2498}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1087559537}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 31.905, y: 404.417, z: 120.326}
+  m_LocalEulerAnglesHint: {x: 2.069, y: 128.71, z: -47.203}
 --- !u!1 &1269173327
 GameObject:
   m_ObjectHideFlags: 0
