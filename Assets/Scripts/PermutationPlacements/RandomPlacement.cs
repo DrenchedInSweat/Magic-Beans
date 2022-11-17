@@ -4,8 +4,9 @@ using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-    
-
+//TODO: Generate spawnable objects in bounds
+//TODO: Add remaining patterns
+//TODO: Make the nodes spawn on spawn
     [ExecuteInEditMode]
     public class RandomPlacement : MonoBehaviour
     {
@@ -28,15 +29,15 @@ using Random = UnityEngine.Random;
         [SerializeField, Tooltip("This determines the creatures based on any selected stages")] private ESpawnLayouts layout;
         [SerializeField, Tooltip("Chance for this node to activate"), Range(0, 1)] private float chanceToSpawn;
 
-        [Header("Spawning")] 
+        [Header("Spawning")]
         [SerializeField, Tooltip("MAX Objects to be spawned in range"), Min(0)] private int maxObjectsToSpawn;
         [SerializeField, Tooltip("MAX size of objects spawned"),Min(0)] private float maxSizeOfObjects;
         [SerializeField, Tooltip("MIN size of objects spawned"), Min(0)] private int minObjectsToSpawn;
         [SerializeField, Tooltip("MIN Objects to be spawned in range"), Min(0)] private float minSizeOfObjects;
         [SerializeField, Tooltip("Dist between Spawns")] private float distBetweenSpawns;
         [SerializeField, Tooltip("If true, can only spawn one type")] private bool mustBeMatching;
-
-        [SerializeField] private Vector3[] spawnPoints;
+        [SerializeField, Tooltip("What objects can spawn here")] private GameObject[] spawnableObjects;
+        private Vector3[] spawnPoints;
 
         private void Start()
         {
@@ -92,8 +93,7 @@ using Random = UnityEngine.Random;
         
         #if UNITY_EDITOR
         [SerializeField] private bool displayAlways;
-        [Header("DO NOT EDIT")]
-        [SerializeField, Tooltip("THIS IS WHAT CAN SPAWN, CHANGING THIS WILL NOT PREVENT IT FROM SPAWNING. USE LEVEL CORE")] private GameObject[] spawnableObjects;
+        
         private Quaternion prvRot;
         private Vector3 prvPos;
         private void OnDrawGizmos()
