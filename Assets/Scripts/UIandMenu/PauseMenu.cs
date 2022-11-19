@@ -7,8 +7,8 @@ using TMPro;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseScreen;
-    public GameObject optionsScreen;
+    [SerializeField] GameObject pauseScreen;
+    [SerializeField] GameObject optionsScreen;
     bool isPaused;
     
 
@@ -40,14 +40,17 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 0;
         pauseScreen.SetActive(true);
-        
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
     }
     public void ResumeGame()
     {
 
         Time.timeScale = 1;
         pauseScreen.SetActive(false);
-
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void Options()

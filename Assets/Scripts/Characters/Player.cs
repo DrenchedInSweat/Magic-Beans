@@ -1,4 +1,5 @@
 using System;using System.Collections;
+using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +30,7 @@ public class Player : Character
     
     [Tooltip("The gravity on the wall")]
     [SerializeField] private float wallRunGravity;
+
     
     private float wallRunTime;
     private float wallDist = 0.75f;
@@ -50,11 +52,41 @@ public class Player : Character
 
     private Vector3 wallForward;
 
+    [Header("Player Stats")]
+    int currentHealth;
+    [SerializeField] int maxHealth;
+
+    int weaponindex = 1;
+    int weaponUnlockCount = 1;
+    float invicibilityTime = 0.05f;
+    float invincTimer;
+
+
     [Header("UI")] //[SerializeField] //private Slider slider;
     [SerializeField] private CinemachineVirtualCamera cmv;
-
     private Vector2 intendedDirection;
+
+    public bool showUI = true;
+    [SerializeField] Slider healthbar;
+
+    [SerializeField] GameObject healOverlay;
+    [SerializeField] float healOverlayTime;
+    float healOTimer;
+    [SerializeField] GameObject hurtOverlay;
+    [SerializeField] float hurtOverlayTime;
+    float hurtOTimer;
+
+    [Tooltip("Images for each of the weapon slots")]
+    [SerializeField] List<Image> weaponSlots = new List<Image>();
+    [Tooltip("Highlighted colour when weaopon slot is selected")]
+    [SerializeField] Color equippedWeaponCol = new Color(1f, 1f, 1f, 1f);
+    [Tooltip("Colour for when weapon slot is available but not selected")]
+    [SerializeField] Color unequippedWeaponCol = new Color(0.5f, 0.5f, 0.5f, 1f);
+    [Tooltip("Colour for when weapon slot is unavailable")]
+    [SerializeField] Color unavailWeaponCol = new Color(0.2f, 0.2f, 0.2f, 0.5f);
+
     
+
     #region Getters
     public Weapon Weapon => weapon;
     public float WallSpeed => wallSpeed;
@@ -92,6 +124,12 @@ public class Player : Character
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        //UI
+        healthbar.maxValue = maxHealth;
+        currentHealth = maxHealth;
+        healthbar.value = currentHealth;
+
     }
 
     /// <summary>
@@ -313,6 +351,38 @@ public class Player : Character
         curRecoilTime = 0.01f;
         intendedDirection += recoilPattern;
     }
-    
-    
+
+    public void HurtPlayer(int val)
+    {
+        currentHealth -= val;
+    }
+
+    public void HealPlayer(int val)
+    {
+        currentHealth += val;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    #region UserInterface
+
+    void UpdateUI()
+    {
+        healthbar.value = currentHealth;
+
+
+    }
+
+    void WeaponSlotUpdate()
+    {
+        foreach (Image slot in weaponSlots)
+        {
+            
+        }
+    }
+
+    #endregion
+
 }

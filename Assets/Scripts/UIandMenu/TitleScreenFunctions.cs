@@ -5,9 +5,16 @@ using UnityEngine.UI;
 
 public class TitleScreenFunctions : MonoBehaviour
 {
-    public Image background;
-    public List<Sprite> titleImages = new List<Sprite>();
-    public Button continueButton;
+    [Header("Background Changes")]
+    [SerializeField] Image background;
+    [SerializeField] List<Sprite> titleImages = new List<Sprite>();
+
+    [Header("Visibility Togglable Buttons")]
+    [SerializeField] Button continueButton;
+    [SerializeField] GameObject settingsMenu;
+    [SerializeField] GameObject saveMenu;
+
+
 
     private void Start()
     {
@@ -18,9 +25,20 @@ public class TitleScreenFunctions : MonoBehaviour
         
     }
 
+    public void NewGame()
+    {
+        
+    }
+
+
+
+    public void DeleteSaveDate()
+    {
+
+    }
 
     //used mainly for bug testing or if player wants to reset their game
-    public void DeleteSaveData()
+    public void DeleteAllData()
     {
         PlayerPrefs.DeleteAll();
     }
