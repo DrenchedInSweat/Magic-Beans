@@ -352,18 +352,27 @@ public class Player : Character
         intendedDirection += recoilPattern;
     }
 
-    public void HurtPlayer(int val)
+    public void HurtPlayer(int hurtval)
     {
-        currentHealth -= val;
+        currentHealth -= hurtval;
+        if (currentHealth <= 0)
+        {
+            PlayerDeath();
+        }
     }
 
-    public void HealPlayer(int val)
+    public void HealPlayer(int healval)
     {
-        currentHealth += val;
+        currentHealth += healval;
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
+    }
+
+    public void PlayerDeath()
+    {
+
     }
 
     #region UserInterface

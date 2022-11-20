@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TitleScreenFunctions : MonoBehaviour
+public class TitleScreenFunctions : MenuBase
 {
     [Header("Background Changes")]
     [SerializeField] Image background;
@@ -27,7 +27,7 @@ public class TitleScreenFunctions : MonoBehaviour
 
     public void NewGame()
     {
-        
+        //ChangeScene(Game);
     }
 
 

@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : MenuBase
 {
     [SerializeField] GameObject pauseScreen;
     [SerializeField] GameObject optionsScreen;
