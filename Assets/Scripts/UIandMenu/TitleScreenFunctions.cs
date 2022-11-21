@@ -14,7 +14,11 @@ public class TitleScreenFunctions : MenuBase
     [SerializeField] GameObject settingsMenu;
     [SerializeField] GameObject saveMenu;
 
+    [Header("Options ")]
+    [SerializeField] Slider volSlider;
 
+    [Header("Customization")]
+    [SerializeField] Transform[] customSlots;
 
     private void Start()
     {
@@ -27,9 +31,18 @@ public class TitleScreenFunctions : MenuBase
 
     public void NewGame()
     {
-        //ChangeScene(Game);
+        ChangeScene("Game");
     }
 
+    public void ContinueGame()
+    {
+
+    }
+
+    void Customizations()
+    {
+
+    }
 
 
     public void DeleteSaveDate()

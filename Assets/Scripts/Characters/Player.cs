@@ -56,8 +56,8 @@ public class Player : Character
     int currentHealth;
     [SerializeField] int maxHealth;
 
-    int weaponindex = 1;
-    int weaponUnlockCount = 1;
+    int weaponindex = 0;
+    [SerializeField] int weaponUnlockCount = 0;
     float invicibilityTime = 0.05f;
     float invincTimer;
 
@@ -77,7 +77,7 @@ public class Player : Character
     float hurtOTimer;
 
     [Tooltip("Images for each of the weapon slots")]
-    [SerializeField] List<Image> weaponSlots = new List<Image>();
+    [SerializeField] Image[] weaponSlots;
     [Tooltip("Highlighted colour when weaopon slot is selected")]
     [SerializeField] Color equippedWeaponCol = new Color(1f, 1f, 1f, 1f);
     [Tooltip("Colour for when weapon slot is available but not selected")]
@@ -118,7 +118,9 @@ public class Player : Character
         _controls.InGame.ForwardBack.performed += ctx => directionVector.x = ctx.ReadValue<float>();
         _controls.InGame.CameraX.performed += ctx => mouseDir.y = ctx.ReadValue<float>();
         _controls.InGame.CameraY.performed += ctx => mouseDir.x = ctx.ReadValue<float>();
-        
+        _controls.InGame.WeaponToggle1.performed += x => ToggleWeaponSlot(0);
+        _controls.InGame.WeaponToggle2.performed += x => ToggleWeaponSlot(1);
+        _controls.InGame.WeaponToggle3.performed += x => ToggleWeaponSlot(2);
         
         _controls.InGame.Interact.performed += x => Interact(); // This should 
 
@@ -129,7 +131,8 @@ public class Player : Character
         healthbar.maxValue = maxHealth;
         currentHealth = maxHealth;
         healthbar.value = currentHealth;
-
+        UpdateUI();
+        WeaponSlotUpdate();
     }
 
     /// <summary>
@@ -191,6 +194,7 @@ public class Player : Character
         {
             intendedDirection = mouseDir;
         }
+        UpdateUI();
     }
 
     #region Movement
@@ -352,6 +356,25 @@ public class Player : Character
         intendedDirection += recoilPattern;
     }
 
+    //takes in an input and checks if the the slot can be changed to before swapping to it
+    void ToggleWeaponSlot(int slot)
+    {
+        if (slot <= weaponUnlockCount)
+        {
+            weaponindex = slot;
+        }
+        WeaponSlotUpdate();
+    }
+
+    //increases weapon slots available 
+    public void IncreaseWeaponSlots()
+    {
+        if (weaponUnlockCount < 3)
+        {
+            weaponUnlockCount++;
+        }
+    }
+
     public void HurtPlayer(int hurtval)
     {
         currentHealth -= hurtval;
@@ -386,9 +409,20 @@ public class Player : Character
 
     void WeaponSlotUpdate()
     {
-        foreach (Image slot in weaponSlots)
+        for (int i=0; i < weaponSlots.Length; i++)
         {
-            
+            if (weaponindex == i)
+            {
+                weaponSlots[i].color = equippedWeaponCol;
+            }
+            else if (i >= weaponUnlockCount)
+            {
+                weaponSlots[i].color = unequippedWeaponCol;
+            }
+            else
+            {
+                weaponSlots[i].color = unavailWeaponCol;
+            }
         }
     }
 

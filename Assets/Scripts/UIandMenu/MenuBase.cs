@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuBase : MonoBehaviour
 {
+    float currentVol;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,16 @@ public class MenuBase : MonoBehaviour
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
+    }
+
+    public void OpenMenu(GameObject menu)
+    {
+        menu.SetActive(true);
+    }
+
+    public void CloseMenu(GameObject menu)
+    {
+        menu.SetActive(false);
     }
 
     public void AsyncChangeScene(string scene)

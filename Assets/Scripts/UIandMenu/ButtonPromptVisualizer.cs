@@ -7,8 +7,9 @@ using UnityEngine.InputSystem;
 
 public class ButtonPromptVisualizer : MonoBehaviour
 {
-    [SerializeField] TMP_Text textBox;
     [SerializeField] InputActionReference actionToReference;
+    [SerializeField] TMP_Text textBox;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,7 @@ public class ButtonPromptVisualizer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateText();
     }
 
     void UpdateText()

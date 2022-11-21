@@ -7,50 +7,54 @@ using TMPro;
 
 public class PauseMenu : MenuBase
 {
+    PlayerControls controls;
+
     [SerializeField] GameObject pauseScreen;
     [SerializeField] GameObject optionsScreen;
-    bool isPaused;
+    bool isPaused = false;
     
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        controls = new PlayerControls();
+        controls.InGame.Enable();
+        controls.InGame.EscapeMenu.performed += x => CheckPause();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            if (!isPaused)
-            {
-                pauseScreen.SetActive(true);
 
-            }
-            else
-            {
-                pauseScreen.SetActive(false);
-                optionsScreen.SetActive(false);
-            }
+    void CheckPause()
+    {
+        if (isPaused)
+        {
+            ResumeGame();
         }
+        else
+        {
+
+            PauseGame();
+        }
+        
     }
 
     public void PauseGame()
     {
+        
         Time.timeScale = 0;
         pauseScreen.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-
+        isPaused = true;
     }
     public void ResumeGame()
     {
-
+        if(optionsScreen)
+        optionsScreen.SetActive(false);
+        
         Time.timeScale = 1;
         pauseScreen.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        isPaused = false;
     }
 
     public void Options()
