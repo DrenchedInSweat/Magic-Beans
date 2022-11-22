@@ -61,6 +61,10 @@ public class Player : Character
     float invicibilityTime = 0.05f;
     float invincTimer;
 
+    [Header("Sound")]
+    [SerializeField] AudioClip hitSound;
+    [SerializeField] AudioClip hurtSound;
+    [SerializeField] AudioClip shootSoundLazer;
 
     [Header("UI")] //[SerializeField] //private Slider slider;
     [SerializeField] private CinemachineVirtualCamera cmv;

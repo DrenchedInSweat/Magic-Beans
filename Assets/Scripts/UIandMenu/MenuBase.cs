@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 public class MenuBase : MonoBehaviour
 {
     float currentVol;
+    [SerializeField] AudioClip menuSelect;
+    [SerializeField] AudioClip menyToggle;
+    [SerializeField] AudioClip menuExit;
+    [SerializeField] AudioClip menuBuzzer;
 
     // Start is called before the first frame update
     void Start()
