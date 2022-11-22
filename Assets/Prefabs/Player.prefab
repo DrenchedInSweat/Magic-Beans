@@ -394,7 +394,7 @@ MonoBehaviour:
   maxSpeed: 14
   floorDrag: 5
   airDrag: 0
-  jumpForce: 12
+  jumpForce: 6
   maxJumps: 7
   feetCenter: {fileID: 730901218642034059}
   range: 0.5
@@ -415,6 +415,7 @@ MonoBehaviour:
   wallRecoveryDelay: 2
   wallRunGravity: 0.1
   maxHealth: 0
+  weaponUnlockCount: 0
   cmv: {fileID: 730901219125762773}
   showUI: 1
   healthbar: {fileID: 5160116444992774671}

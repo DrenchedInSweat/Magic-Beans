@@ -44,19 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984caecff71031249aa8b22d16e6aaa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletsPerMag: 10
-  maxMags: 40
   timeBetweenShots: 0.1
+  recoilMultiplier: 1
   recoil: {x: 0.05, y: -0.4}
-  projectile: {fileID: 1812082987790279449, guid: 00a27f0075d27ba45988b1fc9a65e305,
+  projectile: {fileID: -9097318330678458611, guid: 43ad00a4feab00348b6763ec1b77a15b,
     type: 3}
   baseDamage: 1
-  forcePerShot: 40
-  spread: 0.4
-  ammoPerShot: 1
+  bulletSpeed: 75
+  randomSpread: 0.4
   projectilesFired: 1
   sprayPattern: 1
-  effectiveLayers:
-    serializedVersion: 2
-    m_Bits: 2147483647
   projectileType: 1

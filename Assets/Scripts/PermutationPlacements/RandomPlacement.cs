@@ -44,6 +44,8 @@ using Random = UnityEngine.Random;
             GeneratePoints(); // I suspect unless spawnPoints are serialized, it will need to be like this.
             if (Random.value < chanceToSpawn)
             {
+            Debug.LogWarning("Permuation Machine Is Offline");
+            /*
                 int num = Random.Range(minObjectsToSpawn, maxObjectsToSpawn);
                 GameObject thingToSpawn = core.SpawnObject(type);
                 //Generate Array
@@ -53,8 +55,8 @@ using Random = UnityEngine.Random;
                    go.name = $"{gameObject.name} [{i}] --> {go.name}";
                    if (!mustBeMatching) 
                        thingToSpawn = core.SpawnObject(type);
-                }
-            }
+                } */
+            } 
         }
 
         private void GeneratePoints()
