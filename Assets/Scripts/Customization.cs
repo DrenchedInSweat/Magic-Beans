@@ -14,4 +14,9 @@ public class Customization : ScriptableObject
     {
         unlocked = true;
     }
+
+    public void lockCustom()
+    {
+
+    }
 }

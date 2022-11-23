@@ -12,7 +12,10 @@ public class PauseMenu : MenuBase
     [SerializeField] GameObject pauseScreen;
     [SerializeField] GameObject optionsScreen;
     bool isPaused = false;
-    
+
+
+    [SerializeField] AudioClip pauseSound;
+    [SerializeField] AudioClip unpausedSound;
 
     void Awake()
     {

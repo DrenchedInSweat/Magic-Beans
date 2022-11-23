@@ -22,6 +22,10 @@ public class TitleScreenFunctions : MenuBase
     [Header("Customization")]
     [SerializeField] Transform[] customSlots;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip toggleup;
+    [SerializeField] AudioClip toggledown;
+
     private void Start()
     {
         //find playerpref with node/stage and set background to image -1 

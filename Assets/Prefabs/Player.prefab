@@ -417,9 +417,15 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 0
   weaponUnlockCount: 0
-  hitSound: {fileID: 0}
-  hurtSound: {fileID: 0}
-  shootSoundLazer: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: ba6e08dcd7ca1f6479c77e1667373284, type: 3}
+  hurtSound: {fileID: 8300000, guid: ba6e08dcd7ca1f6479c77e1667373284, type: 3}
+  healSound: {fileID: 0}
+  shootSoundLazersound: {fileID: 0}
+  weaponChangeSound: {fileID: 0}
+  weaponUpgradeSound: {fileID: 8300000, guid: 43bae426aac99ed49b0e827f00c19d1b, type: 3}
+  weaponUpgradeFailSound: {fileID: 8300000, guid: 19609606efb085449920ab993b4fc26a,
+    type: 3}
+  playerWalk: {fileID: 0}
   cmv: {fileID: 730901219125762773}
   showUI: 1
   healthbar: {fileID: 5160116444992774671}
@@ -784,6 +790,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3978414949874996042, guid: b57484c8f8705a245b023199961ccd9e,
+        type: 3}
+      propertyPath: pauseSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f2a8cb95ff84c124e8331b82c46369d5, type: 3}
+    - target: {fileID: 3978414949874996042, guid: b57484c8f8705a245b023199961ccd9e,
+        type: 3}
+      propertyPath: unpausedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 3af9a48b2edb00e4781a336f0d1a5de5, type: 3}
     - target: {fileID: 8974964755219471489, guid: b57484c8f8705a245b023199961ccd9e,
         type: 3}
       propertyPath: m_IsActive

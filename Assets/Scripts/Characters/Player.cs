@@ -62,9 +62,12 @@ public class Player : Character
     float invincTimer;
 
     [Header("Sound")]
-    [SerializeField] AudioClip hitSound;
     [SerializeField] AudioClip hurtSound;
-    [SerializeField] AudioClip shootSoundLazer;
+    [SerializeField] AudioClip healSound;
+    [SerializeField] AudioClip weaponChangeSound;
+    [SerializeField] AudioClip weaponUpgradeSound;
+    [SerializeField] AudioClip weaponUpgradeFailSound;
+    [SerializeField] AudioClip playerWalk;
 
     [Header("UI")] //[SerializeField] //private Slider slider;
     [SerializeField] private CinemachineVirtualCamera cmv;
@@ -366,6 +369,7 @@ public class Player : Character
     {
         if (slot <= weaponUnlockCount)
         {
+            PlaySoundEffect(weaponChangeSound);
             weaponindex = slot;
         }
         WeaponSlotUpdate();
@@ -376,12 +380,18 @@ public class Player : Character
     {
         if (weaponUnlockCount < 3)
         {
+            PlaySoundEffect(weaponUpgradeSound);
             weaponUnlockCount++;
+        }
+        else
+        {
+            PlaySoundEffect(weaponUpgradeFailSound);
         }
     }
 
     public void HurtPlayer(int hurtval)
     {
+        PlaySoundEffect(hurtSound);
         currentHealth -= hurtval;
         StartCoroutine(FadeOverlay(hurtOverlay, hurtOverlayTime));
         if (currentHealth <= 0)
@@ -392,6 +402,7 @@ public class Player : Character
 
     public void HealPlayer(int healval)
     {
+        PlaySoundEffect(healSound);
         currentHealth += healval;
         StartCoroutine(FadeOverlay(healOverlay, healOverlayTime));
         if (currentHealth > maxHealth)
@@ -442,6 +453,14 @@ public class Player : Character
     }
 
     #endregion
+
+    void PlaySoundEffect(AudioClip sound)
+    {
+        if (sound)
+        {
+            AudioSource.PlayClipAtPoint(sound, transform.position);
+        }
+    }
 
     IEnumerator FadeOverlay(GameObject overlay, float time)
     {
