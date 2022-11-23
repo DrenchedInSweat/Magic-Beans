@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GameOverMenu : MenuBase
 {
+    Player player;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        player = FindObjectOfType<Player>().GetComponent<Player>();
     }
 
     // Update is called once per frame

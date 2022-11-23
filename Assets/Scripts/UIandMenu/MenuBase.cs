@@ -11,16 +11,9 @@ public class MenuBase : MonoBehaviour
     [SerializeField] AudioClip menuExit;
     [SerializeField] AudioClip menuBuzzer;
 
-    // Start is called before the first frame update
-    void Start()
+    public void NewGame()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        ChangeScene("Game");
     }
 
     public void ChangeScene(string scene)

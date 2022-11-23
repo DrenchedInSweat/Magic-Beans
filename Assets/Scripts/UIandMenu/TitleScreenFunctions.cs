@@ -13,6 +13,8 @@ public class TitleScreenFunctions : MenuBase
     [SerializeField] Button continueButton;
     [SerializeField] GameObject settingsMenu;
     [SerializeField] GameObject saveMenu;
+    [SerializeField] GameObject customMenu;
+
 
     [Header("Options ")]
     [SerializeField] Slider volSlider;
@@ -29,10 +31,7 @@ public class TitleScreenFunctions : MenuBase
         
     }
 
-    public void NewGame()
-    {
-        ChangeScene("Game");
-    }
+    
 
     public void ContinueGame()
     {
