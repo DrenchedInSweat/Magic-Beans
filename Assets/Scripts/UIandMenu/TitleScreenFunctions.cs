@@ -13,12 +13,18 @@ public class TitleScreenFunctions : MenuBase
     [SerializeField] Button continueButton;
     [SerializeField] GameObject settingsMenu;
     [SerializeField] GameObject saveMenu;
+    [SerializeField] GameObject customMenu;
+
 
     [Header("Options ")]
     [SerializeField] Slider volSlider;
 
     [Header("Customization")]
     [SerializeField] Transform[] customSlots;
+
+    [Header("Audio")]
+    [SerializeField] AudioClip toggleup;
+    [SerializeField] AudioClip toggledown;
 
     private void Start()
     {
@@ -29,10 +35,7 @@ public class TitleScreenFunctions : MenuBase
         
     }
 
-    public void NewGame()
-    {
-        ChangeScene("Game");
-    }
+    
 
     public void ContinueGame()
     {

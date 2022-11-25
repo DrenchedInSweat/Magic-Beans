@@ -53,7 +53,7 @@ public class Player : Character
     private Vector3 wallForward;
 
     [Header("Player Stats")]
-    int currentHealth;
+    [SerializeField] int currentHealth;
     [SerializeField] int maxHealth;
 
     int weaponindex = 0;
@@ -61,6 +61,13 @@ public class Player : Character
     float invicibilityTime = 0.05f;
     float invincTimer;
 
+    [Header("Sound")]
+    [SerializeField] AudioClip hurtSound;
+    [SerializeField] AudioClip healSound;
+    [SerializeField] AudioClip weaponChangeSound;
+    [SerializeField] AudioClip weaponUpgradeSound;
+    [SerializeField] AudioClip weaponUpgradeFailSound;
+    [SerializeField] AudioClip playerWalk;
 
     [Header("UI")] //[SerializeField] //private Slider slider;
     [SerializeField] private CinemachineVirtualCamera cmv;
@@ -70,10 +77,10 @@ public class Player : Character
     [SerializeField] Slider healthbar;
 
     [SerializeField] GameObject healOverlay;
-    [SerializeField] float healOverlayTime;
+    [SerializeField] float healOverlayTime = 0.5f;
     float healOTimer;
     [SerializeField] GameObject hurtOverlay;
-    [SerializeField] float hurtOverlayTime;
+    [SerializeField] float hurtOverlayTime = 0.5f;
     float hurtOTimer;
 
     [Tooltip("Images for each of the weapon slots")]
@@ -85,7 +92,7 @@ public class Player : Character
     [Tooltip("Colour for when weapon slot is unavailable")]
     [SerializeField] Color unavailWeaponCol = new Color(0.2f, 0.2f, 0.2f, 0.5f);
 
-    
+    [SerializeField] GameObject deathscreen;
 
     #region Getters
     public Weapon Weapon => weapon;
@@ -120,7 +127,7 @@ public class Player : Character
         _controls.InGame.CameraY.performed += ctx => mouseDir.x = ctx.ReadValue<float>();
         _controls.InGame.WeaponToggle1.performed += x => ToggleWeaponSlot(0);
         _controls.InGame.WeaponToggle2.performed += x => ToggleWeaponSlot(1);
-        _controls.InGame.WeaponToggle3.performed += x => ToggleWeaponSlot(2);
+        _controls.InGame.WeaponToggle3.performed += x => RevealMouse();//ToggleWeaponSlot(2)
         
         _controls.InGame.Interact.performed += x => Interact(); // This should 
 
@@ -194,6 +201,7 @@ public class Player : Character
         {
             intendedDirection = mouseDir;
         }
+
         UpdateUI();
     }
 
@@ -361,6 +369,7 @@ public class Player : Character
     {
         if (slot <= weaponUnlockCount)
         {
+            PlaySoundEffect(weaponChangeSound);
             weaponindex = slot;
         }
         WeaponSlotUpdate();
@@ -371,13 +380,20 @@ public class Player : Character
     {
         if (weaponUnlockCount < 3)
         {
+            PlaySoundEffect(weaponUpgradeSound);
             weaponUnlockCount++;
+        }
+        else
+        {
+            PlaySoundEffect(weaponUpgradeFailSound);
         }
     }
 
     public void HurtPlayer(int hurtval)
     {
+        PlaySoundEffect(hurtSound);
         currentHealth -= hurtval;
+        StartCoroutine(FadeOverlay(hurtOverlay, hurtOverlayTime));
         if (currentHealth <= 0)
         {
             PlayerDeath();
@@ -386,7 +402,9 @@ public class Player : Character
 
     public void HealPlayer(int healval)
     {
+        PlaySoundEffect(healSound);
         currentHealth += healval;
+        StartCoroutine(FadeOverlay(healOverlay, healOverlayTime));
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
@@ -395,7 +413,10 @@ public class Player : Character
 
     public void PlayerDeath()
     {
-
+        deathscreen.SetActive(true);
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     #region UserInterface
@@ -403,7 +424,6 @@ public class Player : Character
     void UpdateUI()
     {
         healthbar.value = currentHealth;
-
 
     }
 
@@ -426,6 +446,32 @@ public class Player : Character
         }
     }
 
+    public void RevealMouse()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     #endregion
 
+    void PlaySoundEffect(AudioClip sound)
+    {
+        if (sound)
+        {
+            AudioSource.PlayClipAtPoint(sound, transform.position);
+        }
+    }
+
+    IEnumerator FadeOverlay(GameObject overlay, float time)
+    {
+        overlay.SetActive(true);
+        overlay.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        yield return new WaitForSeconds(0.5f);
+        for (float i = time; i >= 0; i -= Time.deltaTime)
+        {
+            overlay.GetComponent<Image>().color = new Color(1, 1, 1, i/time);
+            
+        }
+        overlay.SetActive(false);
+    }
 }
