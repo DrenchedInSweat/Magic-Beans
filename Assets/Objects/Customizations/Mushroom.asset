@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab047fb3b076ede43aec489b8b8c61ec, type: 3}
   m_Name: Mushroom
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  description: 
-  unlocked: 0
+  image: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  description: M
+  unlocked: 1

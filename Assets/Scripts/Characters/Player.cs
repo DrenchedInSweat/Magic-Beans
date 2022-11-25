@@ -127,8 +127,8 @@ public class Player : Character
         _controls.InGame.CameraY.performed += ctx => mouseDir.x = ctx.ReadValue<float>();
         _controls.InGame.WeaponToggle1.performed += x => ToggleWeaponSlot(0);
         _controls.InGame.WeaponToggle2.performed += x => ToggleWeaponSlot(1);
-        _controls.InGame.WeaponToggle3.performed += x => RevealMouse();//ToggleWeaponSlot(2)
-        
+        _controls.InGame.WeaponToggle3.performed += x => ToggleWeaponSlot(2); //RevealMouse();
+
         _controls.InGame.Interact.performed += x => Interact(); // This should 
 
         Cursor.visible = false;
