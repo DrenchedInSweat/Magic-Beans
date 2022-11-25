@@ -156,7 +156,7 @@ RectTransform:
   m_Children:
   - {fileID: 243593234}
   m_Father: {fileID: 1074732718}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -206,7 +206,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 34977296}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 586629373}
+        m_TargetAssemblyTypeName: MenuBase, Assembly-CSharp
+        m_MethodName: OpenMenu
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1879392326}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &34977296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,7 +442,7 @@ GameObject:
   - component: {fileID: 112394541}
   - component: {fileID: 112394540}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -500,7 +512,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 112394541}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 586629373}
+        m_TargetAssemblyTypeName: MenuBase, Assembly-CSharp
+        m_MethodName: CloseMenu
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1879392326}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &112394541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,7 +1127,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 315896783}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 586629373}
+        m_TargetAssemblyTypeName: MenuBase, Assembly-CSharp
+        m_MethodName: CloseMenu
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 47542627}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &315896783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,7 +1211,7 @@ RectTransform:
   m_Children:
   - {fileID: 904661528}
   m_Father: {fileID: 1074732718}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1225,7 +1261,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 321273002}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 586629373}
+        m_TargetAssemblyTypeName: MenuBase, Assembly-CSharp
+        m_MethodName: OpenMenu
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 47542627}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &321273002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1585,7 +1633,7 @@ RectTransform:
   m_Children:
   - {fileID: 1876479993}
   m_Father: {fileID: 1074732718}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1635,7 +1683,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 463431264}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 586629373}
+        m_TargetAssemblyTypeName: TitleScreenFunctions, Assembly-CSharp
+        m_MethodName: ExitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &463431264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2186,7 +2246,7 @@ GameObject:
   - component: {fileID: 618573528}
   - component: {fileID: 618573529}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: Show Tutorial Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2253,7 +2313,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 388238740}
   toggleTransition: 1
   graphic: {fileID: 687445085}
@@ -2421,7 +2481,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 762147084}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 586629373}
+        m_TargetAssemblyTypeName: MenuBase, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CarlosTut
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &762147084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3887,9 +3959,9 @@ RectTransform:
   - {fileID: 762147082}
   - {fileID: 618573528}
   - {fileID: 1516610211}
+  - {fileID: 34977294}
   - {fileID: 321273000}
   - {fileID: 463431262}
-  - {fileID: 34977294}
   m_Father: {fileID: 1892336837}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4731,7 +4803,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1516610213}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 586629373}
+        m_TargetAssemblyTypeName: MenuBase, Assembly-CSharp
+        m_MethodName: OpenMenu
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1221561425}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1516610213
 MonoBehaviour:
   m_ObjectHideFlags: 0
