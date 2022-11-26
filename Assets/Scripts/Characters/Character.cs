@@ -82,10 +82,10 @@ public class Character : MonoBehaviour
     /// </summary>
     private void CheckFloor()
     {
-        isGrounded = Physics.Raycast(feetCenter.position, Vector3.down, range, floorLayers);
+        isGrounded = Physics.Raycast(feetCenter.position, -transform.up, range, floorLayers);
 
 #if UNITY_EDITOR
-        Debug.DrawRay(feetCenter.position, Vector3.down * range, isGrounded?Color.green:Color.red);
+        Debug.DrawRay(feetCenter.position, -transform.up * range, isGrounded?Color.green:Color.red);
         #endif
         
         if (isGrounded && jumpTime > MaxJumpTime)
@@ -137,7 +137,7 @@ public class Character : MonoBehaviour
     #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(feetCenter.position, Vector3.down * range);
+        Gizmos.DrawRay(feetCenter.position, -transform.up * range);
     }
 #endif
     
