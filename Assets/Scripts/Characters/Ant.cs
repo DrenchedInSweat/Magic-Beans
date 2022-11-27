@@ -40,7 +40,7 @@ namespace Characters
                 Debug.DrawLine(feetCenter.position, hit.point);
                 //Vector3 deltaGap = hit.distance / range * (hit.point - transform.position);
                 ///if(deltaGap.sqrMagnitude > 1)
-                print($"ANT {(hit.point -   feetCenter.position)}, {moveSpeed * Time.deltaTime * transform.forward}");
+                //print($"ANT {(hit.point -   feetCenter.position)}, {moveSpeed * Time.deltaTime * transform.forward}");
                 //transform.LookAt(tempPlayer);
                 transform.position = hit.point + hit.normal * 0.5f + moveSpeed * Time.deltaTime * transform.forward;
                 //transform.up = hit.normal;

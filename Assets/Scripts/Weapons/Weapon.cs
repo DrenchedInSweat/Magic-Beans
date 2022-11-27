@@ -63,7 +63,10 @@ public class Weapon : MonoBehaviour
     [SerializeField] private EProjectileType projectileType;
 
     private Transform camTrans;
-    private Character owner;
+    protected Character owner;
+
+    public bool tryingToShoot;
+    private bool isShooting;
     
         //--------------------------------- SHOOTING ---------------------------------//
 
@@ -93,10 +96,35 @@ public class Weapon : MonoBehaviour
     private void Update()
     {
         curShotTime += Time.deltaTime;
+
+        if (tryingToShoot)
+        {
+            if (!isShooting)
+            {
+                isShooting = true;
+                StartFire();
+            }
+            TryShoot();
+        }
+        else if (isShooting)
+        {
+            isShooting = false;
+            StopFire();
+        }
     }
 
-    public void TryShoot()
+
+    protected virtual void StartFire()
+    {
+    }
+
+    protected virtual void StopFire()
+    {
+    }
+
+    protected virtual void TryShoot()
     { 
+        
         if (CanShoot())
         {
             Shoot();
@@ -104,12 +132,13 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private bool CanShoot()
+    protected virtual bool CanShoot()
     {
+        //TODO add check, cannot shoot in safe zones, or if hand is being used to wall run.
         return (curShotTime > timeBetweenShots && projectilesFired > 0);
     }
 
-    private void Shoot()
+    protected virtual void Shoot()
     {
         Vector2[] bulletPositions = new Vector2[projectilesFired];
         bulletPositions[0] = Vector2.zero;
@@ -228,7 +257,6 @@ public class Weapon : MonoBehaviour
                         }
                     }
                     break;
-                
             }
         }
         

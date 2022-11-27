@@ -71,10 +71,8 @@ public class Character : MonoBehaviour
         jumpTime += Time.deltaTime;
         Move();
         CheckFloor();
-        if (tryingToShoot)
-        {
-            weapon.TryShoot();
-        }
+        if(weapon) // TODO: Fix
+            weapon.tryingToShoot = tryingToShoot;
     }
 
     /// <summary>
