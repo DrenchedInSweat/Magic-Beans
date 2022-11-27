@@ -149,7 +149,7 @@ MonoBehaviour:
   m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 0.5
   m_FrequencyGain: 0.3
-  mNoiseOffsets: {x: 0, y: 0, z: 0}
+  mNoiseOffsets: {x: -305.1211, y: -3.668457, z: 436.3994}
 --- !u!114 &730901218154162482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 730901218614887219}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4, y: -0.20000076, z: 0.50000006}
+  m_LocalPosition: {x: -0.55, y: -0.20000076, z: 0.50000006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -399,7 +399,7 @@ MonoBehaviour:
   viewLockY: 60
   recoilResetTime: 0.4
   head: {fileID: 730901219336788429}
-  <WallSpeed>k__BackingField: 8
+  <WallSpeed>k__BackingField: 250
   weaponChangeSound: {fileID: 8300000, guid: 1bedc903154cc574f8f1cdf30341eb31, type: 3}
   weaponUpgradeSound: {fileID: 8300000, guid: 43bae426aac99ed49b0e827f00c19d1b, type: 3}
   weaponUpgradeFailSound: {fileID: 8300000, guid: 19609606efb085449920ab993b4fc26a,
@@ -640,7 +640,7 @@ MonoBehaviour:
     m_AmplitudeGain: 1
     m_FrequencyGain: 1
     m_Duration: 1
-    m_NoiseOffsets: {x: 0, y: 0, z: 0}
+    m_NoiseOffsets: {x: 730.1953, y: -757.3827, z: -276.70584}
 --- !u!1 &730901219336788428
 GameObject:
   m_ObjectHideFlags: 0

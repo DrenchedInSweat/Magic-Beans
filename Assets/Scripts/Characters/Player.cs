@@ -23,6 +23,7 @@ namespace Characters
 
         [field: Header("Player Only")]
         [field: SerializeField] public float WallSpeed { get; private set; }
+        [field: SerializeField] public float maxSpeedMultOnWall { get; private set; }
 
         // -------------------------- Primitives  -------------------------- //
         private Rigidbody rb;
@@ -182,6 +183,7 @@ namespace Characters
     
         protected override void Move()
         {
+            float maxSpeed = stats.MaxSpeed;
             if (isWallRunning)
             {
                 float dir = wallRunScalar;
@@ -192,6 +194,7 @@ namespace Characters
                     dir *= -0.6f; // Also reduce speed to 60%
                 }
                 rb.AddForce(WallSpeed * dir * wallForward, ForceMode.Force);
+                maxSpeed *= maxSpeedMultOnWall;
             }
             else
             {
@@ -207,7 +210,7 @@ namespace Characters
         
             //Clamp speed
             Vector3 velocity = rb.velocity;
-            Vector2 clamped = Vector2.ClampMagnitude(new Vector2(velocity.x, velocity.z), stats.MaxSpeed);
+            Vector2 clamped = Vector2.ClampMagnitude(new Vector2(velocity.x, velocity.z),maxSpeed);
             rb.velocity = new Vector3(clamped.x, velocity.y, clamped.y);
             isMoving = rb.velocity.magnitude > 0.1f;
         }
