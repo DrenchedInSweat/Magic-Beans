@@ -38,6 +38,7 @@ namespace Characters
             if (oldState ^ state)
                 return;
             oldState = state;
+            
             //state is on
             if (state)
             {
@@ -53,6 +54,7 @@ namespace Characters
 
                 return;
             }
+            
             //state is off
             foreach (Image i in weaponSlots)
             {
@@ -63,7 +65,6 @@ namespace Characters
             {
                 StartCoroutine(FadeOverlay(i, 0.4f));
             }
-            
         }
 
         private IEnumerator FadeOverlay(Image overlay, float time)

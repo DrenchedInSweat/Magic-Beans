@@ -29,6 +29,8 @@ namespace Characters.BaseStats
         
         [Tooltip("This is how many bullets are shot")]
         [field:  SerializeField] public int ProjectilesFired { get; private set; }
+        
+        [field: SerializeField, Range(0,1)] public float SlowDown { get; private set; }
 
         //Will this work polymorphically?
         public void Upgrade(WeaponUpgradeSo upgradeSo)
@@ -47,12 +49,14 @@ namespace Characters.BaseStats
             TimeBetweenShots += upgradeSo.TimeBetweenShots;
             Damage += upgradeSo.Damage;
             ProjectilesFired += upgradeSo.ProjectilesFired;
+            SlowDown += upgradeSo.SlowDown;
         }
         protected virtual void MultiplyUpgrade(WeaponUpgradeSo upgradeSo)
         {
             TimeBetweenShots *= upgradeSo.TimeBetweenShots;
             Damage *= upgradeSo.Damage;
             ProjectilesFired *= upgradeSo.ProjectilesFired;
+            SlowDown *= upgradeSo.SlowDown;
         }
     }
 }

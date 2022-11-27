@@ -69,6 +69,9 @@ namespace Characters
             MultiplyUpgrade(upgrade);
         }
 
+        //TODO: This may cause problems:
+        //1 Because SO, it would affect all of the same creature...
+        
         #region Corny Upgrades
         private void AddUpgrade(CharacterUpgradeSo upgrade)
         {

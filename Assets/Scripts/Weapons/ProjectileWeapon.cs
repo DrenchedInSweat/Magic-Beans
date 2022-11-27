@@ -158,8 +158,8 @@ namespace Weapons
             //Imagine now that we have our forward vector. Let's transform this vector into a plane using the cross product;
 
             //If we have the rotation of the weapon, Just apply the same rotation to each point
-            
-            Quaternion vec = atkPt.rotation;
+            Transform t = transform;
+            Quaternion vec = t.rotation;
 
             foreach (Vector2 bulletPos in bulletPositions)
             {
@@ -168,12 +168,12 @@ namespace Weapons
                 Vector3 thisDir = vec * bulletPos;//Vector3.RotateTowards(bulletPos, transform.forward, 1, 1);
                 //Vector3 BulletDir = Vector3.Cross(bulletPos, Vector3.forward);
 
-                Projectile go = Instantiate(stats.Projectile, transform.position + thisDir, vec * stats.Projectile.transform.rotation, GameManager.Instance.BulletParent);
+                Projectile go = Instantiate(stats.Projectile, t.position + thisDir, vec * stats.Projectile.transform.rotation, GameManager.Instance.BulletParent);
                 go.Init(owner, stats.AreaOfEffect, stats.Damage, stats.RecursionFactor);
             
-                go.GetComponent<Rigidbody>().AddForce(stats.BulletSpeed * atkPt.forward, ForceMode.Impulse);
+                go.GetComponent<Rigidbody>().AddForce(stats.BulletSpeed * t.forward, ForceMode.Impulse);
 #if UNITY_EDITOR
-                Debug.DrawRay(go.transform.position, 5 * (atkPt.forward), Color.blue, 2f, false);
+                Debug.DrawRay(go.transform.position, 5 * (t.forward), Color.blue, 2f, false);
 #endif
                 print("Reached");
                 Destroy(go.gameObject, 4);

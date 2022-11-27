@@ -21,9 +21,9 @@ namespace Characters
         
         [SerializeField] private Transform head;
 
-        [field: Header("Player Only")]
-        [field: SerializeField] public float WallSpeed { get; private set; }
-        [field: SerializeField] public float maxSpeedMultOnWall { get; private set; }
+        [Header("Player Only")]
+        [SerializeField] private float wallSpeed;
+        [SerializeField] private float maxSpeedMultOnWall;
 
         // -------------------------- Primitives  -------------------------- //
         private Rigidbody rb;
@@ -183,7 +183,7 @@ namespace Characters
     
         protected override void Move()
         {
-            float maxSpeed = stats.MaxSpeed;
+            float mSpeed = maxSpeed;
             if (isWallRunning)
             {
                 float dir = wallRunScalar;
@@ -193,13 +193,13 @@ namespace Characters
                 {
                     dir *= -0.6f; // Also reduce speed to 60%
                 }
-                rb.AddForce(WallSpeed * dir * wallForward, ForceMode.Force);
-                maxSpeed *= maxSpeedMultOnWall;
+                rb.AddForce(wallSpeed * dir * wallForward, ForceMode.Force);
+                mSpeed *= maxSpeedMultOnWall;
             }
             else
             {
-                rb.AddForce(stats.MoveSpeed * directionVector.x * transform.forward, ForceMode.Force);
-                rb.AddForce(stats.MoveSpeed * directionVector.z * transform.right, ForceMode.Force);
+                rb.AddForce(speed * directionVector.x * transform.forward, ForceMode.Force);
+                rb.AddForce(speed * directionVector.z * transform.right, ForceMode.Force);
             }
             
             
@@ -210,7 +210,7 @@ namespace Characters
         
             //Clamp speed
             Vector3 velocity = rb.velocity;
-            Vector2 clamped = Vector2.ClampMagnitude(new Vector2(velocity.x, velocity.z),maxSpeed);
+            Vector2 clamped = Vector2.ClampMagnitude(new Vector2(velocity.x, velocity.z),mSpeed);
             rb.velocity = new Vector3(clamped.x, velocity.y, clamped.y);
             isMoving = rb.velocity.magnitude > 0.1f;
         }
@@ -369,7 +369,7 @@ namespace Characters
             shootingCapability.Weapons[idx].Upgrade(upgrade);
             source.PlayOneShot(stats.UpgradeSound);
         }
-        
+
         //increases weapon slots available 
         //TODO: ???
         /*public void IncreaseWeaponSlots()

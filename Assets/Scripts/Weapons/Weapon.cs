@@ -16,22 +16,21 @@ namespace Weapons
 
     public abstract class Weapon : MonoBehaviour
     {
-
         //public int ProjectilesFired => projectilesFired;
-        protected Transform atkPt;
         protected Character owner;
 
         public bool tryingToShoot;
         private bool isShooting;
         
         protected float curShotTime;
+        private WeaponStatsSo stats;
 
 
         public void Init(Character myOwner)
         {
             owner = myOwner;
-            atkPt = owner.transform;
             tryingToShoot = false;
+            stats = GetStats<WeaponStatsSo>();
         }
 
         private void Update()
@@ -43,6 +42,7 @@ namespace Weapons
                 if (!isShooting)
                 {
                     isShooting = true;
+                    owner.MultSpeed(stats.SlowDown);
                     StartFire();
                 }
                 TryShoot();
@@ -50,11 +50,11 @@ namespace Weapons
             else if (isShooting)
             {
                 isShooting = false;
+                owner.MultSpeed(1 / stats.SlowDown);
                 StopFire();
             }
         }
-
-
+        
         protected abstract void StartFire();
         protected abstract void StopFire();
         protected abstract void TryShoot();

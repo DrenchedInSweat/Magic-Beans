@@ -15,7 +15,6 @@ namespace Weapons
         private VisualEffect flash;
         [SerializeField, ColorUsage(true, true)]
         private Color col;
-        //TODO: move
         public delegate void ApplyToCharacter(Character victim);
 
         private ApplyToCharacter onHit;

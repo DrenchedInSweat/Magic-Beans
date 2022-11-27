@@ -21,3 +21,4 @@ MonoBehaviour:
   <IsAngular>k__BackingField: 0
   <Damage>k__BackingField: 1
   <ProjectilesFired>k__BackingField: 0
+  <SlowDown>k__BackingField: 0.4

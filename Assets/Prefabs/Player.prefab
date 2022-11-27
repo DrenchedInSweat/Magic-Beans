@@ -399,7 +399,8 @@ MonoBehaviour:
   viewLockY: 60
   recoilResetTime: 0.4
   head: {fileID: 730901219336788429}
-  <WallSpeed>k__BackingField: 250
+  wallSpeed: 250
+  maxSpeedMultOnWall: 1.5
   weaponChangeSound: {fileID: 8300000, guid: 1bedc903154cc574f8f1cdf30341eb31, type: 3}
   weaponUpgradeSound: {fileID: 8300000, guid: 43bae426aac99ed49b0e827f00c19d1b, type: 3}
   weaponUpgradeFailSound: {fileID: 8300000, guid: 19609606efb085449920ab993b4fc26a,

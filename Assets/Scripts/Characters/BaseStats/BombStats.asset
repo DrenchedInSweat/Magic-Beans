@@ -21,6 +21,7 @@ MonoBehaviour:
   <IsAngular>k__BackingField: 0
   <Damage>k__BackingField: 24
   <ProjectilesFired>k__BackingField: 0
+  <SlowDown>k__BackingField: 0.8
   <Projectile>k__BackingField: {fileID: 0}
   <BulletSpeed>k__BackingField: 30
   <RandomSpread>k__BackingField: 0

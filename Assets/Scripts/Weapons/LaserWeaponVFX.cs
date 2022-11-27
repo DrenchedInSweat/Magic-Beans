@@ -45,7 +45,14 @@ namespace Weapons
         {
             //Start beam Color
             Vector3 direction = transform.forward;
-            if (!Physics.Raycast(transform.position, direction, out RaycastHit hit, 400)) return;
+            if (!Physics.Raycast(transform.position, direction, out RaycastHit hit, 400))
+            {
+                if (childObj)
+                {
+                    childObj.SetActive(false);
+                }
+                return;
+            }
             //print("Hit Target");
             float dist = hit.distance / 2;
             effect.SetFloat(lengthID, dist);
@@ -62,12 +69,7 @@ namespace Weapons
                 childObj.transform.forward = Vector3.Reflect(direction, hit.normal);
                 return;
             }
-        
-            if (childObj)
-            {
-                childObj.SetActive(false);
-            }
-
+            
             if (hit.transform.TryGetComponent(out Character c))
             {
                 del.Invoke(c);
@@ -80,6 +82,10 @@ namespace Weapons
             col = c;
             effect.SendEvent(startID);
             effect.SetVector4(colorID, col);
+            
+            if(childObj)
+                childObj.SetActive(false);
+            
         }
 
         public void DeActivate()

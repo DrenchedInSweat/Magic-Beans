@@ -24,6 +24,9 @@ namespace Characters
 
         protected Animator animator;
         protected AudioSource source;
+
+        protected float speed;
+        protected float maxSpeed;
         
     
         // Start is called before the first frame update
@@ -32,6 +35,9 @@ namespace Characters
             animator = GetComponent<Animator>();
             source = GetComponent<AudioSource>();
             curHealth = stats.MaxHealth;
+            
+            speed = stats.MoveSpeed;
+            maxSpeed = stats.MaxSpeed;
         }
 
         
@@ -56,10 +62,11 @@ namespace Characters
         /// </summary>
         private void CheckFloor()
         {
-            isGrounded = Physics.Raycast(transform.position + stats.FeetCenter, -transform.up, stats.Range, stats.FloorLayers);
+            Transform t = transform;
+            isGrounded = Physics.Raycast(t.position + stats.FeetCenter, -t.up, stats.Range, stats.FloorLayers);
 
             #if UNITY_EDITOR
-            Debug.DrawRay(transform.position + stats.FeetCenter, -transform.up * stats.Range, isGrounded?Color.green:Color.red);
+            Debug.DrawRay(t.position + stats.FeetCenter, -t.up * stats.Range, isGrounded?Color.green:Color.red);
             #endif
         
             if (isGrounded && jumpTime > MaxJumpTime)
@@ -147,6 +154,8 @@ namespace Characters
             stats.UpgradeCharacter(upgrade);
             curHealth = stats.MaxHealth;
             source.PlayOneShot(stats.UpgradeSound);
+            speed = stats.MoveSpeed;
+            maxSpeed = stats.MaxSpeed;
         }
 
 
@@ -156,5 +165,10 @@ namespace Characters
             Gizmos.DrawRay(transform.position + stats.FeetCenter, -transform.up * stats.Range);
         }
 #endif
+        public void MultSpeed(float statsSlowDown)
+        {
+            maxSpeed *= statsSlowDown;
+            speed *= statsSlowDown;
+        }
     }
 }
