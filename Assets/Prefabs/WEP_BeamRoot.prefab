@@ -124,17 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd98b5503739fcc499a250838e30bb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenShots: 0.6
-  recoilMultiplier: 1
-  recoil: {x: 0, y: 0}
-  projectile: {fileID: 0}
-  baseDamage: 0
-  bulletSpeed: 1000
-  randomSpread: 0.4
-  projectilesFired: 13
-  sprayPattern: 0
-  projectileType: 0
   tryingToShoot: 0
+  stats: {fileID: 11400000, guid: 931f9cd91eb8ae2419335b4a05c23504, type: 2}
   col: {r: 0, g: 5.6798368, b: 16.471512, a: 0}
 --- !u!1001 &1724326961981555042
 PrefabInstance:

@@ -163,17 +163,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a69bda96e1032a448b77f9cb04c5ef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
-  maxSpeed: 0
-  floorDrag: 0
-  airDrag: 0
-  jumpForce: 0
-  maxJumps: 1
-  feetCenter: {fileID: 2125006123648267676}
-  range: 0
-  floorLayers:
-    serializedVersion: 2
-    m_Bits: 1
-  weaponPrefab: {fileID: 0}
-  weaponSpot: {fileID: 0}
-  health: 20
+  stats: {fileID: 11400000, guid: 1423027f1c73aa14182afd222772be76, type: 2}

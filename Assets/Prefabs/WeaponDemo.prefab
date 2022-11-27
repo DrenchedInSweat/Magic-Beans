@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2244408990961236945}
-  - component: {fileID: 2244408990961236944}
+  - component: {fileID: 6532255925380409138}
   m_Layer: 0
   m_Name: WeaponDemo
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2244408990961236944
+--- !u!114 &6532255925380409138
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,17 +41,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 2244408990961236947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 984caecff71031249aa8b22d16e6aaa3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2fbc75c2bb69d95469754c3dccf4b225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenShots: 0.1
-  recoilMultiplier: 1
-  recoil: {x: 0.05, y: -0.4}
+  stats: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 21300000, guid: bf507b4b99c95aa41ab402e373080039,
+    type: 3}
+  <Name>k__BackingField: 
+  <Description>k__BackingField: 
+  tryingToShoot: 0
   projectile: {fileID: -9097318330678458611, guid: 43ad00a4feab00348b6763ec1b77a15b,
     type: 3}
-  baseDamage: 1
-  bulletSpeed: 75
+  bulletSpeed: 1000
   randomSpread: 0.4
-  projectilesFired: 1
-  sprayPattern: 1
-  projectileType: 1
+  areaOfEffect: 0
+  recursionFactor: 0
+  recoil: {x: 0, y: 0}
+  recoilMultiplier: 1

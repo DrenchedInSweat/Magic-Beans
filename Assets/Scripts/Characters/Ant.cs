@@ -26,23 +26,21 @@ namespace Characters
             if (!isGrounded)
             {
                 CheckAroundAnt();
-                print("I'm Not on the ground");
+                //print("I'm Not on the ground");
             }
             else
             {
                 //rb.velocity = Vector3.zero;
                 //rb.angularVelocity = Vector3.zero;
                 //rb.useGravity = false;
-                Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, range);
-                
-                
-                
-                Debug.DrawLine(feetCenter.position, hit.point);
+                Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, stats.Range);
+
+                Debug.DrawLine(transform.position + stats.FeetCenter, hit.point);
                 //Vector3 deltaGap = hit.distance / range * (hit.point - transform.position);
                 ///if(deltaGap.sqrMagnitude > 1)
                 //print($"ANT {(hit.point -   feetCenter.position)}, {moveSpeed * Time.deltaTime * transform.forward}");
                 //transform.LookAt(tempPlayer);
-                transform.position = hit.point + hit.normal * 0.5f + moveSpeed * Time.deltaTime * transform.forward;
+                transform.position = hit.point + hit.normal * 0.5f + stats.MoveSpeed * Time.deltaTime * transform.forward;
                 //transform.up = hit.normal;
                 transform.LookAt(tempPlayer.position, hit.normal); //TODO: Redefine how look at works -- It should maintain it, up, but rotate the around the X and Z
                 //transform.rotation = Quaternion.LookRotation(tempPlayer.position, hit.normal);
@@ -75,9 +73,9 @@ namespace Characters
                 direction.y =Mathf.Cos(curRot);
                 direction.x =Mathf.Sin(curRot);
 #if UNITY_EDITOR
-                Debug.DrawRay(transPos, direction * range, Color.yellow);
+                Debug.DrawRay(transPos, direction * stats.Range, Color.yellow);
 #endif
-                if (Physics.Raycast(transPos, direction, out RaycastHit hit, range))
+                if (Physics.Raycast(transPos, direction, out RaycastHit hit, stats.Range))
                 {
                     //Can't jut be rads, has to be normal of object... The up needs to be the normal.
                     float dist = hit.distance;
@@ -124,6 +122,8 @@ namespace Characters
 
             isRolling = false;
         }
+        
+        
 
         private void OnDrawGizmos()
         {
@@ -139,7 +139,7 @@ namespace Characters
                 direction.y =Mathf.Cos(curRot);
                 direction.x =Mathf.Sin(curRot);
 #if UNITY_EDITOR
-                Debug.DrawRay(transPos, direction * range, Color.yellow);
+                Debug.DrawRay(transPos, direction * stats.Range, Color.yellow);
 #endif
             }
         }
