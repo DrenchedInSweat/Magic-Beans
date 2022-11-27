@@ -401,7 +401,7 @@ MonoBehaviour:
   floorLayers:
     serializedVersion: 2
     m_Bits: 1
-  weaponPrefab: {fileID: 2244408990961236944, guid: b14bbcf1c5c36504892890d2ca046426,
+  weaponPrefab: {fileID: 4659075096056496369, guid: b632fc8dd3bed094db0ce8fa721cd47a,
     type: 3}
   weaponSpot: {fileID: 730901218614887216}
   health: 0
@@ -417,10 +417,8 @@ MonoBehaviour:
   currentHealth: 0
   maxHealth: 0
   weaponUnlockCount: 0
-  hitSound: {fileID: 8300000, guid: ba6e08dcd7ca1f6479c77e1667373284, type: 3}
   hurtSound: {fileID: 8300000, guid: ba6e08dcd7ca1f6479c77e1667373284, type: 3}
   healSound: {fileID: 0}
-  shootSoundLazersound: {fileID: 0}
   weaponChangeSound: {fileID: 0}
   weaponUpgradeSound: {fileID: 8300000, guid: 43bae426aac99ed49b0e827f00c19d1b, type: 3}
   weaponUpgradeFailSound: {fileID: 8300000, guid: 19609606efb085449920ab993b4fc26a,

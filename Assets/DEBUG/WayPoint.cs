@@ -37,7 +37,7 @@ public class WayPoint : MonoBehaviour
     private void Update()
     {
         float dist = Vector3.Distance(myTrans.position, cam.position);
-        print("Dist:" + dist);
+        //print("Dist:" + dist);
         //d5, m10, M20 0.25 - 0.5
         //d10, m10, M20 0.5 - 1
         //d25, m10, M20

@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
-public class LaserWeapon : MonoBehaviour
+public class LaserWeaponOLD : MonoBehaviour
 {
     private LineRenderer lineRenderer;
 
@@ -35,12 +32,12 @@ public class LaserWeapon : MonoBehaviour
             }
             else if(hit.transform.TryGetComponent(out Character c))
             {
-                print("Damaging: " + c);
+                //print("Damaging: " + c);
             }
         } 
         else
         {
-            print("Hitting nothing?");
+            //print("Hitting nothing?");
             lineRenderer.SetPosition(idx, prv + direction * remainingDist);
         }
     }

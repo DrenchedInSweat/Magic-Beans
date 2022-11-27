@@ -158,7 +158,7 @@ public class Player : Character
         Vector3 angles = Vector3.zero;
 
         angles.x = head.localEulerAngles.x;
-        print($"rotating {angles}");
+        //print($"rotating {angles}");
         //Up/Down clamped
         if (angles.x > 180 && angles.x < 360 - viewLockY)
         {
@@ -208,9 +208,6 @@ public class Player : Character
     #region Movement
 
     #region CoreMovement
-
-    
-
     
     protected override void Move()
     {
