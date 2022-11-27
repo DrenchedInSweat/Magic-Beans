@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab047fb3b076ede43aec489b8b8c61ec, type: 3}
-  m_Name: Hearts
+  m_Name: Speed1
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: a3ab4eb5b7a749649a12af37c3551db1, type: 3}
-  description: Hearts
+  image: {fileID: 21300000, guid: 3127c37e5adab0e4bb3a16085fc4c091, type: 3}
+  description: Speed
   unlocked: 1
