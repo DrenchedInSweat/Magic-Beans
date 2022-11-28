@@ -80864,7 +80864,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: RockWallCurve30
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -5265349147258368490, guid: 0418075d948dea54faca047a45966316, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0418075d948dea54faca047a45966316, type: 3}
 --- !u!1001 &2141483983
 PrefabInstance:
