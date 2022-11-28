@@ -9,7 +9,8 @@ namespace Weapons
     public class LaserWeapon : Weapon
     {
         [Header("Weapon Stats", order = 1)]
-        [SerializeField] protected LaserWeaponStats stats;
+        [SerializeField] private LaserWeaponStats stats;
+        [SerializeField] private LaserWeaponVFX laserPrefab;
         
         private LaserWeaponVFX myWeapon;
         private VisualEffect flash;
@@ -25,7 +26,6 @@ namespace Weapons
         private readonly int colorID = Shader.PropertyToID("Color");
         private void Start()
         {
-            myWeapon = transform.GetChild(0).GetComponent<LaserWeaponVFX>();
             flash = GetComponent<VisualEffect>();
             flash.SetFloat(delayID, stats.TimeBetweenShots);
             flash.SetVector4(colorID, col);
@@ -34,7 +34,9 @@ namespace Weapons
                 print("Killing Enemy");
                 victim.TakeDamage(owner, stats.Damage);
             };
+            SetChildBeams();
         }
+        
 
         protected override void StartFire()
         {
@@ -56,14 +58,28 @@ namespace Weapons
         {
             flash.SendEvent(startID);
             yield return new WaitForSeconds(stats.TimeBetweenShots);
-            myWeapon.gameObject.SetActive(true);
+            if (tryingToShoot)
+            {
+                myWeapon.gameObject.SetActive(true);
             myWeapon.Activate(col, onHit);
+            }
+        }
+
+        private void SetChildBeams()
+        {
+            Transform prv = transform;
+            for (int i = 0; i <= stats.Bounces; i++)
+            {
+                prv = Instantiate(laserPrefab, prv).transform;
+            }
+
+            myWeapon = transform.GetChild(0).GetComponent<LaserWeaponVFX>();
         }
 
         //I'm lazy
         protected override void TryShoot()
         {
-        
+            
         }
         
         protected override bool CanShoot()
@@ -75,6 +91,7 @@ namespace Weapons
         public override void Upgrade<T>(T upgrade)
         {
             stats.Upgrade(upgrade);
+            SetChildBeams();
         }
 
         public override T GetStats<T>()

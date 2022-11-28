@@ -169,7 +169,7 @@ namespace Weapons
                 //Vector3 BulletDir = Vector3.Cross(bulletPos, Vector3.forward);
 
                 Projectile go = Instantiate(stats.Projectile, t.position + thisDir, vec * stats.Projectile.transform.rotation, GameManager.Instance.BulletParent);
-                go.Init(owner, stats.AreaOfEffect, stats.Damage, stats.RecursionFactor);
+                go.Init(owner, stats.AreaOfEffect, stats.Damage, stats.RecursionFactor, stats.Bounces);
             
                 go.GetComponent<Rigidbody>().AddForce(stats.BulletSpeed * t.forward, ForceMode.Impulse);
 #if UNITY_EDITOR

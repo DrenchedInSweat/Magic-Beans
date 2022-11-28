@@ -23,5 +23,6 @@ namespace Characters.Upgrades
         
         [Tooltip("This is how many bullets are shot")]
         [field:  SerializeField] public int ProjectilesFired { get; private set; }
+        [field:  SerializeField] public int Bounces { get; private set; }
     }
 }

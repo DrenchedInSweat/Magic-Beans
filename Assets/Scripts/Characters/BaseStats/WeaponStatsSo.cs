@@ -29,7 +29,7 @@ namespace Characters.BaseStats
         
         [Tooltip("This is how many bullets are shot")]
         [field:  SerializeField] public int ProjectilesFired { get; private set; }
-        
+        [field:  SerializeField, Min(0)] public int Bounces { get; private set; }
         [field: SerializeField, Range(0,1)] public float SlowDown { get; private set; }
 
         //Will this work polymorphically?
@@ -50,6 +50,7 @@ namespace Characters.BaseStats
             Damage += upgradeSo.Damage;
             ProjectilesFired += upgradeSo.ProjectilesFired;
             SlowDown += upgradeSo.SlowDown;
+            Bounces += upgradeSo.Bounces;
         }
         protected virtual void MultiplyUpgrade(WeaponUpgradeSo upgradeSo)
         {
@@ -57,6 +58,7 @@ namespace Characters.BaseStats
             Damage *= upgradeSo.Damage;
             ProjectilesFired *= upgradeSo.ProjectilesFired;
             SlowDown *= upgradeSo.SlowDown;
+            Bounces *= upgradeSo.Bounces;
         }
     }
 }
