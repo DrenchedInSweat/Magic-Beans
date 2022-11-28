@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Empty
   m_EditorClassIdentifier: 
   image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  description: Hi
+  description: No Custom
   unlocked: 1

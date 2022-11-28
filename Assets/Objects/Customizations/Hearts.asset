@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab047fb3b076ede43aec489b8b8c61ec, type: 3}
   m_Name: Hearts
   m_EditorClassIdentifier: 
-  image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  image: {fileID: 21300000, guid: a3ab4eb5b7a749649a12af37c3551db1, type: 3}
   description: Hearts
   unlocked: 1

@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f491a86904eae584aba7c33f026a441b, type: 3}
+  m_Name: PlayerStats
+  m_EditorClassIdentifier: 
+  <MoveSpeed>k__BackingField: 100
+  <MaxSpeed>k__BackingField: 14
+  <FloorDrag>k__BackingField: 5
+  <AirDrag>k__BackingField: 0
+  <JumpForce>k__BackingField: 6
+  <MaxJumps>k__BackingField: 2
+  <MaxHealth>k__BackingField: 100
+  <ContactDamage>k__BackingField: 0
+  <FloorLayers>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 1
+  <FeetCenter>k__BackingField: {x: 0, y: -0.5, z: 0}
+  <Range>k__BackingField: 0.75
+  <HurtSound>k__BackingField: {fileID: 8300000, guid: ba6e08dcd7ca1f6479c77e1667373284,
+    type: 3}
+  <DieSound>k__BackingField: {fileID: 8300000, guid: ba6e08dcd7ca1f6479c77e1667373284,
+    type: 3}
+  <HealSound>k__BackingField: {fileID: 8300000, guid: 830228c9eb423654cbee25805a8332a9,
+    type: 3}
+  <WalkSound>k__BackingField: {fileID: 8300000, guid: b944596c35bb5d04393d0051ee324722,
+    type: 3}
+  <UpgradeSound>k__BackingField: {fileID: 8300000, guid: 830228c9eb423654cbee25805a8332a9,
+    type: 3}
+  <WalkSoundDelay>k__BackingField: 0.5

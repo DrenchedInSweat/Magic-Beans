@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 778a999e6f9263c4fbf2a459e2cb9aba, type: 3}
+  m_Name: BombStats
+  m_EditorClassIdentifier: 
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 3097399487aaac54ba12ed4e8070c518,
+    type: 3}
+  <Name>k__BackingField: Bomb
+  <Description>k__BackingField: 
+  <TimeBetweenShots>k__BackingField: 2
+  <SprayPattern>k__BackingField: 0
+  <IsAngular>k__BackingField: 0
+  <Damage>k__BackingField: 24
+  <ProjectilesFired>k__BackingField: 0
+  <SlowDown>k__BackingField: 0.8
+  <Projectile>k__BackingField: {fileID: 0}
+  <BulletSpeed>k__BackingField: 30
+  <RandomSpread>k__BackingField: 0
+  <AreaOfEffect>k__BackingField: 3.6
+  <RecursionFactor>k__BackingField: 0
+  <Recoil>k__BackingField: {x: 0.1, y: 0.2}
+  <RecoilMultiplier>k__BackingField: 1

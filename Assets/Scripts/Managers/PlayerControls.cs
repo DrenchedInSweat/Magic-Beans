@@ -152,6 +152,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""50b37932-84b9-4c47-9a72-db9700ac39a3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""1f83d681-0270-4a16-a18c-1a005cef3943"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -193,7 +211,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""9742d5a6-9f01-4cad-b06d-48b69cad24f4"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""Scale(factor=3)"",
                     ""groups"": """",
                     ""action"": ""CameraX"",
                     ""isComposite"": true,
@@ -279,7 +297,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cdb5c016-4561-40d9-954b-6c715e66f93b"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Controller"",
@@ -545,7 +563,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""id"": ""04b8f6c6-1f93-491a-85d4-aefa9ddf08f8"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""Scale(factor=3)"",
                     ""groups"": """",
                     ""action"": ""CameraY"",
                     ""isComposite"": true,
@@ -638,6 +656,50 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""WeaponToggle3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a460a2e-0785-49a0-8c1c-eddd63ad0d6a"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""ToggleUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""337d4ad3-ffaf-4e17-8ef5-7848a6e17793"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""ToggleUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f904b8fc-aab5-421d-a33e-03517a317f30"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""ToggleDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""306ac05f-bc02-43b9-9931-dd8b671f7a08"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""ToggleDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -646,9 +708,45 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             ""id"": ""ee058593-42f2-46b4-963b-f45dad476834"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Up"",
                     ""type"": ""Button"",
                     ""id"": ""cf66df5e-8518-4409-8d2c-e4cb565d01aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""254f34d2-302b-4978-8797-0f4e48def375"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Left"",
+                    ""type"": ""Button"",
+                    ""id"": ""fa533927-372a-4d52-afae-3a22e113b230"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Right"",
+                    ""type"": ""Button"",
+                    ""id"": ""b1bc521c-fd8c-4e21-b511-e56e29ffe0d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e9e8d09-1710-404e-ac93-f4158183b2ea"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -659,11 +757,176 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4a95ccfd-54c6-42b4-bee5-ed11cd51d34e"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83085164-eec3-4608-b913-d8e0019a4bb2"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bf5dac72-33a4-43a8-be2e-7a93ce3649bd"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Up"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d526def-8735-421d-a938-230e1dfa4145"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb08eb60-45fe-42c9-bfba-3ec51ef3eae8"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""01584103-ff8a-4d0b-96e0-df6a930e3912"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3984c92a-3d98-4736-a902-0aec2bb23e5d"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d2efeda-9751-4548-8559-691d6fa882ac"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bca6cfaf-f924-4ff5-9106-4902e9e60fc8"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a78fda3-cb06-476f-aed4-7f066d909f3f"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63271d9f-ee4b-498b-bfa9-3c5fd792c8f9"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b8015c1-0f4b-4ae1-8f1f-25c5f014d035"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f268f5c-bf1b-467f-a0f4-9381bd7cb718"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f98ffa13-2427-426c-8547-c07d219ed736"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""891979f0-a6fd-4881-952a-7a5a68b26d6b"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1bef055f-9a71-405e-ac17-04320e5bab93"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Right"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -716,9 +979,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_InGame_WeaponToggle1 = m_InGame.FindAction("WeaponToggle1", throwIfNotFound: true);
         m_InGame_WeaponToggle2 = m_InGame.FindAction("WeaponToggle2", throwIfNotFound: true);
         m_InGame_WeaponToggle3 = m_InGame.FindAction("WeaponToggle3", throwIfNotFound: true);
+        m_InGame_ToggleUp = m_InGame.FindAction("ToggleUp", throwIfNotFound: true);
+        m_InGame_ToggleDown = m_InGame.FindAction("ToggleDown", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
+        m_UI_Up = m_UI.FindAction("Up", throwIfNotFound: true);
+        m_UI_Down = m_UI.FindAction("Down", throwIfNotFound: true);
+        m_UI_Left = m_UI.FindAction("Left", throwIfNotFound: true);
+        m_UI_Right = m_UI.FindAction("Right", throwIfNotFound: true);
+        m_UI_Select = m_UI.FindAction("Select", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -792,6 +1061,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_WeaponToggle1;
     private readonly InputAction m_InGame_WeaponToggle2;
     private readonly InputAction m_InGame_WeaponToggle3;
+    private readonly InputAction m_InGame_ToggleUp;
+    private readonly InputAction m_InGame_ToggleDown;
     public struct InGameActions
     {
         private @PlayerControls m_Wrapper;
@@ -810,6 +1081,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @WeaponToggle1 => m_Wrapper.m_InGame_WeaponToggle1;
         public InputAction @WeaponToggle2 => m_Wrapper.m_InGame_WeaponToggle2;
         public InputAction @WeaponToggle3 => m_Wrapper.m_InGame_WeaponToggle3;
+        public InputAction @ToggleUp => m_Wrapper.m_InGame_ToggleUp;
+        public InputAction @ToggleDown => m_Wrapper.m_InGame_ToggleDown;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -861,6 +1134,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @WeaponToggle3.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnWeaponToggle3;
                 @WeaponToggle3.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnWeaponToggle3;
                 @WeaponToggle3.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnWeaponToggle3;
+                @ToggleUp.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnToggleUp;
+                @ToggleUp.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnToggleUp;
+                @ToggleUp.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnToggleUp;
+                @ToggleDown.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnToggleDown;
+                @ToggleDown.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnToggleDown;
+                @ToggleDown.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnToggleDown;
             }
             m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
@@ -907,6 +1186,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @WeaponToggle3.started += instance.OnWeaponToggle3;
                 @WeaponToggle3.performed += instance.OnWeaponToggle3;
                 @WeaponToggle3.canceled += instance.OnWeaponToggle3;
+                @ToggleUp.started += instance.OnToggleUp;
+                @ToggleUp.performed += instance.OnToggleUp;
+                @ToggleUp.canceled += instance.OnToggleUp;
+                @ToggleDown.started += instance.OnToggleDown;
+                @ToggleDown.performed += instance.OnToggleDown;
+                @ToggleDown.canceled += instance.OnToggleDown;
             }
         }
     }
@@ -915,12 +1200,20 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     // UI
     private readonly InputActionMap m_UI;
     private IUIActions m_UIActionsCallbackInterface;
-    private readonly InputAction m_UI_Newaction;
+    private readonly InputAction m_UI_Up;
+    private readonly InputAction m_UI_Down;
+    private readonly InputAction m_UI_Left;
+    private readonly InputAction m_UI_Right;
+    private readonly InputAction m_UI_Select;
     public struct UIActions
     {
         private @PlayerControls m_Wrapper;
         public UIActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_UI_Newaction;
+        public InputAction @Up => m_Wrapper.m_UI_Up;
+        public InputAction @Down => m_Wrapper.m_UI_Down;
+        public InputAction @Left => m_Wrapper.m_UI_Left;
+        public InputAction @Right => m_Wrapper.m_UI_Right;
+        public InputAction @Select => m_Wrapper.m_UI_Select;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -930,16 +1223,40 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_UIActionsCallbackInterface != null)
             {
-                @Newaction.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNewaction;
+                @Up.started -= m_Wrapper.m_UIActionsCallbackInterface.OnUp;
+                @Up.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnUp;
+                @Up.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnUp;
+                @Down.started -= m_Wrapper.m_UIActionsCallbackInterface.OnDown;
+                @Down.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnDown;
+                @Down.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnDown;
+                @Left.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLeft;
+                @Left.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLeft;
+                @Left.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLeft;
+                @Right.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRight;
+                @Right.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRight;
+                @Right.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRight;
+                @Select.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSelect;
+                @Select.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSelect;
+                @Select.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSelect;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @Up.started += instance.OnUp;
+                @Up.performed += instance.OnUp;
+                @Up.canceled += instance.OnUp;
+                @Down.started += instance.OnDown;
+                @Down.performed += instance.OnDown;
+                @Down.canceled += instance.OnDown;
+                @Left.started += instance.OnLeft;
+                @Left.performed += instance.OnLeft;
+                @Left.canceled += instance.OnLeft;
+                @Right.started += instance.OnRight;
+                @Right.performed += instance.OnRight;
+                @Right.canceled += instance.OnRight;
+                @Select.started += instance.OnSelect;
+                @Select.performed += instance.OnSelect;
+                @Select.canceled += instance.OnSelect;
             }
         }
     }
@@ -978,9 +1295,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnWeaponToggle1(InputAction.CallbackContext context);
         void OnWeaponToggle2(InputAction.CallbackContext context);
         void OnWeaponToggle3(InputAction.CallbackContext context);
+        void OnToggleUp(InputAction.CallbackContext context);
+        void OnToggleDown(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnUp(InputAction.CallbackContext context);
+        void OnDown(InputAction.CallbackContext context);
+        void OnLeft(InputAction.CallbackContext context);
+        void OnRight(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
     }
 }

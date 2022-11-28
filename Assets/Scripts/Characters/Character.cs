@@ -1,145 +1,177 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Characters.Upgrades;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider), typeof(Animator))] // All are enemies going to have Rigids?
-public class Character : MonoBehaviour
+namespace Characters
 {
-    protected Animator _animator;
-    
-    //----------------------MOVEMENT--------------------//
-    [Header("Movement")]
-    
-    [Tooltip("XZ move speed of the character")]
-    [SerializeField, Min(0)] protected float moveSpeed;
-    
-    [Tooltip("The Absolute speed limit of the object")]
-    [SerializeField] protected float maxSpeed;
-
-    [Tooltip("The drag against the player while on the ground (Limiting slide)")]
-    [SerializeField] protected float floorDrag;
-    
-    [Tooltip("The drag against the player while on the ground (Limiting slide)")]
-    [SerializeField] protected float airDrag;
-
-    [Tooltip("Jump force of the character")]
-    [SerializeField, Min(0)] protected float jumpForce;
-
-    [Tooltip("The number of jumps a character can preform from the ground. ")]
-    [SerializeField, Min(1)] protected int maxJumps = 1;
-    protected int curJump;
-
-    [Header("Floor Stuff")]
-    [Tooltip("The transform where the center of the footsies are")]
-    [SerializeField] protected Transform feetCenter;
-
-    [Tooltip("Range of the footsies")]
-    [SerializeField] protected float range;
-    [SerializeField] protected LayerMask floorLayers; // TODO: Make safe accessible elsewhere
-    
-    protected const float MaxJumpTime = 0.2f;
-    protected float jumpTime;
-
-    protected Vector3 directionVector;
-    protected bool isGrounded;
-
-    [Header("Shooting")]
-    protected bool tryingToShoot;
-    [SerializeField] private Weapon weaponPrefab;
-    [SerializeField] private Transform weaponSpot;
-    protected Weapon weapon;
-
-    //------------------Character Stats---------------//
-    [Header("Character Stats")]
-    [SerializeField] protected float health;
-    
-    
-    // Start is called before the first frame update
-    protected virtual void Awake()
+    [RequireComponent(typeof(Collider), typeof(Animator), typeof(AudioSource))] // All are enemies going to have Rigids?
+    public class Character : MonoBehaviour
     {
-        _animator = GetComponent<Animator>();
-        if (weaponPrefab)
+        [Header("Character Information")]
+        [SerializeField] protected CharacterStatsSo stats;
+        
+        protected const float MaxJumpTime = 0.2f;
+        protected float jumpTime;
+        protected float curHealth;
+        private float curWalkTime;
+        
+        protected int curJump;
+        
+        protected Vector3 directionVector;
+        
+        protected bool isGrounded;
+        protected bool canAttack = true;
+        protected bool isMoving;
+
+        protected Animator animator;
+        protected AudioSource source;
+
+        protected float speed;
+        protected float maxSpeed;
+
+        private readonly int walkAnimID = Animator.StringToHash("IsMoving");
+        private readonly int attackAnimID = Animator.StringToHash("Attack");
+        
+    
+        // Start is called before the first frame update
+        protected virtual void Awake()
         {
-            weapon = Instantiate(weaponPrefab, weaponSpot);
-            weapon.Init(this);
+            animator = GetComponent<Animator>();
+            source = GetComponent<AudioSource>();
+            curHealth = stats.MaxHealth;
+            
+            speed = stats.MoveSpeed;
+            maxSpeed = stats.MaxSpeed;
         }
-    }
 
-    protected virtual void Update()
-    {
-        jumpTime += Time.deltaTime;
-        Move();
-        CheckFloor();
-        if (tryingToShoot)
+        
+
+        protected virtual void Update()
         {
-            weapon.TryShoot();
-        }
-    }
+            jumpTime += Time.deltaTime;
 
-    /// <summary>
-    /// Check for allowed floors below... 
-    /// </summary>
-    private void CheckFloor()
-    {
-        isGrounded = Physics.Raycast(feetCenter.position, -transform.up, range, floorLayers);
+            Move();
+            CheckFloor();
+            animator.SetBool(walkAnimID, isMoving);
+            if (isMoving)
+            {
+                curWalkTime += Time.deltaTime;
+                if (isGrounded && curWalkTime > stats.WalkSoundDelay)
+                    source.PlayOneShot(stats.WalkSound);
+            }
+        }
+
+        /// <summary>
+        /// Check for allowed floors below... 
+        /// </summary>
+        private void CheckFloor()
+        {
+            Transform t = transform;
+            isGrounded = Physics.Raycast(t.position + stats.FeetCenter, -t.up, stats.Range, stats.FloorLayers);
+
+            #if UNITY_EDITOR
+            Debug.DrawRay(t.position + stats.FeetCenter, -t.up * stats.Range, isGrounded?Color.green:Color.red);
+            #endif
+        
+            if (isGrounded && jumpTime > MaxJumpTime)
+            {
+                curJump = 0;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Makes a character take damage. Attacker can be used to handle achievements
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="amount"></param>
+        /// <param name="force"></param>
+        public virtual void TakeDamage(Character attacker, float amount)
+        {
+            print("HELP ME: " + gameObject.name + " I'm being killed by: " + attacker.gameObject.name);
+            curHealth -= amount;
+            if (curHealth < 0)
+            {
+                Die(attacker, amount);
+                return;
+            }
+            source.PlayOneShot(stats.HurtSound);
+        }
+
+        public virtual void TakeDamage(Character attacker, float amount, Vector3 force)
+        {
+            print("HELP ME: " + gameObject.name + " I'm being killed by: " + attacker.gameObject.name);
+            curHealth -= amount;
+            if (curHealth < 0)
+            {
+                Die(attacker, amount);
+                return;
+            }
+            source.PlayOneShot(stats.HurtSound);
+        }
+
+        /// <summary>
+        /// Kills and deletes a Character after a set time
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="amount"></param>
+        /// TODO: Play animation / Ragdoll --> Sink into floor --> Delete
+        protected virtual void Die(Character attacker, float amount)
+        {
+            source.PlayOneShot(stats.DieSound);
+            Destroy(gameObject);
+        }
+    
+        /// <summary>
+        /// Kills and deletes a Character after a set time
+        /// </summary>
+        /// <param name="amount"></param>
+        /// TODO: Play animation / Ragdoll --> Sink into floor --> Delete
+        protected virtual void Heal(float amount)
+        {
+            source.PlayOneShot(stats.HealSound);
+            curHealth = Mathf.Min(stats.MaxHealth, curHealth + amount);
+        }
+
+        protected virtual void Move()
+        {
+        
+        }
+
+        protected bool CanJump()
+        {
+            return jumpTime >= MaxJumpTime && curJump++ < stats.MaxJumps;
+        }
+
+        protected virtual void OnCollisionEnter(Collision collision)
+        {
+            //If hitting another character 
+            if (collision.transform.TryGetComponent(out Character c))
+            {
+                c.TakeDamage(this, stats.ContactDamage, -collision.impulse);
+            }
+        }
+
+        public virtual void UpgradeCharacter(CharacterUpgradeSo upgrade)
+        {
+            stats.UpgradeCharacter(upgrade);
+            curHealth = stats.MaxHealth;
+            source.PlayOneShot(stats.UpgradeSound);
+            speed = stats.MoveSpeed;
+            maxSpeed = stats.MaxSpeed;
+        }
+
 
 #if UNITY_EDITOR
-        Debug.DrawRay(feetCenter.position, -transform.up * range, isGrounded?Color.green:Color.red);
-        #endif
-        
-        if (isGrounded && jumpTime > MaxJumpTime)
+        protected virtual void OnDrawGizmos()
         {
-            curJump = 0;
+            Gizmos.DrawRay(transform.position + stats.FeetCenter, -transform.up * stats.Range);
         }
-    }
-
-
-    /// <summary>
-    /// Makes a character take damage. Attacker can be used to handle achievements
-    /// </summary>
-    /// <param name="attacker"></param>
-    /// <param name="amount"></param>
-    public void TakeDamage(Character attacker, float amount)
-    {
-        health -= amount;
-        if (health < 0)
-        {
-            Die(attacker, amount);
-        }
-    }
-
-    /// <summary>
-    /// Kills and deletes a Character after a set time
-    /// </summary>
-    /// <param name="attacker"></param>
-    /// <param name="amount"></param>
-    /// TODO: Play animation / Ragdoll --> Sink into floor --> Delete
-    protected virtual void Die(Character attacker, float amount)
-    {
-        
-    }
-
-    /// <summary>
-    /// Set the max jumps of this character
-    /// </summary>
-    /// <param name="newMaxJumps"></param>
-    public void SetMaxJumps(int newMaxJumps)
-    {
-        maxJumps = newMaxJumps;
-    }
-
-    protected virtual void Move()
-    {
-        
-    }
-    
-    #if UNITY_EDITOR
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawRay(feetCenter.position, -transform.up * range);
-    }
 #endif
-    
-
+        public void MultSpeed(float statsSlowDown)
+        {
+            maxSpeed *= statsSlowDown;
+            speed *= statsSlowDown;
+        }
+    }
 }

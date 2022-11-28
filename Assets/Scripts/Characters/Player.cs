@@ -1,477 +1,402 @@
-using System;using System.Collections;
-using System.Collections.Generic;
+using System.Collections;
+using Characters.BaseStats;
+using Characters.Upgrades;
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Rigidbody))]
-public class Player : Character
+namespace Characters
 {
-    private Rigidbody _rb;
-    private PlayerControls _controls;
-
-    [Header("Player Controls")]
-    public float mouseSensitivity;
-    [Tooltip("Limits the max rotation of the cam")]
-    [SerializeField, Range(0,89.9f)] private float viewLockY;
-    [SerializeField] private float recoilResetTime = 0.4f;
-    [SerializeField] private Transform head;
-
-    [Header("Wall Running")]
-    [Tooltip("Speed on wall")]
-    [SerializeField] private float wallSpeed;
-    [Tooltip("How long the player can wall run for")]
-    [SerializeField] private float maxWallRunDuration;
-    [Tooltip("Time until fully recovered")]
-    [SerializeField] private float wallRecoverySpeed = 1;
-    [Tooltip("Time until recovery starts")]
-    [SerializeField] private float wallRecoveryDelay = 2;
-    private float delayTimer;
-    
-    [Tooltip("The gravity on the wall")]
-    [SerializeField] private float wallRunGravity;
-
-    
-    private float wallRunTime;
-    private float wallDist = 0.75f;
-    private float curRecoilTime = 0f;
-    
-    private RaycastHit leftWallCast;
-    private bool onLeftWall;
-    private RaycastHit rightWallCast;
-    private bool onRightWall;
-
-    private int wallRunScalar; // Used to help the player run backwards and rotate the cam
-
-    private GameObject lastWall;
-
-    private bool isWallRunning;
-
-    private bool tryingToJump;
-    private Vector2 mouseDir;
-
-    private Vector3 wallForward;
-
-    [Header("Player Stats")]
-    [SerializeField] int currentHealth;
-    [SerializeField] int maxHealth;
-
-    int weaponindex = 0;
-    [SerializeField] int weaponUnlockCount = 0;
-    float invicibilityTime = 0.05f;
-    float invincTimer;
-
-    [Header("Sound")]
-    [SerializeField] AudioClip hurtSound;
-    [SerializeField] AudioClip healSound;
-    [SerializeField] AudioClip weaponChangeSound;
-    [SerializeField] AudioClip weaponUpgradeSound;
-    [SerializeField] AudioClip weaponUpgradeFailSound;
-    [SerializeField] AudioClip playerWalk;
-
-    [Header("UI")] //[SerializeField] //private Slider slider;
-    [SerializeField] private CinemachineVirtualCamera cmv;
-    private Vector2 intendedDirection;
-
-    public bool showUI = true;
-    [SerializeField] Slider healthbar;
-
-    [SerializeField] GameObject healOverlay;
-    [SerializeField] float healOverlayTime = 0.5f;
-    float healOTimer;
-    [SerializeField] GameObject hurtOverlay;
-    [SerializeField] float hurtOverlayTime = 0.5f;
-    float hurtOTimer;
-
-    [Tooltip("Images for each of the weapon slots")]
-    [SerializeField] Image[] weaponSlots;
-    [Tooltip("Highlighted colour when weaopon slot is selected")]
-    [SerializeField] Color equippedWeaponCol = new Color(1f, 1f, 1f, 1f);
-    [Tooltip("Colour for when weapon slot is available but not selected")]
-    [SerializeField] Color unequippedWeaponCol = new Color(0.5f, 0.5f, 0.5f, 1f);
-    [Tooltip("Colour for when weapon slot is unavailable")]
-    [SerializeField] Color unavailWeaponCol = new Color(0.2f, 0.2f, 0.2f, 0.5f);
-
-    [SerializeField] GameObject deathscreen;
-
-    #region Getters
-    public Weapon Weapon => weapon;
-    public float WallSpeed => wallSpeed;
-    public float MaxWallRunDuration => maxWallRunDuration;
-    public float WallRecoverySpeed => wallRecoverySpeed;
-    public float JumpForce => jumpForce;
-    public float MoveSpeed => moveSpeed;
-    public float MaxHealth => health;
-    public int MaxJumps => maxJumps;
-    
-    #endregion
-    
-    
-    //TODO: If we go in the route of shooting,use Impulse Source -- Do this for landing aswell
-
-    // Start is called before the first frame update
-    protected override void Awake()
+    [RequireComponent(typeof(Rigidbody))]
+    public class Player : Character
     {
-        base.Awake();
-        _rb = GetComponent<Rigidbody>();
-        _controls = new PlayerControls();
-        _controls.InGame.Enable();
-
-        _controls.InGame.Jump.performed += x =>  tryingToJump = !tryingToJump;
-        _controls.InGame.Jump.canceled += x =>  tryingToJump = !tryingToJump;
-        _controls.InGame.Shoot.performed += x =>  tryingToShoot = !tryingToShoot;
-        _controls.InGame.Shoot.canceled += x =>  tryingToShoot = !tryingToShoot;
-        _controls.InGame.LeftRight.performed += ctx => directionVector.z = ctx.ReadValue<float>();
-        _controls.InGame.ForwardBack.performed += ctx => directionVector.x = ctx.ReadValue<float>();
-        _controls.InGame.CameraX.performed += ctx => mouseDir.y = ctx.ReadValue<float>();
-        _controls.InGame.CameraY.performed += ctx => mouseDir.x = ctx.ReadValue<float>();
-        _controls.InGame.WeaponToggle1.performed += x => ToggleWeaponSlot(0);
-        _controls.InGame.WeaponToggle2.performed += x => ToggleWeaponSlot(1);
-        _controls.InGame.WeaponToggle3.performed += x => ToggleWeaponSlot(2); //RevealMouse();
-
-        _controls.InGame.Interact.performed += x => Interact(); // This should 
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        //UI
-        healthbar.maxValue = maxHealth;
-        currentHealth = maxHealth;
-        healthbar.value = currentHealth;
-        UpdateUI();
-        WeaponSlotUpdate();
-    }
-
-    /// <summary>
-    /// Casts a ray forward -- If the object hit implements the IInteractable interface? Or should it be a component? do things
-    /// </summary>
-    private void Interact()
-    {
+        // -------------------------- Serialized Properties  -------------------------- //
         
-    }
-    
-    private void RotateCamera()
-    {
-        transform.rotation *= Quaternion.AngleAxis(intendedDirection.x * mouseSensitivity, Vector3.up);
-        head.rotation *= Quaternion.AngleAxis(intendedDirection.y * mouseSensitivity, Vector3.right);
+        [Header("Player Controls")]
+        public float mouseSensitivity;
         
-        Vector3 angles = Vector3.zero;
+        [Tooltip("Limits the max rotation of the cam")]
+        [SerializeField, Range(0,89.9f)] private float viewLockY;
+        
+        [SerializeField] private float recoilResetTime = 0.4f;
+        
+        [SerializeField] private Transform head;
 
-        angles.x = head.localEulerAngles.x;
-        print($"rotating {angles}");
-        //Up/Down clamped
-        if (angles.x > 180 && angles.x < 360 - viewLockY)
+        [Header("Player Only")]
+        [SerializeField] private float wallSpeed;
+        [SerializeField] private float maxSpeedMultOnWall;
+
+        // -------------------------- Primitives  -------------------------- //
+        private Rigidbody rb;
+        private PlayerControls controls;
+        private CinemachineVirtualCamera cmv;
+        //private readonly Weapon[] weapons = new Weapon[3];
+        
+        private Vector2 intendedDirection;
+        private Vector2 mouseDir;
+        private Vector3 wallForward;
+
+        private RaycastHit leftWallCast;
+        private RaycastHit rightWallCast;
+        
+        private const float WallDist = 0.75f;
+        private float wallRunTime;
+        private float curRecoilTime;
+        //float invicibilityTime = 0.05f;
+        //float invincTimer;
+        
+        private bool onLeftWall;
+        private bool onRightWall;
+        private bool isWallRunning;
+        private bool tryingToJump;
+        private bool usingLeftHand; //TODO: for animations
+
+        private int wallRunScalar; // Used to help the player run backwards and rotate the cam
+        private int weaponIndex;
+
+        //[SerializeField] int weaponUnlockCount;
+        
+        [Header("Audio")]
+        [SerializeField] AudioClip weaponChangeSound;
+        [SerializeField] AudioClip weaponUpgradeSound;
+        [SerializeField] AudioClip weaponUpgradeFailSound;
+
+        private PlayerUI ui;
+        private ShootingCapability shootingCapability;
+        
+        // -------------------------- Logged Stats  -------------------------- //
+        private float longestWallRun;
+        private float totalTimeWallRunning;
+        
+        #region Overrides
+
+        protected override void Awake()
         {
-            angles.x = 360 - viewLockY;
-        }
-        else if (angles.x < 180 && angles.x > viewLockY)
-        {
-            angles.x = viewLockY;
-        }
+            base.Awake();
+            //Get Components
+            rb = GetComponent<Rigidbody>();
+            ui = GetComponent<PlayerUI>();
+            cmv = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
 
+            //Handle Controls
+            controls = new PlayerControls();
+            controls.InGame.Enable();
+            controls.InGame.Jump.started += _ =>  tryingToJump = true;
+            controls.InGame.Jump.canceled += _ =>  tryingToJump = false;
+            controls.InGame.Shoot.started += _ =>
+            {
+                if (canAttack)
+                    shootingCapability.Weapons[weaponIndex].tryingToShoot = true;
+            };
+            controls.InGame.Shoot.canceled += _ => shootingCapability.Weapons[weaponIndex].tryingToShoot = false;
 
-        head.localEulerAngles = angles;
-    }
-    
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
-        if(tryingToJump)
-            Jump();
-        RotateCamera();
-
-        HandleWallRun();
-        //slider.value = GetRemainingWallPercent();
-
-        //Recoil
-        if (curRecoilTime != 0)
-        {
+            controls.InGame.WeaponToggle1.started += _ => ToggleWeaponSlot(0);
+            controls.InGame.WeaponToggle2.started += _ => ToggleWeaponSlot(1);
+            controls.InGame.WeaponToggle3.started += _ => ToggleWeaponSlot(2); 
             
-            print($"Performing the Action: {mouseDir}, {intendedDirection} --> {curRecoilTime / recoilResetTime}");
-            curRecoilTime += Time.deltaTime;
+            controls.InGame.LeftRight.performed += ctx => directionVector.z = ctx.ReadValue<float>();
+            controls.InGame.ForwardBack.performed += ctx => directionVector.x = ctx.ReadValue<float>();
+            controls.InGame.CameraX.performed += ctx => mouseDir.y = ctx.ReadValue<float>();
+            controls.InGame.CameraY.performed += ctx => mouseDir.x = ctx.ReadValue<float>();
+
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+            ui.SetHealth(stats.MaxHealth, curHealth);
+            
+            shootingCapability = GetComponent<ShootingCapability>();
+            shootingCapability.Init(this);
+            for (int i = 0; i < shootingCapability.Weapons.Length; ++i)
+            {
+                ui.SetWeapon(i, shootingCapability.Weapons[i].GetStats<WeaponStatsSo>().Sprite);
+            }
+            
+            ui.SetCurrentWeapon(0,0);
+        }
+
+        
+    
+        // Update is called once per frame
+        protected override void Update()
+        {
+            base.Update();
+            if(tryingToJump && CanJump())
+                Jump();
+            
+            RotateCamera();
+            HandleWallRun();
+            
+            //Recoil pull down
+            if (curRecoilTime != 0)
+            {
+            
+                print($"Performing the Action: {mouseDir}, {intendedDirection} --> {curRecoilTime / recoilResetTime}");
+                curRecoilTime += Time.deltaTime;
             
             
-            intendedDirection = Vector2.Lerp(intendedDirection, mouseDir, curRecoilTime / recoilResetTime);
+                intendedDirection = Vector2.Lerp(intendedDirection, mouseDir, curRecoilTime / recoilResetTime);
             
-            if (curRecoilTime > recoilResetTime) // this may be sketchy
-                curRecoilTime = 0;
-        }
-        else
-        {
-            intendedDirection = mouseDir;
-        }
-
-        UpdateUI();
-    }
-
-    #region Movement
-
-    #region CoreMovement
-
-    
-
-    
-    protected override void Move()
-    {
-
-        if (isWallRunning)
-        {
-            //Cast a ray from player to wall,
-            //if the angle between wall and camera is positive, move in a positive direction
-            //else move in a negative direction
-            //print(Mathf.RoundToInt(Vector3.Dot(wallForward, transform.forward)));
-
-            float dir = wallRunScalar;
-
-            //Gives backwards control
-            if (directionVector.x < 0 || directionVector.z < 0)
-            {
-                dir *= -0.6f; // Also reduce speed to 60%
-            }
-            _rb.AddForce(wallSpeed * Time.fixedDeltaTime * dir * wallForward, ForceMode.Force);
-        }
-        else
-        {
-            _rb.AddForce(moveSpeed * Time.fixedDeltaTime * directionVector.x * transform.forward, ForceMode.Force);
-            _rb.AddForce(moveSpeed * Time.fixedDeltaTime * directionVector.z * transform.right, ForceMode.Force);
-        }
-
-        //Handle drag
-        _rb.drag = isGrounded ? floorDrag : airDrag;
-        
-        //Clamp speed
-        Vector2 clamped = Vector2.ClampMagnitude(new Vector2(_rb.velocity.x, _rb.velocity.z), maxSpeed);
-        _rb.velocity = new Vector3(clamped.x, _rb.velocity.y, clamped.y);
-    }
-    private void Jump()
-    {
-        //Implement a delay to prevent all jumps from being used instantly
-        if (jumpTime >= MaxJumpTime)
-        {
-            //If the player can jump OR is grounded
-            if (curJump++ < maxJumps)
-            {
-                jumpTime = 0;
-                Vector3 newDir = Vector3.up;
-                if (isWallRunning)
-                {
-                    //Reflection into the walls surface?
-                    //Add force orthagonal to the wall?
-                    
-                    //15 degs
-                    //40% force
-                    print(jumpForce * 0.4f);
-                    newDir = 4 * Vector3.RotateTowards(Vector3.Cross(-wallForward, Vector3.up), Vector3.up, 0.26f, 1);
-                }
-                else if (!isGrounded) // ORDER IS IMPORTANT!
-                {
-                    //Stop current velocity
-                    _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-                }
-                Debug.DrawRay(transform.position, newDir * 10, Color.red, 5);
-                _rb.AddForce(jumpForce * newDir, ForceMode.Impulse);
-            }
-        }
-    }
-    #endregion
-
-    #region WallRunning
-    private void HandleWallRun()
-    {
-        if (jumpTime < MaxJumpTime)
-            return;
-        onRightWall = Physics.Raycast(transform.position, transform.right, out rightWallCast, wallDist, floorLayers);
-        onLeftWall = Physics.Raycast(transform.position, -transform.right, out leftWallCast, wallDist, floorLayers);
-        
-        #if UNITY_EDITOR
-        Debug.DrawRay(transform.position, transform.right * wallDist, onRightWall?Color.green:Color.red);
-        Debug.DrawRay(transform.position, -transform.right * wallDist, onLeftWall?Color.green:Color.red);
-        Debug.DrawRay(transform.position, transform.forward * wallDist, isWallRunning?Color.cyan:Color.yellow);
-        #endif
-
-        //print("iSGrounded: " + isGrounded);
-        if (!isGrounded && jumpTime > MaxJumpTime && directionVector != Vector3.zero && (onLeftWall || onRightWall) && wallRunTime > 0)
-        {
-            wallRunTime -= Time.deltaTime;
-            //Add custom gravity
-            _rb.velocity = new Vector3(_rb.velocity.x, wallRunGravity, _rb.velocity.z);
-            if (!isWallRunning) // DO not repeat this code when already wall running!
-            {
-                isWallRunning = true;
-                curJump = 0;
-                Vector3 wallNormal = onLeftWall ? leftWallCast.normal : rightWallCast.normal;
-                wallForward = Vector3.Cross(wallNormal, Vector3.up);
-                wallRunScalar = Mathf.RoundToInt(Vector3.Dot(wallForward, transform.forward));
-                print($"Dot: {Vector3.Dot(wallForward, transform.forward)} - Rounded: {wallRunScalar}");
-                
-                
-                StartCoroutine(SmoothRotCam(wallRunScalar * -15, 0.2f));
-                
-            }
-
-        }
-        else
-        {
-            //ONLY RUNS ONCE
-            if (isWallRunning)
-            {
-                print("off the wall");
-                StopWallRun();
-            }
-
-            isWallRunning = false;
-            delayTimer -= Time.deltaTime;
-            if (delayTimer <= 0)
-            {
-                wallRunTime = Mathf.Min(Time.deltaTime * wallRecoverySpeed + wallRunTime, maxWallRunDuration);
-            }
-        }
-    }
-
-    private void StopWallRun()
-    {
-        delayTimer = wallRecoveryDelay;
-        StartCoroutine(SmoothRotCam(0, 0.2f));
-    }
-
-    private IEnumerator SmoothRotCam(int newRot, float duration)
-    {
-        float prvRot = cmv.m_Lens.Dutch;
-        float curTime = 0;
-        while (curTime < duration)
-        {
-            curTime += Time.deltaTime;
-            cmv.m_Lens.Dutch = Mathf.Lerp(prvRot,newRot, curTime / duration);
-            yield return null;
-        }
-
-        yield return null;
-    }
-    
-    //For my UI friends
-    public float GetRemainingWallPercent()
-    {
-        return wallRunTime / maxWallRunDuration;
-    }
-    #endregion
-    #endregion
-    
-    public void AddRecoil(Vector2 recoilPattern)
-    {
-        print("Adding recoil");
-        curRecoilTime = 0.01f;
-        intendedDirection += recoilPattern;
-    }
-
-    //takes in an input and checks if the the slot can be changed to before swapping to it
-    void ToggleWeaponSlot(int slot)
-    {
-        if (slot <= weaponUnlockCount)
-        {
-            PlaySoundEffect(weaponChangeSound);
-            weaponindex = slot;
-        }
-        WeaponSlotUpdate();
-    }
-
-    //increases weapon slots available 
-    public void IncreaseWeaponSlots()
-    {
-        if (weaponUnlockCount < 3)
-        {
-            PlaySoundEffect(weaponUpgradeSound);
-            weaponUnlockCount++;
-        }
-        else
-        {
-            PlaySoundEffect(weaponUpgradeFailSound);
-        }
-    }
-
-    public void HurtPlayer(int hurtval)
-    {
-        PlaySoundEffect(hurtSound);
-        currentHealth -= hurtval;
-        StartCoroutine(FadeOverlay(hurtOverlay, hurtOverlayTime));
-        if (currentHealth <= 0)
-        {
-            PlayerDeath();
-        }
-    }
-
-    public void HealPlayer(int healval)
-    {
-        PlaySoundEffect(healSound);
-        currentHealth += healval;
-        StartCoroutine(FadeOverlay(healOverlay, healOverlayTime));
-        if (currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-    }
-
-    public void PlayerDeath()
-    {
-        deathscreen.SetActive(true);
-        Time.timeScale = 0;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
-
-    #region UserInterface
-
-    void UpdateUI()
-    {
-        healthbar.value = currentHealth;
-
-    }
-
-    void WeaponSlotUpdate()
-    {
-        for (int i=0; i < weaponSlots.Length; i++)
-        {
-            if (weaponindex == i)
-            {
-                weaponSlots[i].color = equippedWeaponCol;
-            }
-            else if (i >= weaponUnlockCount)
-            {
-                weaponSlots[i].color = unequippedWeaponCol;
+                if (curRecoilTime > recoilResetTime) // this may be sketchy
+                    curRecoilTime = 0;
             }
             else
             {
-                weaponSlots[i].color = unavailWeaponCol;
+                intendedDirection = mouseDir;
             }
         }
-    }
 
-    public void RevealMouse()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
-
-    #endregion
-
-    void PlaySoundEffect(AudioClip sound)
-    {
-        if (sound)
+        public override void TakeDamage(Character attacker, float amount, Vector3 force)
         {
-            AudioSource.PlayClipAtPoint(sound, transform.position);
+            base.TakeDamage(attacker, amount, force);
+            rb.AddForce(force);
+            ui.UpdateHealth(curHealth, amount);
         }
-    }
-
-    IEnumerator FadeOverlay(GameObject overlay, float time)
-    {
-        overlay.SetActive(true);
-        overlay.GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        yield return new WaitForSeconds(0.5f);
-        for (float i = time; i >= 0; i -= Time.deltaTime)
+        
+        public override void TakeDamage(Character attacker, float amount)
         {
-            overlay.GetComponent<Image>().color = new Color(1, 1, 1, i/time);
+            base.TakeDamage(attacker, amount);
+            ui.UpdateHealth(curHealth, amount);
+        }
+
+        protected override void Heal(float amount)
+        {
+            base.Heal(amount);
+            ui.UpdateHealth(curHealth, amount);
+        }
+
+        protected override void Die(Character attacker, float amount)
+        {
+            base.Die(attacker, amount);
+            ui.UpdateHealth(curHealth, amount);
+        }
+
+        public override void UpgradeCharacter(CharacterUpgradeSo upgrade)
+        {
+            base.UpgradeCharacter(upgrade);
+            ui.SetHealth(stats.MaxHealth, curHealth);
+            ui.UpdateUpgradeUI();
+        }
+        #endregion
+        
+        #region Core
+
+        #region CoreMovement
+    
+        protected override void Move()
+        {
+            float mSpeed = maxSpeed;
+            if (isWallRunning)
+            {
+                float dir = wallRunScalar;
+
+                //Gives backwards control
+                if (directionVector.x < 0 || directionVector.z < 0)
+                {
+                    dir *= -0.6f; // Also reduce speed to 60%
+                }
+                rb.AddForce(wallSpeed * dir * wallForward, ForceMode.Force);
+                mSpeed *= maxSpeedMultOnWall;
+            }
+            else
+            {
+                rb.AddForce(speed * directionVector.x * transform.forward, ForceMode.Force);
+                rb.AddForce(speed * directionVector.z * transform.right, ForceMode.Force);
+            }
             
+            
+            
+
+            //Handle drag
+            rb.drag = isGrounded ? stats.FloorDrag : stats.AirDrag;
+        
+            //Clamp speed
+            Vector3 velocity = rb.velocity;
+            Vector2 clamped = Vector2.ClampMagnitude(new Vector2(velocity.x, velocity.z),mSpeed);
+            rb.velocity = new Vector3(clamped.x, velocity.y, clamped.y);
+            isMoving = rb.velocity.magnitude > 0.1f;
         }
-        overlay.SetActive(false);
+
+        private void Jump()
+        {
+            jumpTime = 0;
+            Vector3 newDir = Vector3.up;
+            if (isWallRunning)
+            {
+                newDir = 4 * Vector3.RotateTowards(Vector3.Cross(-wallForward, Vector3.up), Vector3.up, 0.26f, 1);
+            }
+            else if (!isGrounded) // ORDER IS IMPORTANT!
+            {
+                Vector3 velocity = rb.velocity;
+                velocity = new Vector3(velocity.x, 0, velocity.z);
+                rb.velocity = velocity;
+            }
+            #if UNITY_EDITOR
+            Debug.DrawRay(transform.position, newDir * 10, Color.red, 5);
+            #endif
+            rb.AddForce(stats.JumpForce * newDir, ForceMode.Impulse);
+        }
+
+        #endregion
+
+        #region WallRunning
+        private void HandleWallRun()
+        {
+            if (jumpTime < MaxJumpTime)
+                return;
+            Transform trans = transform;
+            Vector3 right = trans.right;
+            Vector3 position = trans.position;
+            onRightWall = Physics.Raycast(position, right, out rightWallCast, WallDist, stats.FloorLayers);
+            onLeftWall = Physics.Raycast(position, -right, out leftWallCast, WallDist, stats.FloorLayers);
+            #if UNITY_EDITOR
+            Debug.DrawRay(transform.position, right * WallDist, onRightWall?Color.green:Color.red);
+            Debug.DrawRay(transform.position, -right * WallDist, onLeftWall?Color.green:Color.red);
+            Debug.DrawRay(transform.position, trans.forward * WallDist, isWallRunning?Color.cyan:Color.yellow);
+            #endif
+            //print("iSGrounded: " + isGrounded);
+            if (!isGrounded && jumpTime > MaxJumpTime && directionVector != Vector3.zero && (onLeftWall || onRightWall))
+            {
+                wallRunTime += Time.deltaTime;
+                //Add custom gravity
+                Vector3 velocity = rb.velocity;
+                velocity = new Vector3(velocity.x, 0, velocity.z);
+                rb.velocity = velocity;
+                if (!isWallRunning) // DO not repeat this code when already wall running!
+                {
+                    //Start wall running
+                    isWallRunning = true;
+                    curJump = 0;
+                    Vector3 wallNormal = onLeftWall ? leftWallCast.normal : rightWallCast.normal;
+                    wallForward = Vector3.Cross(wallNormal, Vector3.up);
+                    wallRunScalar = Mathf.RoundToInt(Vector3.Dot(wallForward, trans.forward));
+                    #if UNITY_EDITOR
+                    print($"Dot: {Vector3.Dot(wallForward, trans.forward)} - Rounded: {wallRunScalar}");
+                    #endif
+                    StartCoroutine(SmoothRotCam(wallRunScalar * -15, 0.2f));
+                }
+            }
+            else
+            {
+                //ONLY RUNS ONCE
+                if (isWallRunning)
+                {
+                    //Stop wall running
+                    StartCoroutine(SmoothRotCam(0, 0.2f));
+                }
+                
+                //For achievements.
+                totalTimeWallRunning += wallRunTime;
+                longestWallRun = wallRunTime;
+                wallRunTime = 0;
+                
+                isWallRunning = false;
+            }
+        }
+        private IEnumerator SmoothRotCam(int newRot, float duration)
+        {
+            print("Rotating Cam: " + newRot);
+            float prvRot = cmv.m_Lens.Dutch;
+            float curTime = 0;
+            while (curTime < duration)
+            {
+                curTime += Time.deltaTime;
+                cmv.m_Lens.Dutch = Mathf.Lerp(prvRot,newRot, curTime / duration);
+                yield return null;
+            }
+
+            yield return null;
+        }
+        private void RotateCamera()
+        {
+            //Pause handling
+            if (Time.timeScale == 0) return;
+            
+            transform.rotation *= Quaternion.AngleAxis(intendedDirection.x * mouseSensitivity, Vector3.up);
+            head.rotation *= Quaternion.AngleAxis(intendedDirection.y * mouseSensitivity, Vector3.right);
+        
+            Vector3 angles = Vector3.zero;
+
+            angles.x = head.localEulerAngles.x;
+            //print($"rotating {angles}");
+            //Up/Down clamped
+            if (angles.x > 180 && angles.x < 360 - viewLockY)
+            {
+                angles.x = 360 - viewLockY;
+            }
+            else if (angles.x < 180 && angles.x > viewLockY)
+            {
+                angles.x = viewLockY;
+            }
+
+
+            head.localEulerAngles = angles;
+        }
+        
+        //takes in an input and checks if the the slot can be changed to before swapping to it
+        private void ToggleWeaponSlot(int slot)
+        {
+            ui.SetCurrentWeapon(weaponIndex, slot);
+            if (slot <=  shootingCapability.Weapons.Length)
+            {
+                source.PlayOneShot(weaponChangeSound);
+                shootingCapability.Weapons[weaponIndex].tryingToShoot = false;
+                weaponIndex = slot;
+            }
+        }
+        #endregion
+        #endregion
+        
+        #region ExposedFucntions
+        public void AddRecoil(Vector2 recoilPattern)
+        {
+            print("Adding recoil");
+            curRecoilTime = 0.01f;
+            intendedDirection += recoilPattern;
+        }
+
+        public void SetStateHUD(bool state)
+        {
+            ui.SetUI(state);
+        }
+
+        public void SetStateHUDAndWeapon(bool state)
+        {
+            SetStateHUD(state);
+            shootingCapability.Weapons[weaponIndex].tryingToShoot = false;
+        }
+        
+        public void UpgradeAttackCharacter(WeaponUpgradeSo upgrade, int idx)
+        {
+            shootingCapability.Weapons[idx].Upgrade(upgrade);
+            source.PlayOneShot(stats.UpgradeSound);
+        }
+
+        //increases weapon slots available 
+        //TODO: ???
+        /*public void IncreaseWeaponSlots()
+        {
+            if (weaponUnlockCount < 3)
+            {
+                source.PlayOneShot(weaponUpgradeSound);
+                weaponUnlockCount++;
+            }
+            else
+            {
+                source.PlayOneShot(weaponUpgradeFailSound);
+            }
+        }*/
+        #endregion
+        
+#if UNITY_EDITOR
+        protected override void OnDrawGizmos()
+        {
+            base.OnDrawGizmos();
+            var transform1 = transform;
+            var position = transform1.position;
+            var right = transform1.right;
+            Gizmos.DrawRay(position, right * WallDist);
+            Gizmos.DrawRay(position, -right * WallDist);
+            Gizmos.DrawRay(position, transform.forward * WallDist);
+        }
+#endif
     }
 }
