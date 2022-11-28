@@ -9,24 +9,49 @@ public class ButtonPromptVisualizer : MonoBehaviour
 {
     [SerializeField] InputActionReference actionToReference;
     [SerializeField] TMP_Text textBox;
-    
+    private PlayerInput controls;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        UpdateText();
+        controls = GetComponent<PlayerInput>();
+        SetText();
+        controls.onControlsChanged += UpdateText;
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateText();
+        
     }
 
-    void UpdateText()
+    void SetText()
     {
         textBox.text = InputControlPath.ToHumanReadableString(actionToReference.action.
             bindings[actionToReference.action.GetBindingIndexForControl(actionToReference.action.controls[0])].
-            effectivePath,InputControlPath.HumanReadableStringOptions.OmitDevice);
+            effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice);
+
     }
+    
+    void UpdateText(PlayerInput input)
+    {
+        if (input.currentControlScheme.Equals("Controller"))
+        {
+            textBox.text = InputControlPath.ToHumanReadableString(actionToReference.action.
+            bindings[actionToReference.action.GetBindingIndexForControl(actionToReference.action.controls[1])].
+            effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice);
+        }
+        else
+        {
+            textBox.text = InputControlPath.ToHumanReadableString(actionToReference.action.
+            bindings[actionToReference.action.GetBindingIndexForControl(actionToReference.action.controls[0])].
+            effectivePath, InputControlPath.HumanReadableStringOptions.OmitDevice);
+        }
+        
+    }
+
+
 }
