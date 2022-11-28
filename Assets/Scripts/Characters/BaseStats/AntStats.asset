@@ -12,22 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f491a86904eae584aba7c33f026a441b, type: 3}
   m_Name: AntStats
   m_EditorClassIdentifier: 
-  <MoveSpeed>k__BackingField: 1
-  <MaxSpeed>k__BackingField: 0
-  <FloorDrag>k__BackingField: 0
+  <MoveSpeed>k__BackingField: 180
+  <MaxSpeed>k__BackingField: 16
+  <FloorDrag>k__BackingField: 5
   <AirDrag>k__BackingField: 0
   <JumpForce>k__BackingField: 0
   <MaxJumps>k__BackingField: 0
-  <MaxHealth>k__BackingField: 0
+  <MaxHealth>k__BackingField: 40
   <ContactDamage>k__BackingField: 0
   <FloorLayers>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
-  <FeetCenter>k__BackingField: {x: 0, y: 0, z: 0}
-  <Range>k__BackingField: 0
+    m_Bits: 1
+  <FeetCenter>k__BackingField: {x: 0, y: 0.25, z: 0}
+  <Range>k__BackingField: 1
   <HurtSound>k__BackingField: {fileID: 0}
   <DieSound>k__BackingField: {fileID: 0}
   <HealSound>k__BackingField: {fileID: 0}
-  <WalkSound>k__BackingField: {fileID: 0}
+  <WalkSound>k__BackingField: {fileID: 8300000, guid: f61a0e6e06a889745a07a954533af91a,
+    type: 3}
   <UpgradeSound>k__BackingField: {fileID: 0}
-  <WalkSoundDelay>k__BackingField: 0
+  <WalkSoundDelay>k__BackingField: 0.4

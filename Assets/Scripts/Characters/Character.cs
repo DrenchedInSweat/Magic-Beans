@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Characters
 {
-    [RequireComponent(typeof(Collider), typeof(Animator))] // All are enemies going to have Rigids?
+    [RequireComponent(typeof(Collider), typeof(Animator), typeof(AudioSource))] // All are enemies going to have Rigids?
     public class Character : MonoBehaviour
     {
         [Header("Character Information")]
@@ -27,6 +27,9 @@ namespace Characters
 
         protected float speed;
         protected float maxSpeed;
+
+        private readonly int walkAnimID = Animator.StringToHash("IsMoving");
+        private readonly int attackAnimID = Animator.StringToHash("Attack");
         
     
         // Start is called before the first frame update
@@ -48,7 +51,7 @@ namespace Characters
 
             Move();
             CheckFloor();
-
+            animator.SetBool(walkAnimID, isMoving);
             if (isMoving)
             {
                 curWalkTime += Time.deltaTime;

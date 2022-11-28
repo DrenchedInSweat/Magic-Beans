@@ -25,7 +25,7 @@ namespace Characters
             
             if (!isGrounded)
             {
-                CheckAroundAnt();
+                //CheckAroundAnt();
                 //print("I'm Not on the ground");
             }
             else
@@ -40,7 +40,7 @@ namespace Characters
                 ///if(deltaGap.sqrMagnitude > 1)
                 //print($"ANT {(hit.point -   feetCenter.position)}, {moveSpeed * Time.deltaTime * transform.forward}");
                 //transform.LookAt(tempPlayer);
-                transform.position = hit.point + hit.normal * 0.5f + stats.MoveSpeed * Time.deltaTime * transform.forward;
+                transform.position += stats.MoveSpeed * Time.deltaTime * transform.forward;
                 //transform.up = hit.normal;
                 transform.LookAt(tempPlayer.position, hit.normal); //TODO: Redefine how look at works -- It should maintain it, up, but rotate the around the X and Z
                 //transform.rotation = Quaternion.LookRotation(tempPlayer.position, hit.normal);
@@ -122,13 +122,13 @@ namespace Characters
 
             isRolling = false;
         }
-        
-        
 
-        private void OnDrawGizmos()
+#if UNITY_EDITOR
+        protected override void OnDrawGizmos()
         {
+            base.OnDrawGizmos();
             float rads = 360f / CheckLines * Mathf.Deg2Rad;
-            Vector3 transPos = transform.position;
+            Vector3 transPos = transform.position+ stats.FeetCenter;
             Vector2 direction = -Vector2.up;
             for (int i = 0; i < CheckLines; i++)
             {
@@ -138,11 +138,12 @@ namespace Characters
                 //direction = direction * Mathf.Cos(curRot) + Vector3.Cross(direction fwd)
                 direction.y =Mathf.Cos(curRot);
                 direction.x =Mathf.Sin(curRot);
-#if UNITY_EDITOR
-                Debug.DrawRay(transPos, direction * stats.Range, Color.yellow);
-#endif
+
+                Debug.DrawRay(transPos , direction * stats.Range, Color.yellow);
+
             }
         }
+#endif
     }
     
 }
