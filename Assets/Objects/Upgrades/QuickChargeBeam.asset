@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb27919c3e256a4ca3ac66ea1321768, type: 3}
   m_Name: QuickChargeBeam
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: 
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 6b6d6cfd14be1954b9e92e16f99d2055,
+    type: 3}
+  <Name>k__BackingField: Quick Charge Beam
   <Description>k__BackingField: 
   <Modifier>k__BackingField: 0
   <TimeBetweenShots>k__BackingField: 0
@@ -23,3 +24,5 @@ MonoBehaviour:
   <SlowDown>k__BackingField: 0
   <ProjectilesFired>k__BackingField: 0
   <Bounces>k__BackingField: 0
+  <FireNoise>k__BackingField: {fileID: 0}
+  <IdleNoise>k__BackingField: {fileID: 0}
