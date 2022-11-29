@@ -16,11 +16,13 @@ public class MenuBase : MonoBehaviour
     {
         PlaySoundEffect(startGameSound);
         ChangeScene("Game");
+        Time.timeScale = 1;
     }
 
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
+        Time.timeScale = 1;
     }
 
     public void OpenMenu(GameObject menu)
