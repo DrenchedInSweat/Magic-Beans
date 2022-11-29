@@ -16,6 +16,7 @@ MonoBehaviour:
     type: 3}
   <Name>k__BackingField: Thunder Weapon
   <Description>k__BackingField: 
+  <AnimatorHash>k__BackingField: LightningHand
   <TimeBetweenShots>k__BackingField: 0.2
   <SprayPattern>k__BackingField: 0
   <IsAngular>k__BackingField: 0
@@ -23,7 +24,7 @@ MonoBehaviour:
   <ProjectilesFired>k__BackingField: 1
   <Bounces>k__BackingField: 4
   <SlowDown>k__BackingField: 1
-  <Projectile>k__BackingField: {fileID: -9097318330678458611, guid: 43ad00a4feab00348b6763ec1b77a15b,
+  <Projectile>k__BackingField: {fileID: -3657375867196193443, guid: 43ad00a4feab00348b6763ec1b77a15b,
     type: 3}
   <BulletSpeed>k__BackingField: 45
   <RandomSpread>k__BackingField: 0

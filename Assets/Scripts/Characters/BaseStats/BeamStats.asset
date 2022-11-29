@@ -16,6 +16,7 @@ MonoBehaviour:
     type: 3}
   <Name>k__BackingField: Beam
   <Description>k__BackingField: 
+  <AnimatorHash>k__BackingField: BeamHand
   <TimeBetweenShots>k__BackingField: 1.1
   <SprayPattern>k__BackingField: 1
   <IsAngular>k__BackingField: 0

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 574247755889335466}
   - component: {fileID: 574247755889335467}
   - component: {fileID: -4372249076268754244}
-  - component: {fileID: -9097318330678458611}
   - component: {fileID: 5865822949893332561}
   - component: {fileID: -2854101220375542611}
+  - component: {fileID: -3657375867196193443}
   m_Layer: 0
   m_Name: TestingElectricBullet
   m_TagString: Untagged
@@ -136,19 +136,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &-9097318330678458611
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 574247755889335468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d88ccb3cc30caa4aa97b029ee5bac3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 1
 --- !u!108 &5865822949893332561
 Light:
   m_ObjectHideFlags: 0
@@ -333,3 +320,19 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &-3657375867196193443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574247755889335468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91d8339077d29645ab2c1ef47590e7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onHit: {fileID: 0}
+  onHitDur: 1
+  onDestroy: {fileID: 0}
+  onDestroyDur: 1

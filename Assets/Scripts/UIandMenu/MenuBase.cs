@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MenuBase : MonoBehaviour
 {
@@ -12,15 +13,33 @@ public class MenuBase : MonoBehaviour
     [SerializeField] AudioClip menuBuzzer;
     [SerializeField] AudioClip startGameSound;
 
+    PlayerControls menuControls;
+
+    protected virtual void Awake()
+    {
+        menuControls = new PlayerControls();
+        menuControls.UI.Enable();
+
+    }
+
+    public void SetButton(GameObject button)
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(button);
+    }
+
+
     public void NewGame()
     {
         PlaySoundEffect(startGameSound);
         ChangeScene("Game");
+        Time.timeScale = 1;
     }
 
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);
+        Time.timeScale = 1;
     }
 
     public void OpenMenu(GameObject menu)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Characters
 {
-    [RequireComponent(typeof(Collider), typeof(Animator), typeof(AudioSource))] // All are enemies going to have Rigids?
+    [RequireComponent(typeof(Collider), typeof(AudioSource))] // All are enemies going to have Rigids?
     public class Character : MonoBehaviour
     {
         [Header("Character Information")]
@@ -22,20 +22,19 @@ namespace Characters
         protected bool canAttack = true;
         protected bool isMoving;
 
-        protected Animator animator;
+        [SerializeField] protected  Animator animator;
         protected AudioSource source;
 
         protected float speed;
         protected float maxSpeed;
 
-        private readonly int walkAnimID = Animator.StringToHash("IsMoving");
-        private readonly int attackAnimID = Animator.StringToHash("Attack");
+        protected readonly int walkAnimID = Animator.StringToHash("IsMoving");
+        protected readonly int attackAnimID = Animator.StringToHash("Attack");
         
     
         // Start is called before the first frame update
         protected virtual void Awake()
         {
-            animator = GetComponent<Animator>();
             source = GetComponent<AudioSource>();
             curHealth = stats.MaxHealth;
             
@@ -55,8 +54,10 @@ namespace Characters
             if (isMoving)
             {
                 curWalkTime += Time.deltaTime;
-                if (isGrounded && curWalkTime > stats.WalkSoundDelay)
+                if (isGrounded && curWalkTime > stats.WalkSoundDelay){
                     source.PlayOneShot(stats.WalkSound);
+                    curWalkTime = 0;
+                }
             }
         }
 

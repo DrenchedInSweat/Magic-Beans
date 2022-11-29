@@ -8,8 +8,9 @@ public class GameOverMenu : MenuBase
     Player player;
 
     // Start is called before the first frame update
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         player = FindObjectOfType<Player>().GetComponent<Player>();
     }
 
