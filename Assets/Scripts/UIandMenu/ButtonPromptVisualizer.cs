@@ -15,7 +15,7 @@ public class ButtonPromptVisualizer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controls = GetComponent<PlayerInput>();
+        controls = new PlayerInput();
         SetText();
         controls.onControlsChanged += UpdateText;
         
