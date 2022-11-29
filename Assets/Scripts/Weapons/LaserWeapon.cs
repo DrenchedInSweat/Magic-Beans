@@ -41,6 +41,7 @@ namespace Weapons
         protected override void StartFire()
         {
             print("Start Beam");
+            StopAllCoroutines();
             StartCoroutine(StartBeam());
         }
 
@@ -50,8 +51,8 @@ namespace Weapons
             print("Stop Beam");
             flash.SendEvent(stopID);
             flash.Stop();
-            myWeapon.gameObject.SetActive(false);
             myWeapon.DeActivate();
+            myWeapon.gameObject.SetActive(false);
         }
 
         private IEnumerator StartBeam()
@@ -61,7 +62,7 @@ namespace Weapons
             if (tryingToShoot)
             {
                 myWeapon.gameObject.SetActive(true);
-            myWeapon.Activate(col, onHit);
+                myWeapon.Activate(col, onHit);
             }
         }
 
@@ -85,7 +86,8 @@ namespace Weapons
         protected override bool CanShoot()
         {
             //TODO add check, cannot shoot in safe zones, or if hand is being used to wall run.
-            return (curShotTime > stats.TimeBetweenShots && stats.ProjectilesFired > 0);
+            //return (curShotTime > stats.TimeBetweenShots && stats.ProjectilesFired > 0);
+            return false;
         }
 
         public override void Upgrade<T>(T upgrade)

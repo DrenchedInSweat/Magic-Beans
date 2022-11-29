@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -123,6 +124,14 @@ namespace Characters
         public void SetWeapon(int idx, Sprite img)
         {
             
+        }
+
+        private void Awake()
+        {
+            foreach (Image i in weaponSlots)
+            {
+                i.color = unequippedWeaponCol;
+            }
         }
     }
 }

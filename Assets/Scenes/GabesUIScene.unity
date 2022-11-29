@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 7.124159, g: 4.2469177, b: 2.726204, a: 1}
+  m_IndirectSpecularColor: {r: 7.119419, g: 4.245201, b: 2.7267532, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -30187,6 +30187,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.39105755
       objectReference: {fileID: 0}
+    - target: {fileID: 3271563986871963146, guid: 1d7a8ee9bb3f05b4daf31e59ac82d153,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3342699540316915408, guid: 1d7a8ee9bb3f05b4daf31e59ac82d153,
         type: 3}
       propertyPath: m_Layer
@@ -30930,6 +30935,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Slime
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125006124796268770, guid: ff3710e323cb06d43a24bc1a72ca1ac8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2125006124796268798, guid: ff3710e323cb06d43a24bc1a72ca1ac8,
         type: 3}
