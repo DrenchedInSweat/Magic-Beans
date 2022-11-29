@@ -18,7 +18,34 @@ public class MenuBase : MonoBehaviour
     {
         menuControls = new PlayerControls();
         menuControls.UI.Enable();
+
     }
+
+    public void ToggleUp()
+    {
+
+    }
+
+     public void ToggleDown()
+    {
+
+    }
+
+     public void ToggleLeft()
+    {
+
+    }
+
+     public void ToggleRight()
+    {
+
+    }
+
+    public void SetButton(GameObject button)
+    {
+        
+    }
+
 
     public void NewGame()
     {

@@ -18,8 +18,9 @@ public class PauseMenu : MenuBase
     [SerializeField] AudioClip pauseSound;
     [SerializeField] AudioClip unpausedSound;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         controls = new PlayerControls();
         controls.InGame.Enable();
         controls.InGame.EscapeMenu.performed += x => CheckPause();
@@ -42,13 +43,17 @@ public class PauseMenu : MenuBase
 
     public void Restart()
     {
+        controls.UI.Disable();
+        controls.InGame.Enable();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1;
     }
 
     public void PauseGame()
     {
-        
+        controls.InGame.Disable();
+        controls.UI.Enable();
+
         Time.timeScale = 0;
         pauseScreen.SetActive(true);
         Cursor.visible = true;
@@ -57,7 +62,9 @@ public class PauseMenu : MenuBase
     }
     public void ResumeGame()
     {
-        if(optionsScreen)
+        controls.UI.Disable();
+        controls.InGame.Enable();
+        if (optionsScreen)
         optionsScreen.SetActive(false);
         
         Time.timeScale = 1;
