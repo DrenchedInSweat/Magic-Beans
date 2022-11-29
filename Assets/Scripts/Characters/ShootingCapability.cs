@@ -1,3 +1,4 @@
+using Characters.BaseStats;
 using UnityEngine;
 using Weapons;
 

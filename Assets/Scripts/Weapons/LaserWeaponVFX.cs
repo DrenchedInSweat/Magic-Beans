@@ -90,6 +90,9 @@ namespace Weapons
 
         public void DeActivate()
         {
+            if (!effect)
+                return;
+        
             effect.SendEvent(stopID);
             effect.Stop();
         }

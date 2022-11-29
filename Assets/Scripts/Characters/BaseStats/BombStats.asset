@@ -17,15 +17,17 @@ MonoBehaviour:
   <Name>k__BackingField: Bomb
   <Description>k__BackingField: 
   <TimeBetweenShots>k__BackingField: 2
-  <SprayPattern>k__BackingField: 0
+  <SprayPattern>k__BackingField: 3
   <IsAngular>k__BackingField: 0
   <Damage>k__BackingField: 24
-  <ProjectilesFired>k__BackingField: 0
+  <ProjectilesFired>k__BackingField: 1
+  <Bounces>k__BackingField: 0
   <SlowDown>k__BackingField: 0.8
-  <Projectile>k__BackingField: {fileID: 0}
+  <Projectile>k__BackingField: {fileID: -5709475421547705077, guid: 76ed955973c21d1449c0ee60bf9cb79e,
+    type: 3}
   <BulletSpeed>k__BackingField: 30
-  <RandomSpread>k__BackingField: 0
+  <RandomSpread>k__BackingField: 1
   <AreaOfEffect>k__BackingField: 3.6
-  <RecursionFactor>k__BackingField: 0
-  <Recoil>k__BackingField: {x: 0.1, y: 0.2}
+  <RecursionFactor>k__BackingField: 1
+  <Recoil>k__BackingField: {x: 0.1, y: -1}
   <RecoilMultiplier>k__BackingField: 1
