@@ -1,11 +1,20 @@
 fileFormatVersion: 2
-guid: c6cd0b66ae587be42b102dca3c0a1a26
+guid: 8cd19699a8852254492c72cee864717f
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
+      74: 6720303635017113406
+    second: Attack
+  - first:
+      74: 2607819358475989333
+    second: AntIdle
+  - first:
       74: -3403223495440316006
-    second: Ant_Walk
+    second: AntWalk
+  - first:
+      74: -226475149254508267
+    second: AntAttack
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,7 +45,65 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Ant_Walk
+      name: AntAttack
+      takeName: Attack
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AntIdle
+      takeName: Idle Anim.001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 210
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: AntWalk
       takeName: Walk.001
       internalID: 0
       firstFrame: 0
