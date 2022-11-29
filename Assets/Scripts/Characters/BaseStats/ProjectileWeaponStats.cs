@@ -11,11 +11,13 @@ namespace Characters.BaseStats
 
         [field: Header("Shooting")]
         [field: SerializeField] public Projectile Projectile { get; private set; }
-
+        
+        
+        
         [field:SerializeField] public float BulletSpeed { get; private set; }
         [field:SerializeField] public float RandomSpread { get; private set; }
         [field:SerializeField] public float AreaOfEffect { get; private set; }
-        [field:SerializeField, Min(1)] public int RecursionFactor { get; private set; }
+        [field:SerializeField, Min(0)] public int RecursionFactor { get; private set; }
         
         [field:Header("Only affects player right now")]
         [field: SerializeField] public Vector2 Recoil { get; private set; }

@@ -35,4 +35,4 @@ MonoBehaviour:
     type: 3}
   <UpgradeSound>k__BackingField: {fileID: 8300000, guid: 830228c9eb423654cbee25805a8332a9,
     type: 3}
-  <WalkSoundDelay>k__BackingField: 1.5
+  <WalkSoundDelay>k__BackingField: 0.4

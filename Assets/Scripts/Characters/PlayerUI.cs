@@ -119,6 +119,7 @@ namespace Characters
         {
             weaponSlots[old].color = unequippedWeaponCol;
             weaponSlots[weaponIndex].color = equippedWeaponCol;
+            
         }
 
         public void SetWeapon(int idx, Sprite img)

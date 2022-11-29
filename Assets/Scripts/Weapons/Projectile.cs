@@ -4,13 +4,14 @@ using UnityEngine.VFX;
 
 namespace Weapons
 {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody), typeof(AudioSource))]
     public class Projectile : MonoBehaviour
     {
         [SerializeField] private VisualEffect onHit;
         [SerializeField] private float onHitDur;
         [SerializeField] private VisualEffect onDestroy;
         [SerializeField] private float onDestroyDur;
+        [SerializeField] protected AudioClip onHitSound;
         
         private GameObject myOwnerObj;
         private Rigidbody rb;

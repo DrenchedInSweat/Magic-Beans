@@ -13,12 +13,13 @@ namespace Weapons
 
         private void ElectricRecurse(Transform prv, Transform hitObj, int remainingHits)
         {
+            if(onHitSound) AudioSource.PlayClipAtPoint(onHitSound, hitObj.position, 0.2f);
+            Electrocute(hitObj, remainingHits);
+            
             //Base Case
             if (remainingHits == 0)
                 return;
-        
-            Electrocute(hitObj, remainingHits);
-        
+
             RaycastHit[] results = new RaycastHit[10]; // This is how many it can hit...
             Transform t = transform;
             int num = Physics.SphereCastNonAlloc(t.position, remainingHits * 2.5f, t.forward, results, remainingHits * 2.5f, GameManager.Instance.ElectricLayers);

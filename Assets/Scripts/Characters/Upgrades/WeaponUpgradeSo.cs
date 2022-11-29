@@ -24,5 +24,11 @@ namespace Characters.Upgrades
         [Tooltip("This is how many bullets are shot")]
         [field:  SerializeField] public int ProjectilesFired { get; private set; }
         [field:  SerializeField] public int Bounces { get; private set; }
+        
+        [field: Header("These are not additive or multiplicative")]
+        
+        [field: SerializeField] public AudioClip FireNoise { get; private set; }
+        
+        [field: SerializeField] public AudioClip IdleNoise { get; private set; }
     }
 }

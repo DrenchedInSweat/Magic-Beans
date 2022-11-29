@@ -41,7 +41,6 @@ namespace Characters
             speed = stats.MoveSpeed;
             maxSpeed = stats.MaxSpeed;
         }
-
         
 
         protected virtual void Update()
@@ -55,10 +54,14 @@ namespace Characters
             {
                 curWalkTime += Time.deltaTime;
                 if (isGrounded && curWalkTime > stats.WalkSoundDelay){
-                    source.PlayOneShot(stats.WalkSound);
+                    source.PlayOneShot(stats.WalkSound, 0.1f);
                     curWalkTime = 0;
                 }
             }
+            // TODO: move somewhere more appropriate
+            if(Time.timeScale == 0)
+                source.Stop();
+
         }
 
         /// <summary>
@@ -173,6 +176,19 @@ namespace Characters
         {
             maxSpeed *= statsSlowDown;
             speed *= statsSlowDown;
+        }
+
+        public void SetLoopedNoise(AudioClip noise)
+        {
+            if (!noise)
+            {
+                source.Stop();
+                return;
+            }
+
+            source.clip = noise;
+            source.loop = true;
+            source.Play();
         }
     }
 }

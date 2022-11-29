@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Characters.BaseStats;
 using Characters.Upgrades;
@@ -128,6 +129,17 @@ namespace Characters
             }
             
             ui.SetCurrentWeapon(0,0);
+            source.loop = true;
+        }
+
+        private void OnEnable()
+        {
+            controls.InGame.Enable();
+        }
+
+        private void OnDisable()
+        {
+            controls.InGame.Disable();
         }
 
         private void SetWeaponState(bool x)
@@ -186,8 +198,8 @@ namespace Characters
 
         protected override void Die(Character attacker, float amount)
         {
-            base.Die(attacker, amount);
             ui.UpdateHealth(curHealth, amount);
+            base.Die(attacker, amount);
         }
 
         public override void UpgradeCharacter(CharacterUpgradeSo upgrade)
@@ -357,14 +369,13 @@ namespace Characters
         {
             if (slot <  shootingCapability.Len)
             {
-                print($"{weaponIndex} VS {slot}");
                 ui.SetCurrentWeapon(weaponIndex, slot);
-                source.PlayOneShot(weaponChangeSound);
+                source.PlayOneShot(weaponChangeSound, 0.1f);
                 SetWeaponState(false);
                 animator.SetBool(shootingCapability.Hashes[weaponIndex], false);
                 animator.SetBool(shootingCapability.Hashes[slot], true);
-                
                 weaponIndex = slot;
+                SetLoopedNoise(shootingCapability.Weapons[weaponIndex].idleClip);
             }
         }
         #endregion
@@ -373,7 +384,6 @@ namespace Characters
         #region ExposedFucntions
         public void AddRecoil(Vector2 recoilPattern)
         {
-            print("Adding recoil");
             curRecoilTime = 0.01f;
             intendedDirection += recoilPattern;
         }
@@ -392,7 +402,7 @@ namespace Characters
         public void UpgradeAttackCharacter(WeaponUpgradeSo upgrade, int idx)
         {
             shootingCapability.Weapons[idx].Upgrade(upgrade);
-            source.PlayOneShot(stats.UpgradeSound);
+            source.PlayOneShot(stats.UpgradeSound, 0.1f);
         }
 
         //increases weapon slots available 

@@ -6,8 +6,8 @@ using TMPro;
 
 public class AbilityScreen : MonoBehaviour
 {
-    Button[] buttons;
-    List<ScriptableObject> upgrades = new List<ScriptableObject>();
+    [SerializeField] Button[] buttons;
+    
     
     
     // Start is called before the first frame update
@@ -29,7 +29,7 @@ public class AbilityScreen : MonoBehaviour
     
     void DisplayInfo(Button button)
     {
-
+        
     }
 
     void AbilitySelect()

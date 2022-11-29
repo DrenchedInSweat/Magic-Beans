@@ -20,6 +20,7 @@ namespace Weapons
         protected Character owner;
 
         [NonSerialized] public bool tryingToShoot;
+        [NonSerialized] public AudioClip idleClip;
         private bool isShooting;
         
         protected float curShotTime;
@@ -31,6 +32,8 @@ namespace Weapons
             owner = myOwner;
             tryingToShoot = false;
             defStats = GetStats<WeaponStatsSo>();
+            idleClip = defStats.IdleNoise;
+            owner.SetLoopedNoise(idleClip);
         }
 
         private void Update()

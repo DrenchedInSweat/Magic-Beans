@@ -17,6 +17,8 @@ MonoBehaviour:
   <Name>k__BackingField: Bomb
   <Description>k__BackingField: 
   <AnimatorHash>k__BackingField: BombHand
+  <FireNoise>k__BackingField: {fileID: 0}
+  <IdleNoise>k__BackingField: {fileID: 0}
   <TimeBetweenShots>k__BackingField: 2
   <SprayPattern>k__BackingField: 3
   <IsAngular>k__BackingField: 0
