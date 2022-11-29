@@ -128,6 +128,7 @@ namespace Characters
             }
             
             ui.SetCurrentWeapon(0,0);
+            source.loop = true;
         }
 
         private void SetWeaponState(bool x)
@@ -357,14 +358,13 @@ namespace Characters
         {
             if (slot <  shootingCapability.Len)
             {
-                print($"{weaponIndex} VS {slot}");
                 ui.SetCurrentWeapon(weaponIndex, slot);
-                source.PlayOneShot(weaponChangeSound);
+                source.PlayOneShot(weaponChangeSound, 0.1f);
                 SetWeaponState(false);
                 animator.SetBool(shootingCapability.Hashes[weaponIndex], false);
                 animator.SetBool(shootingCapability.Hashes[slot], true);
-                
                 weaponIndex = slot;
+                source.clip = shootingCapability.Weapons[weaponIndex].idleClip;
             }
         }
         #endregion
@@ -373,7 +373,6 @@ namespace Characters
         #region ExposedFucntions
         public void AddRecoil(Vector2 recoilPattern)
         {
-            print("Adding recoil");
             curRecoilTime = 0.01f;
             intendedDirection += recoilPattern;
         }
@@ -392,7 +391,7 @@ namespace Characters
         public void UpgradeAttackCharacter(WeaponUpgradeSo upgrade, int idx)
         {
             shootingCapability.Weapons[idx].Upgrade(upgrade);
-            source.PlayOneShot(stats.UpgradeSound);
+            source.PlayOneShot(stats.UpgradeSound, 0.1f);
         }
 
         //increases weapon slots available 

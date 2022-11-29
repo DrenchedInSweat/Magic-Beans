@@ -41,7 +41,6 @@ namespace Characters
             speed = stats.MoveSpeed;
             maxSpeed = stats.MaxSpeed;
         }
-
         
 
         protected virtual void Update()
@@ -173,6 +172,12 @@ namespace Characters
         {
             maxSpeed *= statsSlowDown;
             speed *= statsSlowDown;
+        }
+
+        public void SetLoopedNoise(AudioClip noise)
+        {
+            source.clip = noise;
+            source.loop = true;
         }
     }
 }

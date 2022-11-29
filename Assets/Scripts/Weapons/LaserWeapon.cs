@@ -48,6 +48,7 @@ namespace Weapons
 
         protected override void StopFire()
         {
+            owner.SetLoopedNoise(stats.IdleNoise);
             print("Stop Beam");
             flash.SendEvent(stopID);
             flash.Stop();
@@ -57,6 +58,7 @@ namespace Weapons
 
         private IEnumerator StartBeam()
         {
+            owner.SetLoopedNoise(stats.FireNoise);
             flash.SendEvent(startID);
             yield return new WaitForSeconds(stats.TimeBetweenShots);
             if (tryingToShoot)

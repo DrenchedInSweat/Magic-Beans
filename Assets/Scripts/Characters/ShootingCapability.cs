@@ -26,9 +26,6 @@ namespace Characters
             }
         }
 
-
-
-
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
