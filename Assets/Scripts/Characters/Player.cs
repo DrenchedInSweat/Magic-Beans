@@ -3,6 +3,7 @@ using Characters.BaseStats;
 using Characters.Upgrades;
 using Cinemachine;
 using UnityEngine;
+using Weapons;
 
 namespace Characters
 {
@@ -85,9 +86,11 @@ namespace Characters
             controls.InGame.Shoot.started += _ =>
             {
                 if (canAttack)
-                    shootingCapability.Weapons[weaponIndex].tryingToShoot = true;
+                {
+                    SetWeaponState(true);
+                }
             };
-            controls.InGame.Shoot.canceled += _ => shootingCapability.Weapons[weaponIndex].tryingToShoot = false;
+            controls.InGame.Shoot.canceled += _ => SetWeaponState(false);
 
             controls.InGame.WeaponToggle1.started += _ => ToggleWeaponSlot(0);
             controls.InGame.WeaponToggle2.started += _ => ToggleWeaponSlot(1);
@@ -105,16 +108,24 @@ namespace Characters
             
             shootingCapability = GetComponent<ShootingCapability>();
             shootingCapability.Init(this);
-            for (int i = 0; i < shootingCapability.Weapons.Length; ++i)
+            for (int i = 0; i < shootingCapability.Len; ++i)
             {
-                ui.SetWeapon(i, shootingCapability.Weapons[i].GetStats<WeaponStatsSo>().Sprite);
+                ui.SetWeapon(i, shootingCapability.GetWep(weaponIndex).GetStats<WeaponStatsSo>().Sprite);
             }
             
             ui.SetCurrentWeapon(0,0);
         }
 
-        
-    
+        private void SetWeaponState(bool x)
+        {
+            Weapon w = shootingCapability.GetWep(weaponIndex, out int hash);
+            print("Testing: " + x + ", " + w.GetStats<WeaponStatsSo>().Name);
+            w.tryingToShoot = x;
+            animator.SetBool(hash, x);
+        }
+
+
+
         // Update is called once per frame
         protected override void Update()
         {
@@ -332,11 +343,11 @@ namespace Characters
         //takes in an input and checks if the the slot can be changed to before swapping to it
         private void ToggleWeaponSlot(int slot)
         {
-            ui.SetCurrentWeapon(weaponIndex, slot);
-            if (slot <=  shootingCapability.Weapons.Length)
+            if (slot <  shootingCapability.Len)
             {
+                ui.SetCurrentWeapon(weaponIndex, slot);
                 source.PlayOneShot(weaponChangeSound);
-                shootingCapability.Weapons[weaponIndex].tryingToShoot = false;
+                SetWeaponState(false);
                 weaponIndex = slot;
             }
         }
@@ -359,12 +370,12 @@ namespace Characters
         public void SetStateHUDAndWeapon(bool state)
         {
             SetStateHUD(state);
-            shootingCapability.Weapons[weaponIndex].tryingToShoot = false;
+            SetWeaponState(false);
         }
         
         public void UpgradeAttackCharacter(WeaponUpgradeSo upgrade, int idx)
         {
-            shootingCapability.Weapons[idx].Upgrade(upgrade);
+            shootingCapability.GetWep(idx).Upgrade(upgrade);
             source.PlayOneShot(stats.UpgradeSound);
         }
 

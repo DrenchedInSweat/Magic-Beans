@@ -16,6 +16,7 @@ MonoBehaviour:
     type: 3}
   <Name>k__BackingField: Thunder Weapon
   <Description>k__BackingField: 
+  <AnimatorHash>k__BackingField: LightningHand
   <TimeBetweenShots>k__BackingField: 0.2
   <SprayPattern>k__BackingField: 0
   <IsAngular>k__BackingField: 0

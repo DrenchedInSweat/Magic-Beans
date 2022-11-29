@@ -16,6 +16,7 @@ MonoBehaviour:
     type: 3}
   <Name>k__BackingField: Bomb
   <Description>k__BackingField: 
+  <AnimatorHash>k__BackingField: BombHand
   <TimeBetweenShots>k__BackingField: 2
   <SprayPattern>k__BackingField: 3
   <IsAngular>k__BackingField: 0
