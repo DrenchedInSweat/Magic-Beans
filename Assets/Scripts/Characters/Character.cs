@@ -55,8 +55,10 @@ namespace Characters
             if (isMoving)
             {
                 curWalkTime += Time.deltaTime;
-                if (isGrounded && curWalkTime > stats.WalkSoundDelay)
+                if (isGrounded && curWalkTime > stats.WalkSoundDelay){
                     source.PlayOneShot(stats.WalkSound);
+                    curWalkTime = 0;
+                }
             }
         }
 
