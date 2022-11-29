@@ -12,6 +12,14 @@ public class MenuBase : MonoBehaviour
     [SerializeField] AudioClip menuBuzzer;
     [SerializeField] AudioClip startGameSound;
 
+    PlayerControls menuControls;
+
+    protected virtual void Awake()
+    {
+        menuControls = new PlayerControls();
+        menuControls.UI.Enable();
+    }
+
     public void NewGame()
     {
         PlaySoundEffect(startGameSound);
