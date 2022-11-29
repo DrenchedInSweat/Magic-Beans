@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Characters.BaseStats;
 using Characters.Upgrades;
@@ -129,6 +130,16 @@ namespace Characters
             
             ui.SetCurrentWeapon(0,0);
             source.loop = true;
+        }
+
+        private void OnEnable()
+        {
+            controls.InGame.Enable();
+        }
+
+        private void OnDisable()
+        {
+            controls.InGame.Disable();
         }
 
         private void SetWeaponState(bool x)
