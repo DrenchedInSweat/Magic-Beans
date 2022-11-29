@@ -1,4 +1,5 @@
 using System;
+using Characters;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
 
         [field: SerializeField] public float SpawnScale { get; private set; }
         [field: SerializeField] public int Seed { get; private set; }
-
+        [field: SerializeField] public Player Player { get; private set; }
 
 
         private void Awake()

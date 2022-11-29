@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab4ba4db38bf9f94aa917b9022a7bf4e, type: 3}
+  m_Name: AntEnemyStats
+  m_EditorClassIdentifier: 
+  <Sprite>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: Empire Ant
+  <SmallStatsModifier>k__BackingField:
+    <Probability>k__BackingField: 0.2
+    <SpeedScalar>k__BackingField: 2
+    <HealthScalar>k__BackingField: 0.6
+    <DamageScalar>k__BackingField: 0.6
+    <ScaleScalar>k__BackingField: 0.6
+    <AdditionalEvent>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
+    <AdditionalEffect>k__BackingField: {fileID: 0}
+  <LargeStatsModifier>k__BackingField:
+    <Probability>k__BackingField: 0.15
+    <SpeedScalar>k__BackingField: 0.5
+    <HealthScalar>k__BackingField: 2
+    <DamageScalar>k__BackingField: 2
+    <ScaleScalar>k__BackingField: 2
+    <AdditionalEvent>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
+    <AdditionalEffect>k__BackingField: {fileID: 0}
+  <MiniBossStatsModifer>k__BackingField:
+    <Probability>k__BackingField: 0.05
+    <SpeedScalar>k__BackingField: 2
+    <HealthScalar>k__BackingField: 4
+    <DamageScalar>k__BackingField: 4
+    <ScaleScalar>k__BackingField: 4
+    <AdditionalEvent>k__BackingField:
+      m_PersistentCalls:
+        m_Calls: []
+    <AdditionalEffect>k__BackingField: {fileID: 0}
+  <MaxTargetDistance>k__BackingField: 30
+  <MaxEyeDist>k__BackingField: 30
+  <EyeAngle>k__BackingField: 50
+  <TargetMinDistance>k__BackingField: 0

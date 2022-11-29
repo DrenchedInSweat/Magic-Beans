@@ -2,14 +2,13 @@ using System.Collections.Generic;
 using Characters.Upgrades;
 using UnityEngine;
 
-namespace Characters
+namespace Characters.BaseStats
 {
     [CreateAssetMenu(menuName = "Game/Stats/CharacterStats", fileName = "CharacterStats", order = 1)]
     public class CharacterStatsSo : ScriptableObject
     {
         //Scriptable objects means that data usage decreases. It also means that changes to the SO are only kept during this current run!
         //In other words, saving then reapplying the SO should work.
-        
         //----------------------MOVEMENT--------------------//
         [field: Header("Movement")]
         [Tooltip("XZ move speed of the character")]

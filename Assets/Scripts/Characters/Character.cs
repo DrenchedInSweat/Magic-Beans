@@ -1,3 +1,4 @@
+using Characters.BaseStats;
 using Characters.Upgrades;
 using UnityEngine;
 
@@ -45,6 +46,12 @@ namespace Characters
 
         protected virtual void Update()
         {
+            if (Time.timeScale == 0)
+            {
+                source.Stop();// TODO: move somewhere more appropriate
+                return;
+            }
+            
             jumpTime += Time.deltaTime;
 
             Move();
@@ -58,9 +65,9 @@ namespace Characters
                     curWalkTime = 0;
                 }
             }
-            // TODO: move somewhere more appropriate
-            if(Time.timeScale == 0)
-                source.Stop();
+            
+            
+                
 
         }
 

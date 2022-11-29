@@ -42,7 +42,7 @@ namespace Characters
                 //transform.LookAt(tempPlayer);
                 transform.position += stats.MoveSpeed * Time.deltaTime * transform.forward;
                 //transform.up = hit.normal;
-                transform.LookAt(tempPlayer.position, hit.normal); //TODO: Redefine how look at works -- It should maintain it, up, but rotate the around the X and Z
+                transform.LookAt(tempPlayer.position); //TODO: Redefine how look at works -- It should maintain it, up, but rotate the around the X and Z
                 //transform.rotation = Quaternion.LookRotation(tempPlayer.position, hit.normal);
                 
                 //transform.position += (hit.point - feetCenter.position) + moveSpeed * Time.deltaTime * transform.forward;
