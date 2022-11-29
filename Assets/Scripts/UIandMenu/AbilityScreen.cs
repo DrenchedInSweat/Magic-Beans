@@ -29,7 +29,7 @@ public class AbilityScreen : MonoBehaviour
     
     void DisplayInfo(Button button)
     {
-
+        
     }
 
     void AbilitySelect()
