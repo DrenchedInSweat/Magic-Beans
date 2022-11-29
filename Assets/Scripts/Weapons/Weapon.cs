@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using Characters.BaseStats;
 using Characters.Upgrades;
@@ -10,8 +11,7 @@ namespace Weapons
         Circle, 
         Line,
         Random,
-        Star,
-        
+        Star
     }
 
     public abstract class Weapon : MonoBehaviour
@@ -19,18 +19,18 @@ namespace Weapons
         //public int ProjectilesFired => projectilesFired;
         protected Character owner;
 
-        public bool tryingToShoot;
+        [NonSerialized] public bool tryingToShoot;
         private bool isShooting;
         
         protected float curShotTime;
-        private WeaponStatsSo stats;
+        private WeaponStatsSo defStats;
 
 
         public void Init(Character myOwner)
         {
             owner = myOwner;
             tryingToShoot = false;
-            stats = GetStats<WeaponStatsSo>();
+            defStats = GetStats<WeaponStatsSo>();
         }
 
         private void Update()
@@ -42,7 +42,7 @@ namespace Weapons
                 if (!isShooting)
                 {
                     isShooting = true;
-                    owner.MultSpeed(stats.SlowDown);
+                    owner.MultSpeed(defStats.SlowDown);
                     StartFire();
                 }
                 TryShoot();
@@ -50,7 +50,7 @@ namespace Weapons
             else if (isShooting)
             {
                 isShooting = false;
-                owner.MultSpeed(1 / stats.SlowDown);
+                owner.MultSpeed(1 / defStats.SlowDown);
                 StopFire();
             }
         }

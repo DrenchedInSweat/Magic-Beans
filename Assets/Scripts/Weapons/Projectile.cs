@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using UnityEngine;
 
@@ -9,25 +10,35 @@ namespace Weapons
         private enum EProjectileType
         {
             Explosion,
-            Shock,
             Electrocute
         }
         [SerializeField] private EProjectileType type;
-        private delegate void OnHitDelegate(Collider hitObj);
+        private delegate void OnHitDelegate(Transform hitObj);
     
         private Character myOwner;
+        private GameObject myOwnerObj;
         private OnHitDelegate onHit;
         private float aoe;
         private int recursion;
+        private int bounces;
         private float damage;
+
+        private Rigidbody rb;
     
-        public void Init(Character owner, float areaOfEffect, float dmg, int recursionFactor)
+        public void Init(Character owner, float areaOfEffect, float dmg, int recursionFactor, int bounceFactor)
         {
             myOwner = owner;
+            myOwnerObj = owner.gameObject;
             aoe = areaOfEffect;
             recursion = recursionFactor;
+            bounces = bounceFactor;
             damage = dmg;
+        }
 
+        private void Awake()
+        {
+            print("Testing: " + type);
+            rb = GetComponent<Rigidbody>();
             switch (type)
             {
                 case EProjectileType.Electrocute:
@@ -36,36 +47,52 @@ namespace Weapons
                 case EProjectileType.Explosion:
                     onHit = Explosive;
                     break;
-                case EProjectileType.Shock:
-                    onHit = Shock;
-                    break;
             }
-
         }
-        private void OnTriggerEnter(Collider col)
+
+        private void FixedUpdate()
         {
-            GameObject go = col.gameObject;
-        
-            //First, check to see if the hit object is this object...
-            if (go == gameObject || go == myOwner.gameObject)
+            if (Physics.Raycast(transform.position, rb.velocity.normalized, out RaycastHit hit, 1))
             {
-                //If it is, then it shouldn't hit...
-                return;
-            }
+                #if UNITY_EDITOR
+                Debug.DrawRay(transform.position, rb.velocity, Color.red, 10);
+                #endif
+                GameObject go = hit.transform.gameObject;
+                print("Collided with: " + go.name);
+                //First, check to see if the hit object is this object OR the last hit object / original owner
+                if (go != gameObject && go != myOwnerObj)
+                {
+                    //If it is, then it shouldn't hit...
 
-            #if UNITY_EDITOR
-            print("Bullet hit: " + go.name);
-            #endif
-            
-            onHit.Invoke(col);
-            
-            //If it's not a character
-            Destroy(gameObject);
+
+
+                    onHit.Invoke(hit.transform);
+
+                    if (bounces > 0)
+                    {
+                        //Vector3 t = transform.position;
+                        //transform.position = col.ClosestPoint(t);
+                        rb.velocity = Vector3.Reflect( rb.velocity, hit.normal);
+#if UNITY_EDITOR
+                        Debug.DrawRay(transform.position, rb.velocity, Color.green, 10);
+#endif
+                        bounces -= 1;
+                        myOwnerObj = go;
+                    }
+                    else
+                    {
+                        //If it's not a character
+                        Destroy(gameObject);
+                    }
+                }
+            }
         }
-    
+
+
         //TODO: Implement bomb recursion
-        private void Explosive(Collider hitObj)
+        private void Explosive(Transform hitObj)
         {
+            print("Doing Electric");
             RaycastHit[] results = new RaycastHit[15]; // This is how many it can hit...
             Transform t = transform;
             int num = Physics.SphereCastNonAlloc(t.position, aoe * 0.5f, t.forward, results,
@@ -79,15 +106,10 @@ namespace Weapons
             }
         }
     
-        private void Shock(Collider hitObj)
+        private void Electric(Transform hitObj)
         {
-            Electrocute(hitObj.transform, recursion);
-        }
-    
-        private void Electric(Collider hitObj)
-        {
-            Transform t = hitObj.transform;
-            ElectricRecurse(t, t, recursion);
+            print("Doing Electric");
+            ElectricRecurse(hitObj, hitObj, recursion);
         }
 
         private void ElectricRecurse(Transform prv, Transform hitObj, int remainingHits)
@@ -137,7 +159,7 @@ namespace Weapons
                 if (character is Slime s) //Slime logic
                     s.Electrocute();  
                 else //Take damage
-                    character.TakeDamage(myOwner, power * damage);
+                    character.TakeDamage(myOwner,  (power + 1f) / recursion * damage);
             }
             else if (hitObj.TryGetComponent(out PuzzleSwitch hitSwitch))
             {

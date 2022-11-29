@@ -128,8 +128,6 @@ namespace Characters
             //Recoil pull down
             if (curRecoilTime != 0)
             {
-            
-                print($"Performing the Action: {mouseDir}, {intendedDirection} --> {curRecoilTime / recoilResetTime}");
                 curRecoilTime += Time.deltaTime;
             
             

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2244408990961236947
+--- !u!1 &5459435400329933592
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2244408990961236945}
-  - component: {fileID: 6532255925380409138}
+  - component: {fileID: 5459435400329933594}
+  - component: {fileID: 1027187541151395833}
   m_Layer: 0
-  m_Name: WeaponDemo
+  m_Name: WEP_Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2244408990961236945
+--- !u!4 &5459435400329933594
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2244408990961236947}
+  m_GameObject: {fileID: 5459435400329933592}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,29 +32,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6532255925380409138
+--- !u!114 &1027187541151395833
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2244408990961236947}
+  m_GameObject: {fileID: 5459435400329933592}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fbc75c2bb69d95469754c3dccf4b225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
-  <Sprite>k__BackingField: {fileID: 21300000, guid: bf507b4b99c95aa41ab402e373080039,
-    type: 3}
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
   tryingToShoot: 0
-  projectile: {fileID: -9097318330678458611, guid: 43ad00a4feab00348b6763ec1b77a15b,
-    type: 3}
-  bulletSpeed: 1000
-  randomSpread: 0.4
-  areaOfEffect: 0
-  recursionFactor: 0
-  recoil: {x: 0, y: 0}
-  recoilMultiplier: 1
+  stats: {fileID: 11400000, guid: be877ea1752a4fa45aac9cb8102691e3, type: 2}

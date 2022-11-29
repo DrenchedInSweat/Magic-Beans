@@ -21,12 +21,13 @@ MonoBehaviour:
   <IsAngular>k__BackingField: 0
   <Damage>k__BackingField: 12
   <ProjectilesFired>k__BackingField: 1
+  <Bounces>k__BackingField: 4
   <SlowDown>k__BackingField: 1
   <Projectile>k__BackingField: {fileID: -9097318330678458611, guid: 43ad00a4feab00348b6763ec1b77a15b,
     type: 3}
-  <BulletSpeed>k__BackingField: 65
+  <BulletSpeed>k__BackingField: 45
   <RandomSpread>k__BackingField: 0
   <AreaOfEffect>k__BackingField: 0
-  <RecursionFactor>k__BackingField: 0
-  <Recoil>k__BackingField: {x: 0.05, y: 0.1}
-  <RecoilMultiplier>k__BackingField: 0
+  <RecursionFactor>k__BackingField: 1
+  <Recoil>k__BackingField: {x: 0.05, y: -0.1}
+  <RecoilMultiplier>k__BackingField: 1
