@@ -15,6 +15,10 @@ public class TitleScreenFunctions : MenuBase
     [SerializeField] GameObject saveMenu;
     [SerializeField] GameObject customMenu;
 
+    [SerializeField] GameObject toptitleMenu;
+    [SerializeField] GameObject topCustomMenu;
+    [SerializeField] GameObject topOptionsMenu;
+
 
     [Header("Options ")]
     [SerializeField] Slider volSlider;

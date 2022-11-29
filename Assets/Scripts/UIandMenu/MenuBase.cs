@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MenuBase : MonoBehaviour
 {
@@ -21,29 +22,10 @@ public class MenuBase : MonoBehaviour
 
     }
 
-    public void ToggleUp()
-    {
-
-    }
-
-     public void ToggleDown()
-    {
-
-    }
-
-     public void ToggleLeft()
-    {
-
-    }
-
-     public void ToggleRight()
-    {
-
-    }
-
     public void SetButton(GameObject button)
     {
-        
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(button);
     }
 
 

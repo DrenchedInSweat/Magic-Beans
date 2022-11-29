@@ -12,6 +12,7 @@ public class PauseMenu : MenuBase
 
     [SerializeField] GameObject pauseScreen;
     [SerializeField] GameObject optionsScreen;
+    [SerializeField] GameObject topPauseButton;
     bool isPaused = false;
 
 
@@ -32,11 +33,13 @@ public class PauseMenu : MenuBase
         if (isPaused)
         {
             ResumeGame();
+            SetButton(null);
         }
         else
         {
 
             PauseGame();
+            SetButton(topPauseButton);
         }
         
     }
