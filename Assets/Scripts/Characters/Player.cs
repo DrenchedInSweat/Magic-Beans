@@ -198,8 +198,8 @@ namespace Characters
 
         protected override void Die(Character attacker, float amount)
         {
-            base.Die(attacker, amount);
             ui.UpdateHealth(curHealth, amount);
+            base.Die(attacker, amount);
         }
 
         public override void UpgradeCharacter(CharacterUpgradeSo upgrade)
@@ -375,7 +375,7 @@ namespace Characters
                 animator.SetBool(shootingCapability.Hashes[weaponIndex], false);
                 animator.SetBool(shootingCapability.Hashes[slot], true);
                 weaponIndex = slot;
-                source.clip = shootingCapability.Weapons[weaponIndex].idleClip;
+                SetLoopedNoise(shootingCapability.Weapons[weaponIndex].idleClip);
             }
         }
         #endregion

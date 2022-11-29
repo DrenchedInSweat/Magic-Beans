@@ -33,6 +33,7 @@ namespace Weapons
             tryingToShoot = false;
             defStats = GetStats<WeaponStatsSo>();
             idleClip = defStats.IdleNoise;
+            owner.SetLoopedNoise(idleClip);
         }
 
         private void Update()
