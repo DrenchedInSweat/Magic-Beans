@@ -94,7 +94,21 @@ namespace Characters
 
             controls.InGame.WeaponToggle1.started += _ => ToggleWeaponSlot(0);
             controls.InGame.WeaponToggle2.started += _ => ToggleWeaponSlot(1);
-            controls.InGame.WeaponToggle3.started += _ => ToggleWeaponSlot(2); 
+            controls.InGame.WeaponToggle3.started += _ => ToggleWeaponSlot(2);
+            controls.InGame.ToggleDown.started += _ =>
+            {
+                int i = weaponIndex + 1;
+                if (i == shootingCapability.Len)
+                    i = 0;
+                ToggleWeaponSlot(i);
+            };
+            controls.InGame.ToggleUp.started += _ =>
+            {
+                int i = weaponIndex - 1;
+                if (i == -1)
+                    i = shootingCapability.Len-1;
+                ToggleWeaponSlot(i);
+            };
             
             controls.InGame.LeftRight.performed += ctx => directionVector.z = ctx.ReadValue<float>();
             controls.InGame.ForwardBack.performed += ctx => directionVector.x = ctx.ReadValue<float>();
@@ -110,7 +124,7 @@ namespace Characters
             shootingCapability.Init(this);
             for (int i = 0; i < shootingCapability.Len; ++i)
             {
-                ui.SetWeapon(i, shootingCapability.GetWep(weaponIndex).GetStats<WeaponStatsSo>().Sprite);
+                ui.SetWeapon(i, shootingCapability.Weapons[weaponIndex].GetStats<WeaponStatsSo>().Sprite);
             }
             
             ui.SetCurrentWeapon(0,0);
@@ -118,13 +132,11 @@ namespace Characters
 
         private void SetWeaponState(bool x)
         {
-            Weapon w = shootingCapability.GetWep(weaponIndex, out int hash);
+            Weapon w = shootingCapability.Weapons[weaponIndex];
             print("Testing: " + x + ", " + w.GetStats<WeaponStatsSo>().Name);
             w.tryingToShoot = x;
-            animator.SetBool(hash, x);
+            animator.SetBool(attackAnimID, x);
         }
-
-
 
         // Update is called once per frame
         protected override void Update()
@@ -345,9 +357,13 @@ namespace Characters
         {
             if (slot <  shootingCapability.Len)
             {
+                print($"{weaponIndex} VS {slot}");
                 ui.SetCurrentWeapon(weaponIndex, slot);
                 source.PlayOneShot(weaponChangeSound);
                 SetWeaponState(false);
+                animator.SetBool(shootingCapability.Hashes[weaponIndex], false);
+                animator.SetBool(shootingCapability.Hashes[slot], true);
+                
                 weaponIndex = slot;
             }
         }
@@ -375,7 +391,7 @@ namespace Characters
         
         public void UpgradeAttackCharacter(WeaponUpgradeSo upgrade, int idx)
         {
-            shootingCapability.GetWep(idx).Upgrade(upgrade);
+            shootingCapability.Weapons[idx].Upgrade(upgrade);
             source.PlayOneShot(stats.UpgradeSound);
         }
 

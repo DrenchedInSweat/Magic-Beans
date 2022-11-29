@@ -7,33 +7,22 @@ namespace Characters
     public class ShootingCapability : MonoBehaviour
     {
         [Header("Shooting")] [SerializeField] private Transform hand;
-        private Weapon[] weapons;
-        private int[] hashes;
+        public Weapon[] Weapons { get; private set; }
+        public int[] Hashes { get; private set; }
         public int Len { get; private set; }
-
-        public Weapon GetWep(int idx, out int hash)
-        {
-            hash = hashes[idx];
-            return weapons[idx];
-        }
-        
-        public Weapon GetWep(int idx)
-        {
-            return weapons[idx];
-        }
 
         public void Init(Character owner)
         {
             Len= hand.childCount;
             print("Changing len: " + Len);
-            weapons = new Weapon[Len];
-            hashes = new int[Len];
+            Weapons = new Weapon[Len];
+            Hashes = new int[Len];
             for (int i = 0; i < Len; ++i)
             {
                 print("adding weapon: " + i + " --> " + hand.GetChild(i).gameObject.name);
-                weapons[i] = hand.GetChild(i).GetComponent<Weapon>();
-                weapons[i].Init(owner);
-                hashes[i] = Animator.StringToHash(weapons[i].GetStats<WeaponStatsSo>().AnimatorHash);
+                Weapons[i] = hand.GetChild(i).GetComponent<Weapon>();
+                Weapons[i].Init(owner);
+                Hashes[i] = Animator.StringToHash(Weapons[i].GetStats<WeaponStatsSo>().AnimatorHash);
             }
         }
 
