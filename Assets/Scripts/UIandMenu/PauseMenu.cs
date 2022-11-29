@@ -43,6 +43,7 @@ public class PauseMenu : MenuBase
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 
     public void PauseGame()

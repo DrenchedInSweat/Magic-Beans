@@ -7,16 +7,34 @@ using TMPro;
 public class AbilityScreen : MonoBehaviour
 {
     Button[] buttons;
+    List<ScriptableObject> upgrades = new List<ScriptableObject>();
+    
     
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        
+        foreach (Button button in buttons)
+        {
+            DisplayInfo(button);
+            button.onClick.AddListener(AbilitySelect);
+        }
     }
+
 
     // Update is called once per frame
     void Update()
     {
         
     }
+    
+    void DisplayInfo(Button button)
+    {
+
+    }
+
+    void AbilitySelect()
+    {
+
+    }
+
 }
