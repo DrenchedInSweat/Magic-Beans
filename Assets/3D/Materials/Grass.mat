@@ -29,10 +29,13 @@ Material:
   - _BENTNORMALMAP
   - _DETAIL_MAP
   - _DISABLE_SSR_TRANSPARENT
+  - _DISPLACEMENT_LOCK_TILING_SCALE
   - _MAPPING_TRIPLANAR
   - _MASKMAP
   - _NORMALMAP
   - _NORMALMAP_TANGENT_SPACE
+  - _VERTEX_DISPLACEMENT
+  - _VERTEX_DISPLACEMENT_LOCK_OBJECT_SCALE
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -170,7 +173,7 @@ Material:
     - _DiffusionProfileHash: 0
     - _DisplacementLockObjectScale: 1
     - _DisplacementLockTilingScale: 1
-    - _DisplacementMode: 0
+    - _DisplacementMode: 1
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 2
     - _DoubleSidedNormalMode: 2
@@ -199,8 +202,8 @@ Material:
     - _LinkDetailsWithBase: 0
     - _MaterialID: 1
     - _Metallic: 0
-    - _MetallicRemapMax: 0.87132657
-    - _MetallicRemapMin: 0.63921636
+    - _MetallicRemapMax: 0.5267676
+    - _MetallicRemapMin: 0.057960443
     - _NormalMapSpace: 0
     - _NormalScale: 6.08
     - _OpaqueCullMode: 2
@@ -252,9 +255,9 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.5711797, g: 0.6320754, b: 0.55097896, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.5711797, g: 0.6320754, b: 0.55097896, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

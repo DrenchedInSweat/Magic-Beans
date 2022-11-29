@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.05020748, g: 0.11186361, b: 0.07937634, a: 1}
+  m_IndirectSpecularColor: {r: 0.05007805, g: 0.11161345, b: 0.07925832, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3337,7 +3337,7 @@ MonoBehaviour:
   m_AffectDiffuse: 1
   m_AffectSpecular: 1
   m_NonLightmappedOnly: 0
-  m_ShapeWidth: 10.774079
+  m_ShapeWidth: 2.501135
   m_ShapeHeight: 0.5
   m_AspectRatio: 1
   m_ShapeRadius: 0.025
@@ -3446,8 +3446,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9433962, g: 0.89568865, b: 0.38625845, a: 1}
-  m_Intensity: 228.79715
-  m_Range: 36.742126
+  m_Intensity: 985.5839
+  m_Range: 15.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -3487,11 +3487,11 @@ Light:
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 10.774079, y: 0.5}
+  m_AreaSize: {x: 2.501135, y: 0.5}
   m_BounceIntensity: 1
   m_ColorTemperature: 3464
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 36.742126}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 15.5}
   m_UseBoundingSphereOverride: 1
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
