@@ -32,6 +32,9 @@ namespace Weapons
             owner = myOwner;
             tryingToShoot = false;
             defStats = GetStats<WeaponStatsSo>();
+            #if UNITY_EDITOR
+                defStats = (WeaponStatsSo)defStats.Clone();
+            #endif
             idleClip = defStats.IdleNoise;
             owner.SetLoopedNoise(idleClip);
         }

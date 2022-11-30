@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Characters.Upgrades;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ namespace Characters.BaseStats
 {
     [CreateAssetMenu(menuName = "Game/Stats/CharacterStats", fileName = "CharacterStats", order = 1)]
     public class CharacterStatsSo : ScriptableObject
+#if UNITY_EDITOR
+        , ICloneable
+#endif
     {
         //Scriptable objects means that data usage decreases. It also means that changes to the SO are only kept during this current run!
         //In other words, saving then reapplying the SO should work.
@@ -72,35 +76,10 @@ namespace Characters.BaseStats
         
         
         
-        #if UNITY_EDITOR
-
-        private void OnEnable()
+#if UNITY_EDITOR
+        public object Clone()
         {
-            Debug.LogWarning("Saved state");
-            //EditorUtility.SetDirty(this);
-            Undo.ClearUndo(this);
-            Undo.RegisterCompleteObjectUndo(this, name);
-        }
-
-        private void OnValidate()
-        {
-            Debug.LogWarning("Saved state MANUAL");
-            //EditorUtility.SetDirty(this);
-            Undo.ClearUndo(this);
-            Undo.RegisterCompleteObjectUndo(this, name);
-            
-        }
-
-        private void OnDisable()
-        {
-            Debug.LogWarning("Undoing save");
-            Undo.PerformUndo();
-        }
-
-        private void OnDestroy()
-        {
-            Debug.LogWarning("Undoing save");
-            Undo.PerformUndo();
+            return MemberwiseClone();
         }
 #endif
 
@@ -133,5 +112,7 @@ namespace Characters.BaseStats
         
         
         #endregion
+
+        
     }
 }

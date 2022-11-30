@@ -1,3 +1,4 @@
+using System;
 using Characters.Upgrades;
 using UnityEditor;
 using UnityEngine;
@@ -7,6 +8,9 @@ namespace Characters.BaseStats
 {
     
     public abstract class WeaponStatsSo : ScriptableObject
+#if UNITY_EDITOR
+      ,ICloneable  
+#endif
     {
         //--------------------------------- UI ---------------------------------//
         [field: Header("UI/UX")]
@@ -70,34 +74,9 @@ namespace Characters.BaseStats
         }
         
 #if UNITY_EDITOR
-
-        private void OnEnable()
+        public object Clone()
         {
-            Debug.LogWarning("Saved state");
-            //EditorUtility.SetDirty(this);
-            Undo.ClearUndo(this);
-            Undo.RegisterCompleteObjectUndo(this, name);
-        }
-
-        private void OnValidate()
-        {
-            Debug.LogWarning("Saved state MANUAL");
-            //EditorUtility.SetDirty(this);
-            Undo.ClearUndo(this);
-            Undo.RegisterCompleteObjectUndo(this, name);
-            
-        }
-
-        private void OnDisable()
-        {
-            Debug.LogWarning("Undoing save");
-            Undo.PerformUndo();
-        }
-
-        private void OnDestroy()
-        {
-            Debug.LogWarning("Undoing save");
-            Undo.PerformUndo();
+            return MemberwiseClone();
         }
 #endif
     }

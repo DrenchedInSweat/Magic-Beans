@@ -11,6 +11,8 @@ namespace Characters
         [Header("Character Information")]
         [SerializeField] protected CharacterStatsSo stats;
         
+        
+        
         protected const float MaxJumpTime = 0.2f;
         protected float jumpTime;
         protected float curHealth;
@@ -42,6 +44,10 @@ namespace Characters
             
             speed = stats.MoveSpeed;
             maxSpeed = stats.MaxSpeed;
+            
+            #if UNITY_EDITOR
+                    stats = (CharacterStatsSo)stats.Clone();
+            #endif
         }
         
 
