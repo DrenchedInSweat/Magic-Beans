@@ -78,7 +78,7 @@ namespace Managers
                 main = newArr;
             }
         }
-#endif
+
 
         private void Awake()
         {
@@ -87,6 +87,8 @@ namespace Managers
             UpdateArray(ref Props, ref props);
             UpdateArray(ref FocalPoints, ref focalPoints);
         }
+        
+#endif
 
         public GameObject SpawnObject(EType type)
         {

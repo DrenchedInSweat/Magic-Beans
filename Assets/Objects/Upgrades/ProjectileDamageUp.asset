@@ -12,21 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbdb805c2142ad04c9d1c9c00b22286d, type: 3}
   m_Name: ProjectileDamageUp
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
-  <Modifier>k__BackingField: 0
-  <TimeBetweenShots>k__BackingField: 0
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 6a5430c39a54a40469689e5b27bcae14,
+    type: 3}
+  <Name>k__BackingField: Damage up
+  <Description>k__BackingField: Increases damage of projectile weapons by 40%, but
+    increases Time Between Shots by 20%
+  <Modifier>k__BackingField: 1
+  <TimeBetweenShots>k__BackingField: 1.2
   <SprayPattern>k__BackingField: 0
   <IsAngular>k__BackingField: 0
-  <Damage>k__BackingField: 0
-  <SlowDown>k__BackingField: 0
-  <ProjectilesFired>k__BackingField: 0
-  <Bounces>k__BackingField: 0
+  <Damage>k__BackingField: 1.2
+  <SlowDown>k__BackingField: 1
+  <ProjectilesFired>k__BackingField: 1
+  <Bounces>k__BackingField: 1
   <FireNoise>k__BackingField: {fileID: 0}
   <IdleNoise>k__BackingField: {fileID: 0}
+  <MyApplicableWeapons>k__BackingField: 6
+  <ApplyToAll>k__BackingField: 1
   <Projectile>k__BackingField: {fileID: 0}
-  <BulletSpeed>k__BackingField: 0
-  <RandomSpread>k__BackingField: 0
-  <AreaOfEffect>k__BackingField: 0
-  <RecursionFactor>k__BackingField: 0
+  <BulletSpeed>k__BackingField: 1
+  <RandomSpread>k__BackingField: 1
+  <AreaOfEffect>k__BackingField: 1
+  <RecursionFactor>k__BackingField: 1

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48c547d593272e4eb64224ef4d4c850, type: 3}
   m_Name: WallJumpUp
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 57849d6f2b63e6148b8a4ca7a22e950b,
+    type: 3}
+  <Name>k__BackingField: Wall Jump Up!
+  <Description>k__BackingField: Increases the distance you can jump from walls.
   <Modifier>k__BackingField: 0
   <MoveSpeed>k__BackingField: 0
   <MaxSpeed>k__BackingField: 0

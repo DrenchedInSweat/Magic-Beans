@@ -63,8 +63,8 @@ namespace Characters
         [SerializeField] AudioClip weaponUpgradeFailSound;
 
         private PlayerUI ui;
-        private ShootingCapability shootingCapability;
-        
+        public ShootingCapability ShootingCapability { get; private set; }
+
         // -------------------------- Logged Stats  -------------------------- //
         private float longestWallRun;
         private float totalTimeWallRunning;
@@ -99,7 +99,7 @@ namespace Characters
             controls.InGame.ToggleDown.started += _ =>
             {
                 int i = weaponIndex + 1;
-                if (i == shootingCapability.Len)
+                if (i == ShootingCapability.Len)
                     i = 0;
                 ToggleWeaponSlot(i);
             };
@@ -107,7 +107,7 @@ namespace Characters
             {
                 int i = weaponIndex - 1;
                 if (i == -1)
-                    i = shootingCapability.Len-1;
+                    i = ShootingCapability.Len-1;
                 ToggleWeaponSlot(i);
             };
             
@@ -121,11 +121,11 @@ namespace Characters
 
             ui.SetHealth(stats.MaxHealth, curHealth);
             
-            shootingCapability = GetComponent<ShootingCapability>();
-            shootingCapability.Init(this);
-            for (int i = 0; i < shootingCapability.Len; ++i)
+            ShootingCapability = GetComponent<ShootingCapability>();
+            ShootingCapability.Init(this);
+            for (int i = 0; i < ShootingCapability.Len; ++i)
             {
-                ui.SetWeapon(i, shootingCapability.Weapons[weaponIndex].GetStats<WeaponStatsSo>().Sprite);
+                ui.SetWeapon(i, ShootingCapability.Weapons[weaponIndex].GetStats<WeaponStatsSo>().Sprite);
             }
             
             ui.SetCurrentWeapon(0,0);
@@ -144,7 +144,7 @@ namespace Characters
 
         private void SetWeaponState(bool x)
         {
-            Weapon w = shootingCapability.Weapons[weaponIndex];
+            Weapon w = ShootingCapability.Weapons[weaponIndex];
             print("Testing: " + x + ", " + w.GetStats<WeaponStatsSo>().Name);
             w.tryingToShoot = x;
             animator.SetBool(attackAnimID, x);
@@ -367,15 +367,15 @@ namespace Characters
         //takes in an input and checks if the the slot can be changed to before swapping to it
         private void ToggleWeaponSlot(int slot)
         {
-            if (slot <  shootingCapability.Len)
+            if (slot <  ShootingCapability.Len)
             {
                 ui.SetCurrentWeapon(weaponIndex, slot);
                 source.PlayOneShot(weaponChangeSound, 0.1f);
                 SetWeaponState(false);
-                animator.SetBool(shootingCapability.Hashes[weaponIndex], false);
-                animator.SetBool(shootingCapability.Hashes[slot], true);
+                animator.SetBool(ShootingCapability.Hashes[weaponIndex], false);
+                animator.SetBool(ShootingCapability.Hashes[slot], true);
                 weaponIndex = slot;
-                SetLoopedNoise(shootingCapability.Weapons[weaponIndex].idleClip);
+                SetLoopedNoise(ShootingCapability.Weapons[weaponIndex].idleClip);
             }
         }
         #endregion
@@ -399,11 +399,32 @@ namespace Characters
             SetWeaponState(false);
         }
         
-        public void UpgradeAttackCharacter(WeaponUpgradeSo upgrade, int idx)
+        public void UpgradeAttackCharacter(WeaponUpgradeSo upgrade, int val)
         {
-            shootingCapability.Weapons[idx].Upgrade(upgrade);
+#if  UNITY_EDITOR
+            bool oneFound = false;
+#endif
+            
+            foreach (Weapon wep in ShootingCapability.Weapons)
+            {
+                if (((int)wep.GetStats<WeaponStatsSo>().WeaponType & val) != 0)
+                {
+                    wep.Upgrade(upgrade);
+#if  UNITY_EDITOR
+                    oneFound = true;
+#endif
+                }
+            }
+#if  UNITY_EDITOR
+            if(!oneFound)
+                Debug.LogError("Upgrade was not applied!");
+#endif
+            //Play sound and FXs
             source.PlayOneShot(stats.UpgradeSound, 0.1f);
         }
+        
+        
+
 
         //increases weapon slots available 
         //TODO: ???
