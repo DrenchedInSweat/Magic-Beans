@@ -56,6 +56,7 @@ public class PauseMenu : MenuBase
     {
         controls.InGame.Disable();
         controls.UI.Enable();
+        SetButton(topPauseButton);
 
         Time.timeScale = 0;
         pauseScreen.SetActive(true);
