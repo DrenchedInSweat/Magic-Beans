@@ -24,7 +24,7 @@ public class MenuBase : MonoBehaviour
 
     public void SetButton(GameObject button)
     {
-        EventSystem.current.SetSelectedGameObject(null);
+        //EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(button);
     }
 
