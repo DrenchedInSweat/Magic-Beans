@@ -1,4 +1,5 @@
 using Characters.Upgrades;
+using UnityEditor;
 using UnityEngine;
 using Weapons;
 
@@ -67,5 +68,37 @@ namespace Characters.BaseStats
             SlowDown *= upgradeSo.SlowDown;
             Bounces *= upgradeSo.Bounces;
         }
+        
+#if UNITY_EDITOR
+
+        private void OnEnable()
+        {
+            Debug.LogWarning("Saved state");
+            //EditorUtility.SetDirty(this);
+            Undo.ClearUndo(this);
+            Undo.RegisterCompleteObjectUndo(this, name);
+        }
+
+        private void OnValidate()
+        {
+            Debug.LogWarning("Saved state MANUAL");
+            //EditorUtility.SetDirty(this);
+            Undo.ClearUndo(this);
+            Undo.RegisterCompleteObjectUndo(this, name);
+            
+        }
+
+        private void OnDisable()
+        {
+            Debug.LogWarning("Undoing save");
+            Undo.PerformUndo();
+        }
+
+        private void OnDestroy()
+        {
+            Debug.LogWarning("Undoing save");
+            Undo.PerformUndo();
+        }
+#endif
     }
 }
