@@ -151,9 +151,9 @@ namespace Characters
         }
 
         // Update is called once per frame
-        protected override void Update()
+        protected override void TrueUpdate()
         {
-            base.Update();
+            base.TrueUpdate();
             if(tryingToJump && CanJump())
                 Jump();
             

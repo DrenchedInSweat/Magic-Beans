@@ -9,20 +9,17 @@ namespace Characters
         private const int CheckLines = 8;
        [SerializeField]  private bool isRolling;
 
-       private Rigidbody rb;
-       private Transform tempPlayer;
        protected override void Awake()
        {
            base.Awake();
            //rb = GetComponent<Rigidbody>();
-           tempPlayer = GameObject.Find("Player").transform;
        }
 
        // Update is called once per frame
-        protected override void Update()
+        protected override void TrueUpdate()
         {
-            base.Update();
-            
+            base.TrueUpdate();
+            /*
             if (!isGrounded)
             {
                 //CheckAroundAnt();
@@ -49,7 +46,7 @@ namespace Characters
                 
                 
                 //When moving move towards the player
-            }
+            }*/
         }
 
         private void CheckAroundAnt()

@@ -44,14 +44,18 @@ namespace Characters
         }
         
 
-        protected virtual void Update()
+        private void Update()
         {
             if (Time.timeScale == 0)
             {
                 source.Stop();// TODO: move somewhere more appropriate
                 return;
             }
-            
+            TrueUpdate();
+        }
+
+        protected virtual void TrueUpdate()
+        {
             jumpTime += Time.deltaTime;
 
             Move();
@@ -65,10 +69,6 @@ namespace Characters
                     curWalkTime = 0;
                 }
             }
-            
-            
-                
-
         }
 
         /// <summary>

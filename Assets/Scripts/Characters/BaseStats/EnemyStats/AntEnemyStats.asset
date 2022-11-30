@@ -19,6 +19,7 @@ MonoBehaviour:
     <SpeedScalar>k__BackingField: 2
     <HealthScalar>k__BackingField: 0.6
     <DamageScalar>k__BackingField: 0.6
+    <TimeBetweenAttacksScalar>k__BackingField: 0
     <ScaleScalar>k__BackingField: 0.6
     <AdditionalEvent>k__BackingField:
       m_PersistentCalls:
@@ -29,6 +30,7 @@ MonoBehaviour:
     <SpeedScalar>k__BackingField: 0.5
     <HealthScalar>k__BackingField: 2
     <DamageScalar>k__BackingField: 2
+    <TimeBetweenAttacksScalar>k__BackingField: 0
     <ScaleScalar>k__BackingField: 2
     <AdditionalEvent>k__BackingField:
       m_PersistentCalls:
@@ -39,12 +41,16 @@ MonoBehaviour:
     <SpeedScalar>k__BackingField: 2
     <HealthScalar>k__BackingField: 4
     <DamageScalar>k__BackingField: 4
+    <TimeBetweenAttacksScalar>k__BackingField: 0
     <ScaleScalar>k__BackingField: 4
     <AdditionalEvent>k__BackingField:
       m_PersistentCalls:
         m_Calls: []
     <AdditionalEffect>k__BackingField: {fileID: 0}
   <MaxTargetDistance>k__BackingField: 30
+  <AttackDist>k__BackingField: 2
+  <TimeBetweenAttacks>k__BackingField: 1.4
   <MaxEyeDist>k__BackingField: 30
   <EyeAngle>k__BackingField: 50
+  <RotationSpeed>k__BackingField: 0
   <TargetMinDistance>k__BackingField: 0

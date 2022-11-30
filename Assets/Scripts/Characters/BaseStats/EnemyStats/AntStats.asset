@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f491a86904eae584aba7c33f026a441b, type: 3}
   m_Name: AntStats
   m_EditorClassIdentifier: 
-  <MoveSpeed>k__BackingField: 300
-  <MaxSpeed>k__BackingField: 16
+  <MoveSpeed>k__BackingField: 0
+  <MaxSpeed>k__BackingField: 5
   <FloorDrag>k__BackingField: 5
   <AirDrag>k__BackingField: 0
   <JumpForce>k__BackingField: 0
   <MaxJumps>k__BackingField: 0
   <MaxHealth>k__BackingField: 40
-  <ContactDamage>k__BackingField: 0
+  <ContactDamage>k__BackingField: 6
   <FloorLayers>k__BackingField:
     serializedVersion: 2
     m_Bits: 1
