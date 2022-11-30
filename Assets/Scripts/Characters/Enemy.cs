@@ -113,7 +113,7 @@ namespace Characters
                 
                 print($"Travelling to: {transform.position} --> {agent.destination},  {agent.pathStatus}");
                 //Because this is absolute trash and wont work properly sometimes without this :))))
-                animator.SetBool(walkAnimID, !agent.isStopped || agent.pathStatus != NavMeshPathStatus.PathComplete);
+                animator.SetBool(walkAnimID, !agent.isStopped);
 
                 if (targetWasVisible)
                 {
@@ -144,7 +144,7 @@ namespace Characters
                     print("LOOKING: " + x);
                     if (x < enemyStats.MaxEyeDist)
                     {
-                        
+                        agent.isStopped = false;
 #if UNITY_EDITOR
                         Debug.DrawRay(transform.position, dir, Color.red);
 #endif
@@ -160,8 +160,8 @@ namespace Characters
 
         private IEnumerator StartIdle()
         {
+            agent.isStopped = true;
             print("Idling");
-            agent.SetDestination(transform.position);
             targeting = false;
             yield return new WaitForSeconds(Random.Range(minIdleTime, maxIdleTime));
             if (!targeting)
@@ -172,6 +172,7 @@ namespace Characters
 
         protected virtual void ChooseRandomSpot() // Also used for going towards mushrooms to eat and whatnot
         {
+            agent.isStopped = false;
             StartCoroutine(StartIdle());
             Vector3 moveTo = Vector3.ProjectOnPlane( transform.position + Random.insideUnitSphere * enemyStats.MaxEyeDist, transform.up);
             //Physics.Raycast(transform.position, moveTo, out RaycastHit h, enemyStats.MaxTargetDistance, ~gameObject.layer);

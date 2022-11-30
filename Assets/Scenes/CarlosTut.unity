@@ -8236,7 +8236,7 @@ GameObject:
   - component: {fileID: 9103905087248477224}
   m_Layer: 0
   m_Name: Plane.001
-  m_TagString: Untagged
+  m_TagString: Reflective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8320,6 +8320,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Icosphere
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053221024759738037, guid: 76a547cffac01884ea4a0669b865da70,
+        type: 3}
+      propertyPath: m_TagString
+      value: Reflective
       objectReference: {fileID: 0}
     - target: {fileID: 1053221024759738037, guid: 76a547cffac01884ea4a0669b865da70,
         type: 3}
@@ -8698,7 +8703,7 @@ GameObject:
   - component: {fileID: 8343491044973767312}
   m_Layer: 0
   m_Name: Icosphere.001
-  m_TagString: Untagged
+  m_TagString: Reflective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8807,7 +8812,7 @@ GameObject:
   - component: {fileID: 9125159470293206109}
   m_Layer: 0
   m_Name: Plane.009
-  m_TagString: Untagged
+  m_TagString: Reflective
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
