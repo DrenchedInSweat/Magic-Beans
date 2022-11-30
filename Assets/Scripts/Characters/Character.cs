@@ -166,10 +166,13 @@ namespace Characters
         public virtual void UpgradeCharacter(CharacterUpgradeSo upgrade)
         {
             stats.UpgradeCharacter(upgrade);
+            print($"Upgraded Speed {maxSpeed} --> {stats.MaxSpeed} ");
             curHealth = stats.MaxHealth;
             source.PlayOneShot(stats.UpgradeSound);
             speed = stats.MoveSpeed;
             maxSpeed = stats.MaxSpeed;
+            
+            
         }
 
 

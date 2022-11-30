@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Weapons;
 
@@ -30,5 +31,17 @@ namespace Characters.Upgrades
         [field: SerializeField] public AudioClip FireNoise { get; private set; }
         
         [field: SerializeField] public AudioClip IdleNoise { get; private set; }
+        
+        [field: SerializeField] public ApplicableWeapons MyApplicableWeapons { get; private set; }
+        [field: SerializeField] public bool ApplyToAll { get; private set; }
     }
+
+    [Flags]
+    public enum ApplicableWeapons
+    {
+        Laser = 1,
+        Explosive = 2,
+        Electric = 4
+    }
+
 }

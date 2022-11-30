@@ -47,7 +47,6 @@ namespace Characters
             
             // ------------------ SET SIZE VARIATION -------------------------- //
             float odds = Random.Range(0, 1f);
-            print("Gamble A: " + odds);
             odds -= enemyStats.SmallStatsModifier.Probability;
             //Small
             if (odds < 0)
@@ -55,20 +54,17 @@ namespace Characters
                 SetSizeDependentStats(enemyStats.SmallStatsModifier);
                 return;
             }
-            print("Gamble B: " + odds);
             odds -= enemyStats.LargeStatsModifier.Probability;
             if (odds < 0)
             {
                 SetSizeDependentStats(enemyStats.LargeStatsModifier);
                 return;
             }
-            print("Gamble C: " + odds);
             odds -= enemyStats.MiniBossStatsModifer.Probability;
             if (odds < 0)
             {
                 SetSizeDependentStats(enemyStats.MiniBossStatsModifer);
             }
-            print("Gamble D (Failed): " + odds);
         }
 
         private void SetSizeDependentStats(StatType s)
