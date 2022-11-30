@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbdb805c2142ad04c9d1c9c00b22286d, type: 3}
+  m_Name: ProjectileDamageUp
+  m_EditorClassIdentifier: 
+  <Sprite>k__BackingField: {fileID: 0}
+  <Name>k__BackingField: 
+  <Description>k__BackingField: 
+  <Modifier>k__BackingField: 0
+  <TimeBetweenShots>k__BackingField: 0
+  <SprayPattern>k__BackingField: 0
+  <IsAngular>k__BackingField: 0
+  <Damage>k__BackingField: 0
+  <SlowDown>k__BackingField: 0
+  <ProjectilesFired>k__BackingField: 0
+  <Bounces>k__BackingField: 0
+  <FireNoise>k__BackingField: {fileID: 0}
+  <IdleNoise>k__BackingField: {fileID: 0}
+  <Projectile>k__BackingField: {fileID: 0}
+  <BulletSpeed>k__BackingField: 0
+  <RandomSpread>k__BackingField: 0
+  <AreaOfEffect>k__BackingField: 0
+  <RecursionFactor>k__BackingField: 0
