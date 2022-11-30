@@ -100,7 +100,7 @@ namespace Characters
                 if (curTimeBetweenAttacks > 0)
                     return;
                 
-                if (curTimeBetweenAttacks < 0 && CanSeePlayer() < attackDist/2)
+                if (curTimeBetweenAttacks < 0 && CanSeePlayer() < attackDist)
                 {
                     print("I attacked the player!");
                     curTimeBetweenAttacks = enemyStats.TimeBetweenAttacks;
