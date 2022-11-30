@@ -22,7 +22,7 @@ MonoBehaviour:
   <TimeBetweenShots>k__BackingField: 2
   <SprayPattern>k__BackingField: 3
   <IsAngular>k__BackingField: 0
-  <Damage>k__BackingField: 24
+  <Damage>k__BackingField: 12
   <ProjectilesFired>k__BackingField: 1
   <Bounces>k__BackingField: 0
   <SlowDown>k__BackingField: 0.8
@@ -30,7 +30,7 @@ MonoBehaviour:
     type: 3}
   <BulletSpeed>k__BackingField: 30
   <RandomSpread>k__BackingField: 1
-  <AreaOfEffect>k__BackingField: 6
+  <AreaOfEffect>k__BackingField: 4
   <RecursionFactor>k__BackingField: 1
   <Recoil>k__BackingField: {x: 0.1, y: -1}
   <RecoilMultiplier>k__BackingField: 1

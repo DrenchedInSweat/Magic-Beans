@@ -100,7 +100,7 @@ namespace Characters
                 if (curTimeBetweenAttacks > 0)
                     return;
                 
-                if (curTimeBetweenAttacks < 0 && CanSeePlayer() < attackDist)
+                if (curTimeBetweenAttacks < 0 && CanSeePlayer() < attackDist/2)
                 {
                     print("I attacked the player!");
                     curTimeBetweenAttacks = enemyStats.TimeBetweenAttacks;
@@ -113,7 +113,7 @@ namespace Characters
                 
                 print($"Travelling to: {transform.position} --> {agent.destination},  {agent.pathStatus}");
                 //Because this is absolute trash and wont work properly sometimes without this :))))
-                animator.SetBool(walkAnimID, agent.pathStatus != NavMeshPathStatus.PathComplete);
+                animator.SetBool(walkAnimID, !agent.isStopped || agent.pathStatus != NavMeshPathStatus.PathComplete);
 
                 if (targetWasVisible)
                 {
@@ -182,11 +182,8 @@ namespace Characters
         private float CanSeePlayer()
         {
             Vector3 position = head.position;
-            bool a = Physics.Raycast(position, (ply.transform.position - position), out RaycastHit hit, enemyStats.MaxEyeDist);
-            bool b = 1 << hit.transform.gameObject.layer == GameManager.Instance.PlayerLayer;
-            print("DEBUG: " + a + " + " + b);
             
-            if (!a || !b)
+            if (!Physics.Raycast(position, (ply.transform.position - position), out RaycastHit hit, enemyStats.MaxEyeDist) || 1 << hit.transform.gameObject.layer != GameManager.Instance.PlayerLayer)
                 return 100;
             return hit.distance;
         }

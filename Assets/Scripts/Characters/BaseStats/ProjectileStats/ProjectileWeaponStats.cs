@@ -1,8 +1,9 @@
 using Characters.Upgrades;
 using UnityEngine;
+using UnityEngine.VFX;
 using Weapons;
 
-namespace Characters.BaseStats
+namespace Characters.BaseStats.ProjectileStats
 {
     //Having this be a root class allows for enemies to be more optimized.
     [CreateAssetMenu(menuName = "Game/Stats/ProjectileWeaponStats", fileName = "ProjectileWeaponStats", order = 2)]
@@ -11,6 +12,7 @@ namespace Characters.BaseStats
 
         [field: Header("Shooting")]
         [field: SerializeField] public Projectile Projectile { get; private set; }
+        [field: SerializeField] public VisualEffect OnFire { get; private set; }
         
         
         

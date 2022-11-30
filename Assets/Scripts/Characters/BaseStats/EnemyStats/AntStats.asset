@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AntStats
   m_EditorClassIdentifier: 
   <MoveSpeed>k__BackingField: 0
-  <MaxSpeed>k__BackingField: 5
+  <MaxSpeed>k__BackingField: 8
   <FloorDrag>k__BackingField: 5
   <AirDrag>k__BackingField: 0
   <JumpForce>k__BackingField: 0

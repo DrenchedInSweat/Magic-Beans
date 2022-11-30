@@ -1,5 +1,6 @@
 using Characters;
 using Characters.BaseStats;
+using Characters.BaseStats.ProjectileStats;
 using UnityEngine;
 
 namespace Weapons
@@ -32,6 +33,10 @@ namespace Weapons
         
         private void Shoot()
         {
+            Transform t = transform;
+            if (stats.OnFire)
+                Destroy(Instantiate(stats.OnFire.gameObject, t.position, t.rotation, t), 1);
+
             int projectilesFired = stats.ProjectilesFired;
             float randomSpread = stats.RandomSpread;
             Vector2[] bulletPositions = new Vector2[projectilesFired];
@@ -158,7 +163,7 @@ namespace Weapons
             //Imagine now that we have our forward vector. Let's transform this vector into a plane using the cross product;
 
             //If we have the rotation of the weapon, Just apply the same rotation to each point
-            Transform t = transform;
+            
             Quaternion vec = t.rotation;
 
             foreach (Vector2 bulletPos in bulletPositions)

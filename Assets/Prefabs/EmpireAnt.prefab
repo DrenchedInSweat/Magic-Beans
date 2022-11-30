@@ -6909,7 +6909,7 @@ GameObject:
   - component: {fileID: 7706035147395658968}
   - component: {fileID: 7706035147395658967}
   - component: {fileID: 3072269757713500004}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EmpireAnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}

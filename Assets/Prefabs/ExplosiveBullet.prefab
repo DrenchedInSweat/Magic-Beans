@@ -116,7 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onHit: {fileID: 0}
   onHitDur: 1
-  onDestroy: {fileID: 0}
+  onDestroy: {fileID: 1011952204635305284, guid: e30c633872543b047946382094674eac,
+    type: 3}
   onDestroyDur: 1
   onHitSound: {fileID: 8300000, guid: ffae06b336c77be48a685935d5f2b259, type: 3}
 --- !u!82 &6674453538287867282
