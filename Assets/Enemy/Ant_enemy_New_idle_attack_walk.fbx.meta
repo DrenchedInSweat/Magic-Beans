@@ -31,7 +31,8 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: Event Reset has a time (1.681034) outside the clip's
+      valid range (0.000000..1.666667). It will never be fired
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -68,7 +69,23 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.5150485
+        functionName: AttackHit
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 7d3058836e42f1f4fa7af13563c3c998,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1.0086206
+        functionName: ContinueLogic
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 7d3058836e42f1f4fa7af13563c3c998,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

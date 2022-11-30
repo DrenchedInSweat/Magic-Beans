@@ -21,6 +21,12 @@ namespace Characters.BaseStats
         [Tooltip("Distance the enemy can be from the player to begin targeting")]
         [field: SerializeField, Min(0)] public float MaxTargetDistance { get; private set; }
         
+        [Tooltip("How close the player can get before getting hit")]
+        [field: SerializeField, Min(0)] public float AttackDist { get; private set; }
+        
+        [Tooltip("How close the player can get before getting hit")]
+        [field: SerializeField, Min(0)] public float TimeBetweenAttacks { get; private set; }
+        
         [Tooltip("How far the eyes can see")]
         [field: SerializeField, Min(0)] public float MaxEyeDist { get; private set; }
         [Tooltip("Angles of the eyes")]
@@ -32,6 +38,8 @@ namespace Characters.BaseStats
         [field: Header("WIP")]
         [Tooltip("How close the player can get before it just targets")]
         [field: SerializeField, Min(0)] public float TargetMinDistance { get; private set; }
+
+        
     }
 
     [Serializable]
@@ -42,6 +50,7 @@ namespace Characters.BaseStats
         [field: SerializeField, Min(0)] public float SpeedScalar { get; private set; }
         [field: SerializeField, Min(0)] public float HealthScalar { get; private set; }
         [field: SerializeField, Min(0)] public float DamageScalar { get; private set; }
+        [field: SerializeField, Min(0)] public float TimeBetweenAttacksScalar { get; private set; }
         [field: SerializeField, Min(0)] public float ScaleScalar { get; private set; }
         [field: SerializeField, Min(0)] public UnityEvent AdditionalEvent { get; private set; }
         [field: SerializeField, Min(0)] public VisualEffect AdditionalEffect { get; private set; }
