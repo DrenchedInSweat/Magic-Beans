@@ -102,16 +102,16 @@ namespace Characters
                 
                 if (curTimeBetweenAttacks < 0 && CanSeePlayer() < attackDist)
                 {
-                    print("I attacked the player!");
+                    //print("I attacked the player!");
                     curTimeBetweenAttacks = enemyStats.TimeBetweenAttacks;
-                    agent.SetDestination(transform.position);
+                    agent.isStopped = true;
                     animator.SetTrigger(attackAnimID);
                     return;
                 }
                 
                 //
                 
-                print($"Travelling to: {transform.position} --> {agent.destination},  {agent.pathStatus}");
+                //print($"Travelling to: {transform.position} --> {agent.destination},  {agent.pathStatus}");
                 //Because this is absolute trash and wont work properly sometimes without this :))))
                 animator.SetBool(walkAnimID, !agent.isStopped);
 
@@ -128,6 +128,8 @@ namespace Characters
                     {
                         agent.SetDestination(Vector3.ProjectOnPlane(ply.transform.position, transform.up));
                     }
+
+                    return;
                 }
                 
                 //Player is in range

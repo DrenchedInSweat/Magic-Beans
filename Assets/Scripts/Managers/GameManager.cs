@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
             }
             DontDestroyOnLoad(gameObject);
             Random.InitState(Seed);
+            Application.targetFrameRate = 120;
         }
 
 
