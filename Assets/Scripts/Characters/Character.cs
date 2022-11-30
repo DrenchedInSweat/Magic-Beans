@@ -1,5 +1,6 @@
 using Characters.BaseStats;
 using Characters.Upgrades;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Characters

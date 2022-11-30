@@ -18,7 +18,7 @@ MonoBehaviour:
   <Description>k__BackingField: Increased Speed
   <Modifier>k__BackingField: 0
   <MoveSpeed>k__BackingField: 0
-  <MaxSpeed>k__BackingField: 2
+  <MaxSpeed>k__BackingField: 200
   <FloorDrag>k__BackingField: 0
   <AirDrag>k__BackingField: 0
   <JumpForce>k__BackingField: 0

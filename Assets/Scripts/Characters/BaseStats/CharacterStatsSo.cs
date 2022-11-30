@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Characters.Upgrades;
+using UnityEditor;
 using UnityEngine;
 
 namespace Characters.BaseStats
@@ -67,6 +69,40 @@ namespace Characters.BaseStats
             }
             MultiplyUpgrade(upgrade);
         }
+        
+        
+        
+        #if UNITY_EDITOR
+
+        private void OnEnable()
+        {
+            Debug.LogWarning("Saved state");
+            //EditorUtility.SetDirty(this);
+            Undo.ClearUndo(this);
+            Undo.RegisterCompleteObjectUndo(this, name);
+        }
+
+        private void OnValidate()
+        {
+            Debug.LogWarning("Saved state MANUAL");
+            //EditorUtility.SetDirty(this);
+            Undo.ClearUndo(this);
+            Undo.RegisterCompleteObjectUndo(this, name);
+            
+        }
+
+        private void OnDisable()
+        {
+            Debug.LogWarning("Undoing save");
+            Undo.PerformUndo();
+        }
+
+        private void OnDestroy()
+        {
+            Debug.LogWarning("Undoing save");
+            Undo.PerformUndo();
+        }
+#endif
 
         //TODO: This may cause problems:
         //1 Because SO, it would affect all of the same creature...
@@ -94,6 +130,8 @@ namespace Characters.BaseStats
             MaxHealth *= upgrade.MaxHealth;
             ContactDamage *= upgrade.ContactDamage;
         }
+        
+        
         #endregion
     }
 }
