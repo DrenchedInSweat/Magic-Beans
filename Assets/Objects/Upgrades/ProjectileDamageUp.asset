@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbdb805c2142ad04c9d1c9c00b22286d, type: 3}
   m_Name: ProjectileDamageUp
   m_EditorClassIdentifier: 
-  <Sprite>k__BackingField: {fileID: 0}
-  <Name>k__BackingField: 
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 6a5430c39a54a40469689e5b27bcae14,
+    type: 3}
+  <Name>k__BackingField: Damage up
   <Description>k__BackingField: 
   <Modifier>k__BackingField: 0
   <TimeBetweenShots>k__BackingField: 0
   <SprayPattern>k__BackingField: 0
   <IsAngular>k__BackingField: 0
-  <Damage>k__BackingField: 0
+  <Damage>k__BackingField: 10
   <SlowDown>k__BackingField: 0
   <ProjectilesFired>k__BackingField: 0
   <Bounces>k__BackingField: 0
