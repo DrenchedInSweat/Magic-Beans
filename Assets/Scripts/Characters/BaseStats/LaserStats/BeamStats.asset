@@ -21,6 +21,7 @@ MonoBehaviour:
     type: 3}
   <IdleNoise>k__BackingField: {fileID: 8300000, guid: ea37fdfce79f80049b85c8d73aba55cf,
     type: 3}
+  <WeaponType>k__BackingField: 1
   <TimeBetweenShots>k__BackingField: 1.2
   <SprayPattern>k__BackingField: 1
   <IsAngular>k__BackingField: 0

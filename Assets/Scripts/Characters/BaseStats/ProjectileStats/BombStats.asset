@@ -19,6 +19,7 @@ MonoBehaviour:
   <AnimatorHash>k__BackingField: BombHand
   <FireNoise>k__BackingField: {fileID: 0}
   <IdleNoise>k__BackingField: {fileID: 0}
+  <WeaponType>k__BackingField: 2
   <TimeBetweenShots>k__BackingField: 2
   <SprayPattern>k__BackingField: 3
   <IsAngular>k__BackingField: 0
@@ -28,6 +29,7 @@ MonoBehaviour:
   <SlowDown>k__BackingField: 0.8
   <Projectile>k__BackingField: {fileID: -5709475421547705077, guid: 76ed955973c21d1449c0ee60bf9cb79e,
     type: 3}
+  <OnFire>k__BackingField: {fileID: 0}
   <BulletSpeed>k__BackingField: 30
   <RandomSpread>k__BackingField: 1
   <AreaOfEffect>k__BackingField: 4
