@@ -948,6 +948,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6688762412111791164, guid: a9d2c8f0776107b4a91bfb6c2afe89af,
+        type: 3}
+      propertyPath: menuSelect
+      value: 
+      objectReference: {fileID: 8300000, guid: 1bedc903154cc574f8f1cdf30341eb31, type: 3}
+    - target: {fileID: 6688762412111791164, guid: a9d2c8f0776107b4a91bfb6c2afe89af,
+        type: 3}
+      propertyPath: menyToggle
+      value: 
+      objectReference: {fileID: 8300000, guid: 1f274e14fc2bd1f44847759a9915527e, type: 3}
     - target: {fileID: 7783529190941917062, guid: a9d2c8f0776107b4a91bfb6c2afe89af,
         type: 3}
       propertyPath: m_Pivot.x

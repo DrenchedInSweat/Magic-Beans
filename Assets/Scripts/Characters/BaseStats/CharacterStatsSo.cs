@@ -13,6 +13,9 @@ namespace Characters.BaseStats
         , ICloneable
 #endif
     {
+        [field: Header("UI")]
+        [field: SerializeField, Min(0)] public string Name { get; set; }
+        
         //Scriptable objects means that data usage decreases. It also means that changes to the SO are only kept during this current run!
         //In other words, saving then reapplying the SO should work.
         //----------------------MOVEMENT--------------------//
@@ -61,6 +64,7 @@ namespace Characters.BaseStats
         [field:SerializeField] public AudioClip UpgradeSound { get; private set; }
         [field:SerializeField, Min(0)] public float WalkSoundDelay { get; private set; }
         
+
         //----------------------Upgrading------------------//
         public void UpgradeCharacter(CharacterUpgradeSo upgrade)
         {

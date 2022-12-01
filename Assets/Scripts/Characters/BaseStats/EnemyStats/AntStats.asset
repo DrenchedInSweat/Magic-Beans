@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f491a86904eae584aba7c33f026a441b, type: 3}
   m_Name: AntStats
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Empire Ant
   <MoveSpeed>k__BackingField: 0
   <MaxSpeed>k__BackingField: 8
   <FloorDrag>k__BackingField: 5
