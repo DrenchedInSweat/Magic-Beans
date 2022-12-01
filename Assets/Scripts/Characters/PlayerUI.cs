@@ -134,9 +134,9 @@ namespace Characters
         {
             deathScreen.SetActive(true);
 
-            Transform t = deathScreen.transform.GetChild(0).GetChild(0).GetChild(0);
+            Transform t = deathScreen.transform.GetChild(0).GetChild(0).GetChild(3);
 
-            t.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Killed by: " + attacker;
+            t.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Killed by: " + attacker;
         }
 
         private void Awake()
