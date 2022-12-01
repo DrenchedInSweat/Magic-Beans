@@ -136,7 +136,7 @@ namespace Characters
 
             Transform t = deathScreen.transform.GetChild(0).GetChild(0).GetChild(0);
 
-            t.GetChild(2).GetComponent<TextMeshProUGUI>().text = attacker;
+            t.GetChild(2).GetComponent<TextMeshProUGUI>().text = "Killed by: " + attacker;
         }
 
         private void Awake()
