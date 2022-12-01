@@ -1,11 +1,17 @@
+using System;
 using System.Collections.Generic;
 using Characters.Upgrades;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 namespace Characters.BaseStats
 {
     [CreateAssetMenu(menuName = "Game/Stats/CharacterStats", fileName = "CharacterStats", order = 1)]
     public class CharacterStatsSo : ScriptableObject
+#if UNITY_EDITOR
+        , ICloneable
+#endif
     {
         //Scriptable objects means that data usage decreases. It also means that changes to the SO are only kept during this current run!
         //In other words, saving then reapplying the SO should work.
@@ -67,6 +73,15 @@ namespace Characters.BaseStats
             }
             MultiplyUpgrade(upgrade);
         }
+        
+        
+        
+#if UNITY_EDITOR
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+#endif
 
         //TODO: This may cause problems:
         //1 Because SO, it would affect all of the same creature...
@@ -94,6 +109,10 @@ namespace Characters.BaseStats
             MaxHealth *= upgrade.MaxHealth;
             ContactDamage *= upgrade.ContactDamage;
         }
+        
+        
         #endregion
+
+        
     }
 }

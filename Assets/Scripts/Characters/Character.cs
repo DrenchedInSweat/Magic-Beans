@@ -1,5 +1,6 @@
 using Characters.BaseStats;
 using Characters.Upgrades;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Characters
@@ -9,6 +10,8 @@ namespace Characters
     {
         [Header("Character Information")]
         [SerializeField] protected CharacterStatsSo stats;
+        
+        
         
         protected const float MaxJumpTime = 0.2f;
         protected float jumpTime;
@@ -41,6 +44,10 @@ namespace Characters
             
             speed = stats.MoveSpeed;
             maxSpeed = stats.MaxSpeed;
+            
+            #if UNITY_EDITOR
+                    stats = (CharacterStatsSo)stats.Clone();
+            #endif
         }
         
 

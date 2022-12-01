@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1684542143132381452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1684542143132381454}
+  - component: {fileID: 1684542143132381453}
+  - component: {fileID: 1684542143132381455}
+  m_Layer: 0
+  m_Name: TEMP_LevelPortal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1684542143132381454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684542143132381452}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -109.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1684542143132381453
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684542143132381452}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 50, y: 50, z: 50}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1684542143132381455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684542143132381452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512ba1a0434f6694798a2ab45310a218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screen: {fileID: -939529961939485481, guid: 6fb116aa27dedd04791517b251257ea2, type: 3}
+  TelToCam: {fileID: 0}
+  upgrades:
+  - {fileID: 11400000, guid: aff0e01da1bbff84d8bc948703646492, type: 2}
+  - {fileID: 11400000, guid: 8d0153b049751384097ce04c55f90680, type: 2}
+  - {fileID: 11400000, guid: 9f9ae2f08a5256644b0cc5397cebd38f, type: 2}
+  - {fileID: 11400000, guid: fb81b1ec523266241bae5a67abe1c252, type: 2}
+  - {fileID: 11400000, guid: c281cdb2613900d4a8ee8db4b1b0dfd6, type: 2}
+  - {fileID: 11400000, guid: 09146a880715e074fb3aa86d301381de, type: 2}
+  - {fileID: 11400000, guid: aa3c1c6d79872ee479d1acf581e1793f, type: 2}
+  - {fileID: 11400000, guid: 838bae1a7e4d99b44ad6c878802298a0, type: 2}
+  canvas: {fileID: 0}

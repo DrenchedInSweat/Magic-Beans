@@ -1,4 +1,6 @@
+using System;
 using Characters.Upgrades;
+using UnityEditor;
 using UnityEngine;
 using Weapons;
 
@@ -6,6 +8,9 @@ namespace Characters.BaseStats
 {
     
     public abstract class WeaponStatsSo : ScriptableObject
+#if UNITY_EDITOR
+      ,ICloneable  
+#endif
     {
         //--------------------------------- UI ---------------------------------//
         [field: Header("UI/UX")]
@@ -67,5 +72,12 @@ namespace Characters.BaseStats
             SlowDown *= upgradeSo.SlowDown;
             Bounces *= upgradeSo.Bounces;
         }
+        
+#if UNITY_EDITOR
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+#endif
     }
 }
