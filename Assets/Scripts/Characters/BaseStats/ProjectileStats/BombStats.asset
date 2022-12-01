@@ -21,9 +21,9 @@ MonoBehaviour:
   <IdleNoise>k__BackingField: {fileID: 0}
   <WeaponType>k__BackingField: 2
   <TimeBetweenShots>k__BackingField: 2
-  <SprayPattern>k__BackingField: 3
+  <SprayPattern>k__BackingField: 0
   <IsAngular>k__BackingField: 0
-  <Damage>k__BackingField: 12
+  <Damage>k__BackingField: 20
   <ProjectilesFired>k__BackingField: 1
   <Bounces>k__BackingField: 0
   <SlowDown>k__BackingField: 0.8

@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1012373255282878705}
+  - component: {fileID: 1638480846962681446}
   m_Layer: 0
   m_Name: Front
   m_TagString: Untagged
@@ -117,6 +118,19 @@ Transform:
   m_Father: {fileID: 1012373255368695205}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1638480846962681446
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012373255282878706}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 25, z: 25}
+  m_Center: {x: -0.5, y: 0, z: 0}
 --- !u!1 &1012373255368695206
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +209,8 @@ MonoBehaviour:
   - {fileID: 8221850345356638204, guid: 2bba4eb23c7122541bbd22e34c82f99b, type: 3}
   - {fileID: 8221850345356638204, guid: 69e73cc08b8d86f4fa42da730a15d938, type: 3}
   previousPortal: {fileID: 0}
-  openNoise: {fileID: 0}
+  nextPortal: {fileID: 0}
+  openNoise: {fileID: 8300000, guid: 2d8aa7babf0238a45be53fb9bafe7924, type: 3}
 --- !u!1 &1012373255654428690
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,6 +386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1012373256078969824}
+  - component: {fileID: 98590612555266150}
   m_Layer: 0
   m_Name: Flank
   m_TagString: Untagged
@@ -395,6 +411,19 @@ Transform:
   m_Father: {fileID: 1012373255368695205}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &98590612555266150
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012373256078969825}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 25, z: 25}
+  m_Center: {x: -0.5, y: 0, z: 0}
 --- !u!1 &1012373256280134384
 GameObject:
   m_ObjectHideFlags: 0

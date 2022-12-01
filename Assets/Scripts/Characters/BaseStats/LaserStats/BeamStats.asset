@@ -23,7 +23,7 @@ MonoBehaviour:
   <TimeBetweenShots>k__BackingField: 1.2
   <SprayPattern>k__BackingField: 1
   <IsAngular>k__BackingField: 0
-  <Damage>k__BackingField: 0.4
+  <Damage>k__BackingField: 1
   <ProjectilesFired>k__BackingField: 0
-  <Bounces>k__BackingField: 2
+  <Bounces>k__BackingField: 4
   <SlowDown>k__BackingField: 0.4

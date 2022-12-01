@@ -17,20 +17,18 @@ public class Temp_LevelPortal : MonoBehaviour
 
     [SerializeField] private AudioClip openNoise;
     
-    private bool isKeyOpen = true;
+    private bool isActive;
 
     private Transform t;
         
     private void Update()
     {
-        //print($"{!isKeyOpen}, {previousPortal.antSpawn.childCount == 1}, {previousPortal.t.GetChild(0).childCount <= 1} ");
-        if (!isKeyOpen && previousPortal.antSpawn.childCount == 1 && previousPortal.t.GetChild(0).childCount <= 1)
+        //if the previous portal is active
+        if (previousPortal.isActive && previousPortal.t.childCount == 0)
         {
-            Destroy(previousPortal.t.gameObject);
-            isKeyOpen = true;
-            AudioSource.PlayClipAtPoint(openNoise, transform.position);
-            //Open back door
-            transform.GetChild(0).gameObject.SetActive(false);
+            previousPortal.isActive = false;
+            transform.GetChild(1).gameObject.SetActive(false);
+            AudioSource.PlayClipAtPoint(openNoise, transform.position, 1);
         }
     }
 
@@ -53,6 +51,7 @@ public class Temp_LevelPortal : MonoBehaviour
     {
         if (other.TryGetComponent(out Player p))
         {
+            isActive = true;
             //Set front off, back on 
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);
@@ -72,7 +71,6 @@ public class Temp_LevelPortal : MonoBehaviour
             //set both on
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetChild(1).gameObject.SetActive(true);
-            isKeyOpen = false;
         }
     }
 }

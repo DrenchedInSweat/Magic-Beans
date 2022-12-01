@@ -122,7 +122,7 @@ namespace Characters
                     }
                     else
                     {
-                        agent.SetDestination(Vector3.ProjectOnPlane(ply.transform.position, head.up));
+                        agent.SetDestination(Vector3.ProjectOnPlane(ply.transform.position, transform.up));
                     }
 
                     return;
@@ -148,7 +148,7 @@ namespace Characters
 #endif
                         targetWasVisible = true;
                         targetTime = MaxTargetTime;
-                        agent.SetDestination(Vector3.ProjectOnPlane(ply.transform.position, head.up));
+                        agent.SetDestination(Vector3.ProjectOnPlane(ply.transform.position, transform.up));
                         print("Setting destination" + transform.position +" --> " + agent.destination );
                         targeting = true;
                     }

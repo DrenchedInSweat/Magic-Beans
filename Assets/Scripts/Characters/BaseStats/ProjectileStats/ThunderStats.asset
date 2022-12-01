@@ -20,10 +20,10 @@ MonoBehaviour:
   <FireNoise>k__BackingField: {fileID: 0}
   <IdleNoise>k__BackingField: {fileID: 0}
   <WeaponType>k__BackingField: 4
-  <TimeBetweenShots>k__BackingField: 0.12
+  <TimeBetweenShots>k__BackingField: 0.08
   <SprayPattern>k__BackingField: 0
   <IsAngular>k__BackingField: 0
-  <Damage>k__BackingField: 9
+  <Damage>k__BackingField: 8
   <ProjectilesFired>k__BackingField: 1
   <Bounces>k__BackingField: 4
   <SlowDown>k__BackingField: 1

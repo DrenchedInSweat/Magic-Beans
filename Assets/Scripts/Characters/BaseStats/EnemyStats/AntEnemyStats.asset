@@ -15,7 +15,7 @@ MonoBehaviour:
   <Sprite>k__BackingField: {fileID: 0}
   <Name>k__BackingField: Empire Ant
   <SmallStatsModifier>k__BackingField:
-    <Probability>k__BackingField: 0.2
+    <Probability>k__BackingField: 0
     <SpeedScalar>k__BackingField: 2
     <HealthScalar>k__BackingField: 0.6
     <DamageScalar>k__BackingField: 0.6
@@ -26,8 +26,8 @@ MonoBehaviour:
         m_Calls: []
     <AdditionalEffect>k__BackingField: {fileID: 0}
   <LargeStatsModifier>k__BackingField:
-    <Probability>k__BackingField: 0.15
-    <SpeedScalar>k__BackingField: 0.5
+    <Probability>k__BackingField: 0.7
+    <SpeedScalar>k__BackingField: 1
     <HealthScalar>k__BackingField: 2
     <DamageScalar>k__BackingField: 2
     <TimeBetweenAttacksScalar>k__BackingField: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
         m_Calls: []
     <AdditionalEffect>k__BackingField: {fileID: 0}
   <MiniBossStatsModifer>k__BackingField:
-    <Probability>k__BackingField: 0.05
+    <Probability>k__BackingField: 0.3
     <SpeedScalar>k__BackingField: 2
     <HealthScalar>k__BackingField: 4
     <DamageScalar>k__BackingField: 4
