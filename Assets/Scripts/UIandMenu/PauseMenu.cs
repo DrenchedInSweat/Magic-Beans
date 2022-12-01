@@ -30,6 +30,7 @@ public class PauseMenu : MenuBase
 
     void CheckPause()
     {
+        print("Debug:" + gameObject.name);
         if (isPaused)
         {
             ResumeGame();

@@ -47,10 +47,10 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
     <AdditionalEffect>k__BackingField: {fileID: 0}
-  <MaxTargetDistance>k__BackingField: 30
+  <MaxTargetDistance>k__BackingField: 180
   <AttackDist>k__BackingField: 2
   <TimeBetweenAttacks>k__BackingField: 1.4
-  <MaxEyeDist>k__BackingField: 30
-  <EyeAngle>k__BackingField: 110
+  <MaxEyeDist>k__BackingField: 180
+  <EyeAngle>k__BackingField: 100
   <RotationSpeed>k__BackingField: 0
   <TargetMinDistance>k__BackingField: 0
