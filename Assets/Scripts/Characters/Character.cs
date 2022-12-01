@@ -35,7 +35,8 @@ namespace Characters
         protected readonly int walkAnimID = Animator.StringToHash("IsMoving");
         protected readonly int attackAnimID = Animator.StringToHash("Attack");
         
-    
+
+
         // Start is called before the first frame update
         protected virtual void Awake()
         {
@@ -110,7 +111,7 @@ namespace Characters
             curHealth -= amount;
             if (curHealth < 0)
             {
-                Die(attacker, amount);
+                Die(attacker, attacker.stats.Name);
                 return;
             }
             source.PlayOneShot(stats.HurtSound);
@@ -122,7 +123,7 @@ namespace Characters
             curHealth -= amount;
             if (curHealth < 0)
             {
-                Die(attacker, amount);
+                Die(attacker, attacker.stats.Name);
                 return;
             }
             source.PlayOneShot(stats.HurtSound);
@@ -134,7 +135,7 @@ namespace Characters
         /// <param name="attacker"></param>
         /// <param name="amount"></param>
         /// TODO: Play animation / Ragdoll --> Sink into floor --> Delete
-        protected virtual void Die(Character attacker, float amount)
+        protected virtual void Die(Character attacker, string attackerName)
         {
             source.PlayOneShot(stats.DieSound);
             Destroy(gameObject);

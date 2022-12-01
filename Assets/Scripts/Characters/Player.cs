@@ -196,11 +196,11 @@ namespace Characters
             ui.UpdateHealth(curHealth, amount);
         }
 
-        protected override void Die(Character attacker, float amount)
+        protected override void Die(Character attacker, string attackerName)
         {
             source.PlayOneShot(stats.DieSound);
-            ui.UpdateHealth(curHealth, amount);
-            
+            ui.UpdateHealth(curHealth, 1);
+            ui.OnDie(attackerName);
         }
 
         public override void UpgradeCharacter(CharacterUpgradeSo upgrade)

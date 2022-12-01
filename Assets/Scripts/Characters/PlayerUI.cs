@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Button = UnityEngine.UIElements.Button;
 
 namespace Characters
 {
@@ -23,8 +25,8 @@ namespace Characters
         [SerializeField] private Color equippedWeaponCol = new Color(1f, 1f, 1f, 1f);
         [Tooltip("Colour for when weapon slot is available but not selected")]
         [SerializeField] private Color unequippedWeaponCol = new Color(0.5f, 0.5f, 0.5f, 1f);
-        [Tooltip("Colour for when weapon slot is unavailable")]
-        [SerializeField] private Color unavailableWeaponCol = new Color(0.2f, 0.2f, 0.2f, 0.5f);
+        //[Tooltip("Colour for when weapon slot is unavailable")]
+        //[SerializeField] private Color unavailableWeaponCol = new Color(0.2f, 0.2f, 0.2f, 0.5f);
         [SerializeField] private GameObject deathScreen;
         
         [Tooltip("Images for each of the weapon slots")]
@@ -107,6 +109,7 @@ namespace Characters
                 StartCoroutine(FadeOverlay(healOverlay, healOverlayTime));
                 return;
             }
+
             StartCoroutine(FadeOverlay(hurtOverlay, hurtOverlayTime));
         }
 
@@ -125,6 +128,15 @@ namespace Characters
         public void SetWeapon(int idx, Sprite img)
         {
             
+        }
+
+        public void OnDie(string attacker)
+        {
+            deathScreen.SetActive(true);
+
+            Transform t = deathScreen.transform.GetChild(0).GetChild(0).GetChild(0);
+
+            t.GetChild(2).GetComponent<TextMeshProUGUI>().text = attacker;
         }
 
         private void Awake()
