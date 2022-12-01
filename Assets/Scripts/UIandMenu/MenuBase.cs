@@ -36,6 +36,14 @@ public class MenuBase : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void Restart()
+    {
+        menuControls.UI.Disable();
+        menuControls.InGame.Enable();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+    }
+
     public void ChangeScene(string scene)
     {
         SceneManager.LoadScene(scene);

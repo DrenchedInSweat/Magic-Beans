@@ -198,8 +198,9 @@ namespace Characters
 
         protected override void Die(Character attacker, float amount)
         {
+            source.PlayOneShot(stats.DieSound);
             ui.UpdateHealth(curHealth, amount);
-            base.Die(attacker, amount);
+            
         }
 
         public override void UpgradeCharacter(CharacterUpgradeSo upgrade)

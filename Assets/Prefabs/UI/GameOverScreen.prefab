@@ -659,7 +659,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6688762412111791164}
         m_TargetAssemblyTypeName: MenuBase, Assembly-CSharp
-        m_MethodName: NewGame
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
