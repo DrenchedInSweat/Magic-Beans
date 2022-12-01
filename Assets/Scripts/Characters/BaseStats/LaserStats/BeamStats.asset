@@ -17,10 +17,8 @@ MonoBehaviour:
   <Name>k__BackingField: Beam
   <Description>k__BackingField: 
   <AnimatorHash>k__BackingField: BeamHand
-  <FireNoise>k__BackingField: {fileID: 8300000, guid: 7e7f91a40426252498450e3f87338cdb,
-    type: 3}
-  <IdleNoise>k__BackingField: {fileID: 8300000, guid: ea37fdfce79f80049b85c8d73aba55cf,
-    type: 3}
+  <FireNoise>k__BackingField: {fileID: 0}
+  <IdleNoise>k__BackingField: {fileID: 0}
   <WeaponType>k__BackingField: 1
   <TimeBetweenShots>k__BackingField: 1.2
   <SprayPattern>k__BackingField: 1
