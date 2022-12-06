@@ -24,7 +24,7 @@ MonoBehaviour:
   <SprayPattern>k__BackingField: 0
   <IsAngular>k__BackingField: 0
   <Damage>k__BackingField: 8
-  <ProjectilesFired>k__BackingField: 1
+  <ProjectilesFired>k__BackingField: 12
   <Bounces>k__BackingField: 4
   <SlowDown>k__BackingField: 1
   <Projectile>k__BackingField: {fileID: 4238980126145809757, guid: 43ad00a4feab00348b6763ec1b77a15b,

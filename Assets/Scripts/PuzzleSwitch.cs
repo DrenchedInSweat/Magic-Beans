@@ -9,7 +9,13 @@ public class PuzzleSwitch : MonoBehaviour
     [SerializeField] private UnityEvent myEvent;
     public void Activate()
     {
-        state = !state;
-        myEvent?.Invoke();
+        if(!state)
+            myEvent?.Invoke();
+        state = true;
+    }
+
+    public void GiveRandomUpgrade()
+    {
+        
     }
 }

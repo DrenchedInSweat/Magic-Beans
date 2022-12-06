@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f491a86904eae584aba7c33f026a441b, type: 3}
   m_Name: SlimeStats
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: 
   <MoveSpeed>k__BackingField: 0
   <MaxSpeed>k__BackingField: 0
   <FloorDrag>k__BackingField: 0
   <AirDrag>k__BackingField: 0
   <JumpForce>k__BackingField: 0
   <MaxJumps>k__BackingField: 0
-  <MaxHealth>k__BackingField: 0
+  <MaxHealth>k__BackingField: 120
   <ContactDamage>k__BackingField: 0
   <FloorLayers>k__BackingField:
     serializedVersion: 2

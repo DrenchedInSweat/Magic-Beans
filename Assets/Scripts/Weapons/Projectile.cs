@@ -14,7 +14,7 @@ namespace Weapons
         [SerializeField] protected AudioClip onHitSound;
         
         private GameObject myOwnerObj;
-        private Rigidbody rb;
+        protected Rigidbody rb;
         
         protected int bounces;
         protected Character myOwner;
@@ -94,7 +94,6 @@ namespace Weapons
                 c.TakeDamage(myOwner, damage, rb.velocity);
             }
         }
-
         protected virtual void OnDestroy()
         {
             if (onDestroy)

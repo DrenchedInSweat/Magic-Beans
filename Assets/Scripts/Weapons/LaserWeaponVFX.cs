@@ -1,3 +1,4 @@
+using System;
 using Characters;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -60,13 +61,19 @@ namespace Weapons
             //myLight.
             if (childObj && hit.transform.CompareTag("Reflective"))
             {
+                if (hit.transform.TryGetComponent(out MassReflector m))
+                {
+                    m.Activate(transform.rotation, col, del);
+                }
                 if (!childObj.activeSelf)
                 {
                     childObj.SetActive(true);
                     child.Activate(col, del);
                 }
+
                 childObj.transform.position = hit.point;
                 childObj.transform.forward = Vector3.Reflect(direction, hit.normal);
+                    
                 return;
             }
             
@@ -96,5 +103,13 @@ namespace Weapons
             effect.SendEvent(stopID);
             effect.Stop();
         }
+        
+        #if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position, transform.forward);
+        }
+#endif
     }
 }

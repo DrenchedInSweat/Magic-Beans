@@ -8,11 +8,32 @@ namespace Weapons
     {
         private readonly int recursiveProjectiles = 6;
         private readonly float recursiveForce = 10;
+        private bool eatenBySlime;
+
+        protected override void OnHit(Transform hitObject)
+        {
+
+            if (hitObject.transform.TryGetComponent(out Character c))
+            {
+                if (c is Slime s)
+                {
+                    eatenBySlime = true;
+                    Destroy(gameObject);
+                }
+                else
+                    c.TakeDamage(myOwner, damage, rb.velocity);
+            }
+        }
+
 
         protected override void OnDestroy()
         {
+            if (eatenBySlime)
+            {
+                Debug.LogWarning("Bomb was eaten by slime, make sure to implement bomb eaten effect");
+                return;
+            }
             base.OnDestroy();
-            
             // explode
             RaycastHit[] results = new RaycastHit[15]; // This is how many it can hit...
             Transform t = transform;

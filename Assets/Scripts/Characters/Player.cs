@@ -15,6 +15,7 @@ namespace Characters
         
         [Header("Player Controls")]
         public float mouseSensitivity;
+        [SerializeField, Range(0,1)] private float wallRunHorLim = 0.2f;
         
         [Tooltip("Limits the max rotation of the cam")]
         [SerializeField, Range(0,89.9f)] private float viewLockY;
@@ -223,7 +224,7 @@ namespace Characters
                 float dir = wallRunScalar;
 
                 //Gives backwards control
-                if (directionVector.x < 0 || directionVector.z < 0)
+                if (directionVector.x <= 0 && directionVector.z <= 0)
                 {
                     dir *= -0.6f; // Also reduce speed to 60%
                 }
@@ -294,12 +295,30 @@ namespace Characters
                 Vector3 velocity = rb.velocity;
                 velocity = new Vector3(velocity.x, 0, velocity.z);
                 rb.velocity = velocity;
+                
+                
+                Vector3 wallNormal = onLeftWall ? leftWallCast.normal : rightWallCast.normal;
+                float wallAngle = Vector3.Dot(wallNormal, trans.forward);
+                
+                //If the dot is positive, it needs to go down. If the dot is negative it needs to go up.
+
+                //If we need to force the cameras rotation
+                /*
+                if (Mathf.Abs(wallAngle) >= wallRunHorLim)
+                {
+                    float dir = (Mathf.Abs(velocity.x) > Mathf.Abs(velocity.z)) ? velocity.x : velocity.z;
+                    transform.rotation *= Quaternion.AngleAxis(wallAngle * dir, Vector3.up);
+                }
+                */
+                
+
+                print($"Dot: {wallAngle}");
                 if (!isWallRunning) // DO not repeat this code when already wall running!
                 {
                     //Start wall running
                     isWallRunning = true;
                     curJump = 0;
-                    Vector3 wallNormal = onLeftWall ? leftWallCast.normal : rightWallCast.normal;
+                    
                     wallForward = Vector3.Cross(wallNormal, Vector3.up);
                     wallRunScalar = Mathf.RoundToInt(Vector3.Dot(wallForward, trans.forward));
                     #if UNITY_EDITOR
@@ -399,7 +418,14 @@ namespace Characters
             SetStateHUD(state);
             SetWeaponState(false);
         }
-        
+
+        //Why do I have the one below??
+        //Temp code used for action block
+        public void UpgradeAttackCharacter(WeaponUpgradeSo upgrade)
+        {
+            UpgradeAttackCharacter(upgrade, (int)upgrade.MyApplicableWeapons);
+        }
+
         public void UpgradeAttackCharacter(WeaponUpgradeSo upgrade, int val)
         {
 #if  UNITY_EDITOR
