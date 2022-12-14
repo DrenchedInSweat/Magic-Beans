@@ -1,6 +1,5 @@
 using Characters.Upgrades;
 using UnityEngine;
-using UnityEngine.VFX;
 using Weapons;
 
 namespace Characters.BaseStats.ProjectileStats
@@ -12,8 +11,6 @@ namespace Characters.BaseStats.ProjectileStats
 
         [field: Header("Shooting")]
         [field: SerializeField] public Projectile Projectile { get; private set; }
-        [field: SerializeField] public VisualEffect OnFire { get; private set; }
-        
         
         
         [field:SerializeField] public float BulletSpeed { get; private set; }

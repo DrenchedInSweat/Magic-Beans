@@ -22,7 +22,7 @@ public class MassReflector : MonoBehaviour
         parent.gameObject.SetActive(false);
     }
 
-    public void Activate(Quaternion rot, Color c, LaserWeapon.ApplyToCharacter myDel)
+    public void Activate(Quaternion rot, Gradient c, LaserWeapon.ApplyToCharacter myDel)
     {
         if (projectOnToPlane)
             rot = Quaternion.Euler(0, rot.eulerAngles.y,0);

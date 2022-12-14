@@ -27,7 +27,7 @@ MonoBehaviour:
   <ProjectilesFired>k__BackingField: 1
   <Bounces>k__BackingField: 4
   <SlowDown>k__BackingField: 1
-  <Projectile>k__BackingField: {fileID: 4238980126145809757, guid: 43ad00a4feab00348b6763ec1b77a15b,
+  <Projectile>k__BackingField: {fileID: 4238980126145809757, guid: 81f386040ec86d24bbdaef47abdb5984,
     type: 3}
   <BulletSpeed>k__BackingField: 45
   <RandomSpread>k__BackingField: 0
