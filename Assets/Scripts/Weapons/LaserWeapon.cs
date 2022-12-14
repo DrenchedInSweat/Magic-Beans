@@ -13,25 +13,20 @@ namespace Weapons
         [SerializeField] private LaserWeaponVFX laserPrefab;
         
         private LaserWeaponVFX myWeapon;
-        private VisualEffect flash;
-        [SerializeField, ColorUsage(true, true)]
-        private Color col;
+        
+        
         public delegate void ApplyToCharacter(Character victim);
 
         private ApplyToCharacter onHit;
 
-        private readonly int delayID = Shader.PropertyToID("Delay");
-        private readonly int startID = Shader.PropertyToID("StartFire");
-        private readonly int stopID = Shader.PropertyToID("StopFire");
-        private readonly int colorID = Shader.PropertyToID("Color");
+        
+        
+       
         private void Start()
         {
-            flash = GetComponent<VisualEffect>();
-            flash.SetFloat(delayID, stats.TimeBetweenShots);
-            flash.SetVector4(colorID, col);
+            
             onHit += victim =>
             {
-                print("Killing Enemy");
                 victim.TakeDamage(owner, stats.Damage);
             };
             SetChildBeams();
@@ -40,7 +35,7 @@ namespace Weapons
 
         protected override void StartFire()
         {
-            print("Start Beam");
+            base.StopFire();
             StopAllCoroutines();
             StartCoroutine(StartBeam());
         }
@@ -48,23 +43,18 @@ namespace Weapons
 
         protected override void StopFire()
         {
-            owner.SetLoopedNoise(stats.IdleNoise);
-            print("Stop Beam");
-            flash.SendEvent(stopID);
-            flash.Stop();
+            base.StopFire();
             myWeapon.DeActivate();
             myWeapon.gameObject.SetActive(false);
         }
 
         private IEnumerator StartBeam()
         {
-            owner.SetLoopedNoise(stats.FireNoise);
-            flash.SendEvent(startID);
             yield return new WaitForSeconds(stats.TimeBetweenShots);
             if (tryingToShoot)
             {
                 myWeapon.gameObject.SetActive(true);
-                myWeapon.Activate(col, onHit);
+                myWeapon.Activate(gradient, onHit);
             }
         }
 
