@@ -174,12 +174,7 @@ namespace Weapons
                 //Vector3 BulletDir = Vector3.Cross(bulletPos, Vector3.forward);
 
                 Projectile go = Instantiate(stats.Projectile, t.position + thisDir, vec * stats.Projectile.transform.rotation, GameManager.Instance.BulletParent);
-                go.Init(owner, stats.AreaOfEffect, stats.Damage, stats.RecursionFactor, stats.Bounces, stats.Projectile.gameObject);
-            
-                go.GetComponent<Rigidbody>().AddForce(stats.BulletSpeed * t.forward, ForceMode.Impulse);
-#if UNITY_EDITOR
-                Debug.DrawRay(go.transform.position, 5 * (t.forward), Color.blue, 2f, false);
-#endif
+                go.Init(owner, stats.AreaOfEffect, stats.Damage, stats.RecursionFactor, stats.Bounces, stats.Projectile.gameObject, stats.BulletSpeed * t.forward);
                 print("Reached");
                 Destroy(go.gameObject, 10);
             }

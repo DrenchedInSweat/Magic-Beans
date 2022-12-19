@@ -24,12 +24,10 @@ MonoBehaviour:
   <SprayPattern>k__BackingField: 0
   <IsAngular>k__BackingField: 0
   <Damage>k__BackingField: 8
-  <ProjectilesFired>k__BackingField: 12
+  <ProjectilesFired>k__BackingField: 1
   <Bounces>k__BackingField: 4
   <SlowDown>k__BackingField: 1
   <Projectile>k__BackingField: {fileID: 4238980126145809757, guid: 43ad00a4feab00348b6763ec1b77a15b,
-    type: 3}
-  <OnFire>k__BackingField: {fileID: 3282775112312402133, guid: 7230c8f2a87d80e47af0c470580a55db,
     type: 3}
   <BulletSpeed>k__BackingField: 45
   <RandomSpread>k__BackingField: 0

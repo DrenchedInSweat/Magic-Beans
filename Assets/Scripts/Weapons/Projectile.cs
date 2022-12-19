@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Characters;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -12,10 +14,10 @@ namespace Weapons
         [SerializeField] private VisualEffect onDestroy;
         [SerializeField] private float onDestroyDur;
         [SerializeField] protected AudioClip onHitSound;
-        
+
         private GameObject myOwnerObj;
         protected Rigidbody rb;
-        
+
         protected int bounces;
         protected Character myOwner;
         protected int recursion;
@@ -26,7 +28,8 @@ namespace Weapons
 
         protected GameObject obj;
 
-        public void Init(Character owner, float areaOfEffect, float dmg, int recursionFactor, int bounceFactor, GameObject original)
+        public void Init(Character owner, float areaOfEffect, float dmg, int recursionFactor, int bounceFactor,
+            GameObject original, Vector3 statsBulletSpeed)
         {
             myOwner = owner;
             myOwnerObj = owner.gameObject;
@@ -35,56 +38,57 @@ namespace Weapons
             bounces = bounceFactor;
             damage = dmg;
             obj = original;
+            rb = GetComponent<Rigidbody>();
+            rb.AddForce(statsBulletSpeed, ForceMode.Impulse);
+            CheckHit(statsBulletSpeed);
         }
 
-        private void Awake()
-        {
-            rb = GetComponent<Rigidbody>();
-        }
 
         private void FixedUpdate()
         {
-            //Bit flip to prevent self collisions ;)
-            if (Physics.Raycast(transform.position, rb.velocity.normalized, out RaycastHit hit, 1, ~gameObject.layer))
+           CheckHit(rb.velocity);
+        }
+        
+        private void CheckHit(Vector3 dir)
+        { //Bit flip to prevent self collisions ;)
+            if (Physics.Raycast(transform.position, dir, out RaycastHit hit, 1, ~gameObject.layer))
             {
-                #if UNITY_EDITOR
-                Debug.DrawRay(transform.position, rb.velocity, Color.red, 10);
-                #endif
+#if UNITY_EDITOR
+                Debug.DrawRay(transform.position, dir, Color.red, 10);
+#endif
                 Transform t = hit.transform;
                 GameObject go = t.gameObject;
                 print("Collided with: " + go.name);
                 //First, check to see if the hit object is this object OR the last hit object / original owner
                 if (go != gameObject && go != myOwnerObj)
                 {
+                    myOwnerObj = go;
+                    print("SUCCESSFULLY Collided with: " + go.name +" I am: " + gameObject.name);
                     //If it is, then it shouldn't hit...
-                    
+                    transform.position = hit.point;
                     OnHit(t);
                     n = hit.normal;
-                    if (bounces > 0)
+                    if (onHit)
                     {
-                        //Vector3 t = transform.position;
-                        //transform.position = col.ClosestPoint(t);
-                        rb.velocity = Vector3.Reflect( rb.velocity, n);
-#if UNITY_EDITOR
-                        Debug.DrawRay(transform.position, rb.velocity, Color.green, 10);
-#endif
-                        bounces -= 1;
-                        myOwnerObj = go;
+                        Transform r = transform;
+
+                        Destroy(
+                            Instantiate(onHit.gameObject, r.position,
+                                Quaternion.LookRotation(Vector3.Cross(t.right, hit.normal), hit.normal)), onHitDur);
+                    }
+                    
+                    if (bounces-- > 0)
+                    {
+                        rb.velocity = Vector3.Reflect(dir, n);
                     }
                     else
                     {
                         //If it's not a character
                         Destroy(gameObject);
-                        return;
-                    }
-
-                    if (onHit)
-                    {
-                        Transform r = transform;
-                        Destroy(Instantiate(onHit.gameObject, r.position, r.rotation), onHitDur);
                     }
                 }
             }
+            
         }
 
         protected virtual void OnHit(Transform hitObject)

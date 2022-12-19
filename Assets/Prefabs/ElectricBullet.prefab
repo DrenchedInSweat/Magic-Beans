@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91d8339077d29645ab2c1ef47590e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onHit: {fileID: 0}
+  onHit: {fileID: 3504643330713789239, guid: 1f84bc7e78e6d9f46b8d086da5a3ff58, type: 3}
   onHitDur: 1
   onDestroy: {fileID: 0}
   onDestroyDur: 1
@@ -262,7 +262,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.87843144, g: 0.45098042, b: 0, a: 1}
-  m_Intensity: 259.70645
+  m_Intensity: 79.57747
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

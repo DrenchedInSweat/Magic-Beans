@@ -66,11 +66,7 @@ namespace Weapons
                 Vector3 rot = Quaternion.AngleAxis(i * degs,  n) * forward;
                 rot = Vector3.RotateTowards(rot, n, 1, 15);
                     
-                #if UNITY_EDITOR
-                Debug.DrawRay(position, rot * recursiveForce, new Color(0.5f,0.5f,0), 2f);
-                #endif
-                go.GetComponent<ExplosiveProjectile>().Init(myOwner, aoe, damage, recursion-1, bounces, obj);
-                go.GetComponent<Rigidbody>().AddForce(rot * recursiveForce, ForceMode.Impulse);
+                go.GetComponent<ExplosiveProjectile>().Init(myOwner, aoe, damage, recursion-1, bounces, obj, rot * recursiveForce);
                 Destroy(go, 10);
             }
         }
