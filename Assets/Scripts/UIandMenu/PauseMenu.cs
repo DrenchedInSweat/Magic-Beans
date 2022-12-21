@@ -15,18 +15,20 @@ public class PauseMenu : MonoBehaviour
     
     private void Awake()
     {
-        GameManager.Instance.onPauseGamePaused += Pause;
-        GameManager.Instance.onPauseGameUnpaused += Unpause;
+        GameManager.Instance.onGamePaused += Pause;
+        GameManager.Instance.onGameUnpaused += Unpause;
     }
 
     private void Pause()
     {
+        print("Oops");
         AudioSource.PlayClipAtPoint(pauseSound, transform.position, GameManager.Instance.SfxVolume);
         pauseScreen.SetActive(true);
     }
     
     private void Unpause()
     {
+        print("Yay");
         AudioSource.PlayClipAtPoint(unpausedSound, transform.position, GameManager.Instance.SfxVolume);
         optionsScreen.SetActive(false);
         pauseScreen.SetActive(false);
@@ -36,6 +38,7 @@ public class PauseMenu : MonoBehaviour
     
     public void Resume()
     {
+        print("..?");
         Unpause(); // Correct EVEN if in upgrade menu.
         GameManager.Instance.TogglePause();
     }

@@ -55,9 +55,7 @@ namespace UIandMenu
 
         private void ResetGame()
         {
-            Time.timeScale = 1;
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            GameManager.Instance.ToggleStop();
             Destroy(gameObject);
         }
 

@@ -49,8 +49,8 @@ namespace Characters
                     stats = (CharacterStatsSo)stats.Clone();
             #endif
             
-            GameManager.Instance.onPauseGamePaused += () => source.Stop();
-            GameManager.Instance.onPauseGameUnpaused += () => source.Play();
+            GameManager.Instance.onGamePaused += () => source.Pause();
+            GameManager.Instance.onGameUnpaused += () => source.UnPause();
             
         }
         
@@ -141,8 +141,8 @@ namespace Characters
         protected virtual void Die(Character attacker, string attackerName)
         {
             source.PlayOneShot(stats.DieSound);
-            GameManager.Instance.onPauseGamePaused -= () => source.Stop();
-            GameManager.Instance.onPauseGameUnpaused -= () => source.Play();
+            GameManager.Instance.onGamePaused -= () => source.Stop();
+            GameManager.Instance.onGameUnpaused -= () => source.Play();
             Destroy(gameObject);
         }
     

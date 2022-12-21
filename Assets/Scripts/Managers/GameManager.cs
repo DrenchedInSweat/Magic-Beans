@@ -42,8 +42,8 @@ public class GameManager : MonoBehaviour
         public float SfxVolume => sfxVolume * masterVolume;
 
         // -------------------- INPUT? ------------------------------------------------ // 
-        public Action onPauseGamePaused;
-        public Action onPauseGameUnpaused;
+        public Action onGamePaused;
+        public Action onGameUnpaused;
 
         private void Awake()
         {
@@ -67,8 +67,10 @@ public class GameManager : MonoBehaviour
         /// </summary>
         public void ToggleStop()
         {
-            GameIsPaused = GameIsStopped; // Above because will get toggled by toggle pause...?
             GameIsStopped = !GameIsStopped;
+            GameIsPaused = GameIsStopped; // Above because will get toggled by toggle pause...?
+            
+            print("Stop toggled: " + GameIsStopped);
             SetLogic();
         }
 
@@ -77,19 +79,21 @@ public class GameManager : MonoBehaviour
         /// </summary>
         public void TogglePause()
         {
-            //Must run regardless.
-            if(GameIsPaused)onPauseGameUnpaused.Invoke();
-            else onPauseGamePaused.Invoke();
-                
-            if (GameIsStopped) return;
+            
+            
             //State change
             GameIsPaused = !GameIsPaused;
+            
+            if(GameIsPaused)onGamePaused.Invoke();
+            else onGameUnpaused.Invoke();
 
+            if (GameIsStopped) return;
             SetLogic();
         }
 
         private void SetLogic()
         {
+            print("Setting: " + GameIsPaused +" , " + GameIsStopped);
             Cursor.visible = GameIsPaused;
             if(GameIsPaused) {
                 

@@ -9,7 +9,7 @@ public class Temp_LevelPortal : MonoBehaviour
 {
     [SerializeField] private AbilityScreen screen;
     [SerializeField] private UpgradeBaseSo[] upgrades;
-    [SerializeField] private Transform canvas;
+    [SerializeField] private Transform parent;
     [SerializeField] private Transform antSpawn;
 
     [SerializeField] private GameObject [] antSets;
@@ -51,6 +51,8 @@ public class Temp_LevelPortal : MonoBehaviour
     {
         if (other.TryGetComponent(out Player p))
         {
+            GameManager.Instance.ToggleStop();
+            
             isActive = true;
             //Set front off, back on 
             transform.GetChild(0).gameObject.SetActive(false);
@@ -60,7 +62,7 @@ public class Temp_LevelPortal : MonoBehaviour
             
             print("generating Upgrades");
             int len = 3;
-            Instantiate(screen, canvas).Init(p, GenerateUpgradeSet(len), len);
+            Instantiate(screen, parent).Init(p, GenerateUpgradeSet(len), len);
         }
     }
 

@@ -615,6 +615,11 @@ PrefabInstance:
       objectReference: {fileID: 1720706128}
     - target: {fileID: 1012373255368695203, guid: eb33933e51ccf074abc1f4375bb95168,
         type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 1900711587}
+    - target: {fileID: 1012373255368695203, guid: eb33933e51ccf074abc1f4375bb95168,
+        type: 3}
       propertyPath: antSpawn
       value: 
       objectReference: {fileID: 1763184388}
@@ -9196,7 +9201,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-337444
+  m_Name: pb_Mesh-411450
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -23521,6 +23526,11 @@ PrefabInstance:
       objectReference: {fileID: 1720706128}
     - target: {fileID: 1012373255368695203, guid: eb33933e51ccf074abc1f4375bb95168,
         type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 1900711587}
+    - target: {fileID: 1012373255368695203, guid: eb33933e51ccf074abc1f4375bb95168,
+        type: 3}
       propertyPath: antSpawn
       value: 
       objectReference: {fileID: 1113881327}
@@ -23899,6 +23909,11 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1720706128}
+    - target: {fileID: 1012373255368695203, guid: eb33933e51ccf074abc1f4375bb95168,
+        type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 1900711587}
     - target: {fileID: 1012373255368695203, guid: eb33933e51ccf074abc1f4375bb95168,
         type: 3}
       propertyPath: antSpawn
@@ -24585,6 +24600,11 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1720706128}
+    - target: {fileID: 1012373255368695203, guid: eb33933e51ccf074abc1f4375bb95168,
+        type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 1900711587}
     - target: {fileID: 1012373255368695203, guid: eb33933e51ccf074abc1f4375bb95168,
         type: 3}
       propertyPath: antSpawn
@@ -32278,6 +32298,12 @@ Transform:
   m_Father: {fileID: 1781749470}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1900711587 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5813459757543788066, guid: 1d7a8ee9bb3f05b4daf31e59ac82d153,
+    type: 3}
+  m_PrefabInstance: {fileID: 1720706127}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1902219625 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e1de29851a6af6148b6dea298c508cdc,

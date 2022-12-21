@@ -109,8 +109,8 @@ namespace Characters
             controls.UI.EscapeMenu.performed += _ => GameManager.Instance.TogglePause();
            
 
-            GameManager.Instance.onPauseGameUnpaused += () => controls.InGame.Enable();
-            GameManager.Instance.onPauseGamePaused += () => controls.InGame.Disable();
+            GameManager.Instance.onGameUnpaused += () => controls.InGame.Enable();
+            GameManager.Instance.onGamePaused += () => controls.InGame.Disable();
 
 
             Cursor.visible = false;
