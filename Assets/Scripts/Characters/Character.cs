@@ -1,6 +1,5 @@
 using Characters.BaseStats;
 using Characters.Upgrades;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Characters
@@ -20,7 +19,7 @@ namespace Characters
         
         protected int curJump;
         
-        protected Vector3 directionVector;
+        protected Vector2 directionVector;
         
         protected bool isGrounded;
         protected bool canAttack = true;
@@ -49,12 +48,16 @@ namespace Characters
             #if UNITY_EDITOR
                     stats = (CharacterStatsSo)stats.Clone();
             #endif
+            
+            GameManager.Instance.onPauseGamePaused += () => source.Stop();
+            GameManager.Instance.onPauseGameUnpaused += () => source.Play();
+            
         }
         
 
         private void Update()
         {
-            if (Time.timeScale == 0)
+            if (GameManager.Instance.GameIsStopped)
             {
                 source.Stop();// TODO: move somewhere more appropriate
                 return;
@@ -138,6 +141,8 @@ namespace Characters
         protected virtual void Die(Character attacker, string attackerName)
         {
             source.PlayOneShot(stats.DieSound);
+            GameManager.Instance.onPauseGamePaused -= () => source.Stop();
+            GameManager.Instance.onPauseGameUnpaused -= () => source.Play();
             Destroy(gameObject);
         }
     

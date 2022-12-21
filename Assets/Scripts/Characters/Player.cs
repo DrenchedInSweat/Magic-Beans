@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Characters.BaseStats;
 using Characters.Upgrades;
@@ -15,7 +14,6 @@ namespace Characters
         
         [Header("Player Controls")]
         public float mouseSensitivity;
-        [SerializeField, Range(0,1)] private float wallRunHorLim = 0.2f;
         
         [Tooltip("Limits the max rotation of the cam")]
         [SerializeField, Range(0,89.9f)] private float viewLockY;
@@ -80,42 +78,44 @@ namespace Characters
             ui = GetComponent<PlayerUI>();
             cmv = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
 
-            //Handle Controls
+            // ------------------------- Handle Controls ------------------------------
             controls = new PlayerControls();
-            controls.InGame.Enable();
+            controls.Enable();
+            
             controls.InGame.Jump.started += _ =>  tryingToJump = true;
             controls.InGame.Jump.canceled += _ =>  tryingToJump = false;
             controls.InGame.Shoot.started += _ =>
             {
-                if (canAttack)
-                {
-                    SetWeaponState(true);
-                }
+                if (canAttack) SetWeaponState(true);
             };
             controls.InGame.Shoot.canceled += _ => SetWeaponState(false);
-
             controls.InGame.WeaponToggle1.started += _ => ToggleWeaponSlot(0);
             controls.InGame.WeaponToggle2.started += _ => ToggleWeaponSlot(1);
             controls.InGame.WeaponToggle3.started += _ => ToggleWeaponSlot(2);
-            controls.InGame.ToggleDown.started += _ =>
+            controls.InGame.Scroll.started += value =>
             {
-                int i = weaponIndex + 1;
-                if (i == ShootingCapability.Len)
+                int i = weaponIndex + (int)value.ReadValue<float>();
+                if (i >= ShootingCapability.Len)
                     i = 0;
-                ToggleWeaponSlot(i);
-            };
-            controls.InGame.ToggleUp.started += _ =>
-            {
-                int i = weaponIndex - 1;
-                if (i == -1)
+                else if (i < 0)
                     i = ShootingCapability.Len-1;
                 ToggleWeaponSlot(i);
             };
             
-            controls.InGame.LeftRight.performed += ctx => directionVector.z = ctx.ReadValue<float>();
-            controls.InGame.ForwardBack.performed += ctx => directionVector.x = ctx.ReadValue<float>();
-            controls.InGame.CameraX.performed += ctx => mouseDir.y = ctx.ReadValue<float>();
-            controls.InGame.CameraY.performed += ctx => mouseDir.x = ctx.ReadValue<float>();
+            controls.InGame.Movement.performed += ctx =>
+            {
+                print("XXX");
+                directionVector = ctx.ReadValue<Vector2>();
+            };
+            
+            controls.InGame.Camera.performed += ctx => mouseDir = ctx.ReadValue<Vector2>();
+            
+            controls.UI.EscapeMenu.performed += _ => GameManager.Instance.TogglePause();
+           
+
+            GameManager.Instance.onPauseGameUnpaused += () => controls.InGame.Enable();
+            GameManager.Instance.onPauseGamePaused += () => controls.InGame.Disable();
+
 
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
@@ -131,16 +131,6 @@ namespace Characters
             
             ui.SetCurrentWeapon(0,0);
             source.loop = true;
-        }
-
-        private void OnEnable()
-        {
-            controls.InGame.Enable();
-        }
-
-        private void OnDisable()
-        {
-            controls.InGame.Disable();
         }
 
         private void SetWeaponState(bool x)
@@ -224,7 +214,7 @@ namespace Characters
                 float dir = wallRunScalar;
 
                 //Gives backwards control
-                if (directionVector.x <= 0 && directionVector.z <= 0)
+                if (directionVector.x <= 0 && directionVector.y <= 0)
                 {
                     dir *= -0.6f; // Also reduce speed to 60%
                 }
@@ -234,7 +224,7 @@ namespace Characters
             else
             {
                 rb.AddForce(speed * directionVector.x * transform.forward, ForceMode.Force);
-                rb.AddForce(speed * directionVector.z * transform.right, ForceMode.Force);
+                rb.AddForce(speed * directionVector.y * transform.right, ForceMode.Force);
             }
             
             
@@ -288,7 +278,7 @@ namespace Characters
             Debug.DrawRay(transform.position, trans.forward * WallDist, isWallRunning?Color.cyan:Color.yellow);
             #endif
             //print("iSGrounded: " + isGrounded);
-            if (!isGrounded && jumpTime > MaxJumpTime && directionVector != Vector3.zero && (onLeftWall || onRightWall))
+            if (!isGrounded && jumpTime > MaxJumpTime && directionVector != Vector2.zero && (onLeftWall || onRightWall))
             {
                 wallRunTime += Time.deltaTime;
                 //Add custom gravity
@@ -361,10 +351,9 @@ namespace Characters
         private void RotateCamera()
         {
             //Pause handling
-            if (Time.timeScale == 0) return;
             
-            transform.rotation *= Quaternion.AngleAxis(intendedDirection.x * mouseSensitivity, Vector3.up);
-            head.rotation *= Quaternion.AngleAxis(intendedDirection.y * mouseSensitivity, Vector3.right);
+            transform.rotation *= Quaternion.AngleAxis(intendedDirection.x * mouseSensitivity * Time.deltaTime, Vector3.up);
+            head.rotation *= Quaternion.AngleAxis(intendedDirection.y * mouseSensitivity * Time.deltaTime, Vector3.right);
         
             Vector3 angles = Vector3.zero;
 

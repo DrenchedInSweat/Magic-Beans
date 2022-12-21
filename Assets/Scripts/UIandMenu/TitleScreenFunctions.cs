@@ -39,11 +39,6 @@ public class TitleScreenFunctions : MenuBase
         
     }
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-    }
 
     public void ContinueGame()
     {

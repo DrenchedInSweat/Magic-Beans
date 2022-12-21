@@ -1,4 +1,3 @@
-using System;
 using Characters;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -39,6 +38,9 @@ namespace Weapons
                 childObj = transform.GetChild(0).gameObject;
                 child = childObj.GetComponent<LaserWeaponVFX>();
             }
+            
+            //Can scroll up
+            
         }
 
         // Update is called once per frame

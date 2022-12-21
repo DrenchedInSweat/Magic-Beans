@@ -727,7 +727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 1ea2836c3751f9e4abbc328621d34ce4, type: 2}
   animator: {fileID: 8609500799161918173}
-  mouseSensitivity: 0.16
+  mouseSensitivity: 10
   viewLockY: 60
   recoilResetTime: 0.4
   head: {fileID: 730901219336788429}
@@ -760,7 +760,6 @@ MonoBehaviour:
   - {fileID: 5160116445269067669}
   equippedWeaponCol: {r: 1, g: 1, b: 1, a: 1}
   unequippedWeaponCol: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  unavailableWeaponCol: {r: 0.2, g: 0.2, b: 0.2, a: 0.5}
   deathScreen: {fileID: 2194059798810890508}
   otherUIElements: []
 --- !u!114 &3925105469112590446
@@ -3662,16 +3661,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1545499863695820370, guid: b57484c8f8705a245b023199961ccd9e,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545499863695820370, guid: b57484c8f8705a245b023199961ccd9e,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545499863695820370, guid: b57484c8f8705a245b023199961ccd9e,
-        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 875733680256387635}
@@ -3679,22 +3668,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545499863695820370, guid: b57484c8f8705a245b023199961ccd9e,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Options
       objectReference: {fileID: 0}
     - target: {fileID: 1545499863695820370, guid: b57484c8f8705a245b023199961ccd9e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PauseMenu, Assembly-CSharp
       objectReference: {fileID: 0}
-    - target: {fileID: 1545499863695820370, guid: b57484c8f8705a245b023199961ccd9e,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 1545499864649633322, guid: b57484c8f8705a245b023199961ccd9e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -3703,7 +3682,7 @@ PrefabInstance:
     - target: {fileID: 1545499864649633322, guid: b57484c8f8705a245b023199961ccd9e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1545499864649633322, guid: b57484c8f8705a245b023199961ccd9e,
         type: 3}
@@ -3718,12 +3697,12 @@ PrefabInstance:
     - target: {fileID: 1545499864649633322, guid: b57484c8f8705a245b023199961ccd9e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeScene
+      value: ReturnToTitle
       objectReference: {fileID: 0}
     - target: {fileID: 1545499864649633322, guid: b57484c8f8705a245b023199961ccd9e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MenuBase, Assembly-CSharp
+      value: PauseMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1545499864649633322, guid: b57484c8f8705a245b023199961ccd9e,
         type: 3}
@@ -3747,18 +3726,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1545499865288128143, guid: b57484c8f8705a245b023199961ccd9e,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 875733680256387635}
-    - target: {fileID: 1545499865288128143, guid: b57484c8f8705a245b023199961ccd9e,
-        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545499865288128143, guid: b57484c8f8705a245b023199961ccd9e,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ResumeGame
       objectReference: {fileID: 0}
     - target: {fileID: 1545499865288128143, guid: b57484c8f8705a245b023199961ccd9e,
         type: 3}

@@ -1,81 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using TMPro;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MenuBase
+public class PauseMenu : MonoBehaviour
 {
-    PlayerControls controls;
 
-    [SerializeField] GameObject pauseScreen;
-    [SerializeField] GameObject optionsScreen;
-    [SerializeField] GameObject topPauseButton;
-    bool isPaused = false;
-
-
-    [SerializeField] AudioClip pauseSound;
-    [SerializeField] AudioClip unpausedSound;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        controls = new PlayerControls();
-        controls.InGame.Enable();
-        controls.InGame.EscapeMenu.performed += x => CheckPause();
-    }
-
-
-    void CheckPause()
-    {
-        print("Debug:" + gameObject.name);
-        if (isPaused)
-        {
-            ResumeGame();
-            SetButton(null);
-        }
-        else
-        {
-
-            PauseGame();
-            SetButton(topPauseButton);
-        }
-        
-    }
+    [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private GameObject optionsScreen;
+    
+    [SerializeField] private AudioClip pauseSound;
+    [SerializeField] private AudioClip unpausedSound;
+    [SerializeField] private AudioClip menuSelect;
+    [SerializeField] private AudioClip menuExit;
 
     
-
-    public void PauseGame()
+    private void Awake()
     {
-        controls.InGame.Disable();
-        controls.UI.Enable();
-        SetButton(topPauseButton);
+        GameManager.Instance.onPauseGamePaused += Pause;
+        GameManager.Instance.onPauseGameUnpaused += Unpause;
+    }
 
-        Time.timeScale = 0;
+    private void Pause()
+    {
+        AudioSource.PlayClipAtPoint(pauseSound, transform.position, GameManager.Instance.SfxVolume);
         pauseScreen.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        isPaused = true;
     }
-    public void ResumeGame()
+    
+    private void Unpause()
     {
-        controls.UI.Disable();
-        controls.InGame.Enable();
-        if (optionsScreen)
+        AudioSource.PlayClipAtPoint(unpausedSound, transform.position, GameManager.Instance.SfxVolume);
         optionsScreen.SetActive(false);
-        
-        Time.timeScale = 1;
         pauseScreen.SetActive(false);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        isPaused = false;
     }
-
-    public void Options()
+    
+    //-------------------- Unity Event Functions ----------------------------- //
+    
+    public void Resume()
     {
-        optionsScreen.SetActive(true);
+        Unpause(); // Correct EVEN if in upgrade menu.
+        GameManager.Instance.TogglePause();
+    }
+    
+    public void Restart()
+    {
+        GameManager.Instance.ToggleStop();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void ReturnToTitle()
+    {
+        GameManager.Instance.ToggleStop();
+        SceneManager.LoadScene(0);
+    }
+
+    public void OpenMenu(GameObject menu)
+    {
+        AudioSource.PlayClipAtPoint(menuSelect, transform.position, GameManager.Instance.SfxVolume);
+        menu.SetActive(true);
+    }
+    
+    public void CloseMenu(GameObject menu)
+    {
+        AudioSource.PlayClipAtPoint(menuExit, transform.position, GameManager.Instance.SfxVolume);
+        menu.SetActive(false);
+    }
+    
 }

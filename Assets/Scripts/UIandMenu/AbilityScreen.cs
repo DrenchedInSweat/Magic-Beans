@@ -1,9 +1,7 @@
-using System;
 using Characters;
 using Characters.BaseStats;
 using Characters.Upgrades;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Weapons;
