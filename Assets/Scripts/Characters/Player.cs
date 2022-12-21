@@ -102,11 +102,7 @@ namespace Characters
                 ToggleWeaponSlot(i);
             };
             
-            controls.InGame.Movement.performed += ctx =>
-            {
-                print("XXX");
-                directionVector = ctx.ReadValue<Vector2>();
-            };
+            controls.InGame.Movement.performed += ctx => directionVector = ctx.ReadValue<Vector2>();
             
             controls.InGame.Camera.performed += ctx => mouseDir = ctx.ReadValue<Vector2>();
             
