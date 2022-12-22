@@ -107,6 +107,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TSave"",
+                    ""type"": ""Button"",
+                    ""id"": ""99bdb85c-e59f-4932-b9a4-5e16dc761ca0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TLoad"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7630703-e80f-4715-9b22-f7bccfb2c48f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -503,6 +521,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
                     ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f8d1ed9f-729f-441b-b2f7-96de557657bf"",
+                    ""path"": ""<Keyboard>/n"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TSave"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f06d31f2-0a36-4b25-a4fe-7a2e3a4ef78d"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TLoad"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1088,6 +1128,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_InGame_WeaponToggle3 = m_InGame.FindAction("WeaponToggle3", throwIfNotFound: true);
         m_InGame_Scroll = m_InGame.FindAction("Scroll", throwIfNotFound: true);
         m_InGame_Inventory = m_InGame.FindAction("Inventory", throwIfNotFound: true);
+        m_InGame_TSave = m_InGame.FindAction("TSave", throwIfNotFound: true);
+        m_InGame_TLoad = m_InGame.FindAction("TLoad", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1168,6 +1210,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_WeaponToggle3;
     private readonly InputAction m_InGame_Scroll;
     private readonly InputAction m_InGame_Inventory;
+    private readonly InputAction m_InGame_TSave;
+    private readonly InputAction m_InGame_TLoad;
     public struct InGameActions
     {
         private @PlayerControls m_Wrapper;
@@ -1181,6 +1225,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @WeaponToggle3 => m_Wrapper.m_InGame_WeaponToggle3;
         public InputAction @Scroll => m_Wrapper.m_InGame_Scroll;
         public InputAction @Inventory => m_Wrapper.m_InGame_Inventory;
+        public InputAction @TSave => m_Wrapper.m_InGame_TSave;
+        public InputAction @TLoad => m_Wrapper.m_InGame_TLoad;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1217,6 +1263,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Inventory.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnInventory;
+                @TSave.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnTSave;
+                @TSave.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnTSave;
+                @TSave.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnTSave;
+                @TLoad.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnTLoad;
+                @TLoad.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnTLoad;
+                @TLoad.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnTLoad;
             }
             m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
@@ -1248,6 +1300,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @TSave.started += instance.OnTSave;
+                @TSave.performed += instance.OnTSave;
+                @TSave.canceled += instance.OnTSave;
+                @TLoad.started += instance.OnTLoad;
+                @TLoad.performed += instance.OnTLoad;
+                @TLoad.canceled += instance.OnTLoad;
             }
         }
     }
@@ -1386,6 +1444,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnWeaponToggle3(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnTSave(InputAction.CallbackContext context);
+        void OnTLoad(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

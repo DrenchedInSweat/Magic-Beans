@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Characters;
 using UnityEngine;
 
-public class Slime : Character
+public class Slime : Enemy
 {
     private int layerMask;
 

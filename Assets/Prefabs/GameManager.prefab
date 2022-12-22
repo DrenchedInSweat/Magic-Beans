@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5342492553147943340}
   - component: {fileID: 5342492553147943341}
+  - component: {fileID: 2072639356972658208}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -60,6 +61,23 @@ MonoBehaviour:
     m_Bits: 392
   <SpawnScale>k__BackingField: 1
   <Seed>k__BackingField: 0
+  <Player>k__BackingField: {fileID: 0}
+--- !u!114 &2072639356972658208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5342492553147943342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62ce8eeea30bcaa42852fed3d914d979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseStats:
+  - {fileID: 11400000, guid: 1ea2836c3751f9e4abbc328621d34ce4, type: 2}
+  - {fileID: 11400000, guid: 49e7f24eac719794d880c7d4ca25ee80, type: 2}
+  - {fileID: 11400000, guid: 1423027f1c73aa14182afd222772be76, type: 2}
 --- !u!1 &6858497044006168738
 GameObject:
   m_ObjectHideFlags: 0

@@ -80,31 +80,6 @@ namespace Characters
             ui = GetComponent<PlayerUI>();
             cmv = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
             
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-
-            ui.SetHealth(stats.MaxHealth, curHealth);
-            
-            ShootingCapability = GetComponent<ShootingCapability>();
-            ShootingCapability.Init(this);
-            for (int i = 0; i < ShootingCapability.Len; ++i)
-            {
-                ui.SetWeapon(i, ShootingCapability.Weapons[weaponIndex].GetStats<WeaponStatsSo>().Sprite);
-            }
-            
-            ui.SetCurrentWeapon(0,0);
-            source.loop = true;
-        }
-
-        private void OnDestroy()
-        {
-            //Destroy the controls. Seems to work.
-            controls.Dispose();
-        }
-
-        private void Start()
-        {
-            
             // ------------------------- Handle Controls ------------------------------
             controls = new PlayerControls();
             controls.Enable();
@@ -132,11 +107,37 @@ namespace Characters
             };
             
             controls.InGame.Movement.performed += ctx => directionVector = ctx.ReadValue<Vector2>();
+            controls.InGame.TSave.performed += _ => StatsManager.Instance.SaveGame(0);
+            controls.InGame.TLoad.performed += _ =>
+            {
+                StatsManager.Instance.LoadGame(0);
+                print("my stats: " + stats.MaxJumps);
+            };
             
             controls.InGame.Camera.performed += ctx => mouseDir = ctx.ReadValue<Vector2>();
             controls.UI.EscapeMenu.performed += _ => GameManager.Instance.TogglePause();
+            
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+            ui.SetHealth(stats.MaxHealth, curHealth);
+            
+            ShootingCapability = GetComponent<ShootingCapability>();
+            ShootingCapability.Init(this);
+            for (int i = 0; i < ShootingCapability.Len; ++i)
+            {
+                ui.SetWeapon(i, ShootingCapability.Weapons[weaponIndex].GetStats<WeaponStatsSo>().Sprite);
+            }
+            
+            ui.SetCurrentWeapon(0,0);
+            source.loop = true;
         }
 
+        private void OnDestroy()
+        {
+            //Destroy the controls. Seems to work.
+            controls.Dispose();
+        }
         private void SetWeaponState(bool x)
         {
             Weapon w = ShootingCapability.Weapons[weaponIndex];
@@ -463,9 +464,9 @@ namespace Characters
         #endregion
         
 #if UNITY_EDITOR
-        protected override void OnDrawGizmos()
+        protected void OnDrawGizmos()
         {
-            base.OnDrawGizmos();
+            //base.OnDrawGizmos();
             var transform1 = transform;
             var position = transform1.position;
             var right = transform1.right;

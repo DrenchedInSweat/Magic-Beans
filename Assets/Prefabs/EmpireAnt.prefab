@@ -7123,7 +7123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9573d48961a75347a9a2e0ad4c69d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 49e7f24eac719794d880c7d4ca25ee80, type: 2}
+  statsID: 1
   animator: {fileID: 7706035147395658966}
   enemyStats: {fileID: 11400000, guid: 3af9032e49ea24040bd60e8a68e16fb6, type: 2}
   head: {fileID: 8129263749849150219}

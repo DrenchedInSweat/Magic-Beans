@@ -8,10 +8,7 @@ using UnityEngine;
 namespace Characters.BaseStats
 {
     [CreateAssetMenu(menuName = "Game/Stats/CharacterStats", fileName = "CharacterStats", order = 1)]
-    public class CharacterStatsSo : ScriptableObject
-#if UNITY_EDITOR
-        , ICloneable
-#endif
+    public class CharacterStatsSo : ScriptableObject, ICloneable
     {
         [field: Header("UI")]
         [field: SerializeField, Min(0)] public string Name { get; set; }
@@ -63,11 +60,27 @@ namespace Characters.BaseStats
         [field:SerializeField] public AudioClip WalkSound { get; private set; }
         [field:SerializeField] public AudioClip UpgradeSound { get; private set; }
         [field:SerializeField, Min(0)] public float WalkSoundDelay { get; private set; }
+
         
+        //---------------------------- Saving / reloading ----------------------------// 
+        
+        public bool HasBeenModified { get; private set; }
+
+        public void SetStats(string newName, float moveSpeed, float maxSpeed, float jumpForce, int maxJumps, float maxHealth, float contactDamage)
+        {
+            Name = newName;
+            MoveSpeed = moveSpeed;
+            MaxSpeed = maxSpeed;
+            JumpForce = jumpForce;
+            MaxJumps = maxJumps;
+            MaxHealth = maxHealth;
+            ContactDamage = contactDamage;
+        }
 
         //----------------------Upgrading------------------//
         public void UpgradeCharacter(CharacterUpgradeSo upgrade)
         {
+            HasBeenModified = true;
             StoredUpgrades ??= new Queue<CharacterUpgradeSo>();
             StoredUpgrades.Enqueue(upgrade);
             if (upgrade.Modifier == EModifier.Add)
@@ -78,14 +91,10 @@ namespace Characters.BaseStats
             MultiplyUpgrade(upgrade);
         }
         
-        
-        
-#if UNITY_EDITOR
         public object Clone()
         {
             return MemberwiseClone();
         }
-#endif
 
         //TODO: This may cause problems:
         //1 Because SO, it would affect all of the same creature...

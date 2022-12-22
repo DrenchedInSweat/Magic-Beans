@@ -8,10 +8,10 @@ namespace Characters
     public class Character : MonoBehaviour
     {
         [Header("Character Information")]
-        [SerializeField] protected CharacterStatsSo stats;
-        
-        
-        
+        [SerializeField] private int statsID;
+
+        protected CharacterStatsSo stats;
+
         protected const float MaxJumpTime = 0.2f;
         protected float jumpTime;
         protected float curHealth;
@@ -40,15 +40,12 @@ namespace Characters
         protected virtual void Awake()
         {
             source = GetComponent<AudioSource>();
+            stats = StatsManager.Instance.Stats[statsID];
+            
             curHealth = stats.MaxHealth;
             
             speed = stats.MoveSpeed;
             maxSpeed = stats.MaxSpeed;
-            
-            #if UNITY_EDITOR
-                    stats = (CharacterStatsSo)stats.Clone();
-            #endif
-            
             GameManager.Instance.onGamePaused += () => source.Pause();
             GameManager.Instance.onGameUnpaused += () => source.UnPause();
             
@@ -188,13 +185,14 @@ namespace Characters
             
         }
 
-
+/*
 #if UNITY_EDITOR
         protected virtual void OnDrawGizmos()
         {
             Gizmos.DrawRay(transform.position + stats.FeetCenter, -transform.up * stats.Range);
         }
 #endif
+        */
         public void MultSpeed(float statsSlowDown)
         {
             maxSpeed *= statsSlowDown;

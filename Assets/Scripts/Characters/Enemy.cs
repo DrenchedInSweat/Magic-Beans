@@ -208,9 +208,8 @@ namespace Characters
 
 #if UNITY_EDITOR
         [SerializeField] private bool showAlways;
-        protected override void OnDrawGizmos()
+        protected virtual void OnDrawGizmos()
         {
-            base.OnDrawGizmos();
             if (!showAlways) return;
             Gizmos.color = Color.green;
             Vector3 fwd = head.up;
