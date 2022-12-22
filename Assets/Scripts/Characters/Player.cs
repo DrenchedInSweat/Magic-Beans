@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Characters.BaseStats;
 using Characters.Upgrades;
@@ -73,15 +74,43 @@ namespace Characters
         protected override void Awake()
         {
             base.Awake();
+            print("Loaded");
             //Get Components
             rb = GetComponent<Rigidbody>();
             ui = GetComponent<PlayerUI>();
             cmv = transform.GetChild(1).GetComponent<CinemachineVirtualCamera>();
+            
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
 
+            ui.SetHealth(stats.MaxHealth, curHealth);
+            
+            ShootingCapability = GetComponent<ShootingCapability>();
+            ShootingCapability.Init(this);
+            for (int i = 0; i < ShootingCapability.Len; ++i)
+            {
+                ui.SetWeapon(i, ShootingCapability.Weapons[weaponIndex].GetStats<WeaponStatsSo>().Sprite);
+            }
+            
+            ui.SetCurrentWeapon(0,0);
+            source.loop = true;
+        }
+
+        private void OnDestroy()
+        {
+            //Destroy the controls. Seems to work.
+            controls.Dispose();
+        }
+
+        private void Start()
+        {
+            
             // ------------------------- Handle Controls ------------------------------
             controls = new PlayerControls();
             controls.Enable();
-            
+            GameManager.Instance.onGameUnpaused += () => controls.InGame.Enable();
+            GameManager.Instance.onGamePaused += () => controls.InGame.Disable();
+
             controls.InGame.Jump.started += _ =>  tryingToJump = true;
             controls.InGame.Jump.canceled += _ =>  tryingToJump = false;
             controls.InGame.Shoot.started += _ =>
@@ -105,28 +134,7 @@ namespace Characters
             controls.InGame.Movement.performed += ctx => directionVector = ctx.ReadValue<Vector2>();
             
             controls.InGame.Camera.performed += ctx => mouseDir = ctx.ReadValue<Vector2>();
-            
             controls.UI.EscapeMenu.performed += _ => GameManager.Instance.TogglePause();
-           
-
-            GameManager.Instance.onGameUnpaused += () => controls.InGame.Enable();
-            GameManager.Instance.onGamePaused += () => controls.InGame.Disable();
-
-
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-
-            ui.SetHealth(stats.MaxHealth, curHealth);
-            
-            ShootingCapability = GetComponent<ShootingCapability>();
-            ShootingCapability.Init(this);
-            for (int i = 0; i < ShootingCapability.Len; ++i)
-            {
-                ui.SetWeapon(i, ShootingCapability.Weapons[weaponIndex].GetStats<WeaponStatsSo>().Sprite);
-            }
-            
-            ui.SetCurrentWeapon(0,0);
-            source.loop = true;
         }
 
         private void SetWeaponState(bool x)

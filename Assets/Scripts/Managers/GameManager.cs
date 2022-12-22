@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Characters;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 
@@ -47,20 +48,33 @@ public class GameManager : MonoBehaviour
 
         private void Awake()
         {
-            if (Instance == null || Instance != this)
+            if (Instance == null && Instance != this)
             {
                 Instance = this;
             }
             else
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
+
+            SceneManager.sceneLoaded += (arg0, mode) =>
+            {
+                //Clear bindings
+                onGamePaused = null;
+                onGameUnpaused = null;
+                
+                //Unstop game. (If applicable)
+                GameIsStopped = true;
+                ToggleStop();
+            };
             
             DontDestroyOnLoad(gameObject);
 
             //Random.InitState(Seed);
             Application.targetFrameRate = 120;
         }
+
+        
 
         /// <summary>
         /// Stops and Pauses // Stops and Unpauses.
@@ -70,7 +84,6 @@ public class GameManager : MonoBehaviour
             GameIsStopped = !GameIsStopped;
             GameIsPaused = GameIsStopped; // Above because will get toggled by toggle pause...?
             
-            print("Stop toggled: " + GameIsStopped);
             SetLogic();
         }
 
@@ -79,16 +92,16 @@ public class GameManager : MonoBehaviour
         /// </summary>
         public void TogglePause()
         {
-            
-            
             //State change
-            GameIsPaused = !GameIsPaused;
+            GameIsPaused = !GameIsPaused; 
+            
+            //This is getting double bound somehow...
+            print("Setting state: " + GameIsPaused);
             
             if(GameIsPaused)onGamePaused.Invoke();
             else onGameUnpaused.Invoke();
 
-            if (GameIsStopped) return;
-            SetLogic();
+            if (!GameIsStopped) SetLogic();
         }
 
         private void SetLogic()

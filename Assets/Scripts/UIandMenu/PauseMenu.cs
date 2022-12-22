@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private AudioClip menuExit;
 
     
-    private void Awake()
+    private void Start()
     {
         GameManager.Instance.onGamePaused += Pause;
         GameManager.Instance.onGameUnpaused += Unpause;
@@ -21,14 +21,12 @@ public class PauseMenu : MonoBehaviour
 
     private void Pause()
     {
-        print("Oops");
         AudioSource.PlayClipAtPoint(pauseSound, transform.position, GameManager.Instance.SfxVolume);
         pauseScreen.SetActive(true);
     }
     
     private void Unpause()
     {
-        print("Yay");
         AudioSource.PlayClipAtPoint(unpausedSound, transform.position, GameManager.Instance.SfxVolume);
         optionsScreen.SetActive(false);
         pauseScreen.SetActive(false);
@@ -45,13 +43,13 @@ public class PauseMenu : MonoBehaviour
     
     public void Restart()
     {
-        GameManager.Instance.ToggleStop();
+        //GameManager.Instance.ToggleStop();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ReturnToTitle()
     {
-        GameManager.Instance.ToggleStop();
+        //GameManager.Instance.ToggleStop();
         SceneManager.LoadScene(0);
     }
 

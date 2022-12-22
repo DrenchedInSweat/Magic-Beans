@@ -98,6 +98,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""cb9bcbc7-5880-4a8e-9929-b6c81d8f96e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -472,6 +481,28 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc2fe11e-3ccc-4ddb-9154-b2f0b7eb0642"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6a3575c4-da6a-4c8e-b2d4-127b48f24c6a"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1056,6 +1087,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_InGame_WeaponToggle2 = m_InGame.FindAction("WeaponToggle2", throwIfNotFound: true);
         m_InGame_WeaponToggle3 = m_InGame.FindAction("WeaponToggle3", throwIfNotFound: true);
         m_InGame_Scroll = m_InGame.FindAction("Scroll", throwIfNotFound: true);
+        m_InGame_Inventory = m_InGame.FindAction("Inventory", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1135,6 +1167,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_WeaponToggle2;
     private readonly InputAction m_InGame_WeaponToggle3;
     private readonly InputAction m_InGame_Scroll;
+    private readonly InputAction m_InGame_Inventory;
     public struct InGameActions
     {
         private @PlayerControls m_Wrapper;
@@ -1147,6 +1180,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @WeaponToggle2 => m_Wrapper.m_InGame_WeaponToggle2;
         public InputAction @WeaponToggle3 => m_Wrapper.m_InGame_WeaponToggle3;
         public InputAction @Scroll => m_Wrapper.m_InGame_Scroll;
+        public InputAction @Inventory => m_Wrapper.m_InGame_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1180,6 +1214,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Scroll.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnScroll;
                 @Scroll.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnScroll;
                 @Scroll.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnScroll;
+                @Inventory.started -= m_Wrapper.m_InGameActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_InGameActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_InGameActionsCallbackInterface.OnInventory;
             }
             m_Wrapper.m_InGameActionsCallbackInterface = instance;
             if (instance != null)
@@ -1208,6 +1245,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Scroll.started += instance.OnScroll;
                 @Scroll.performed += instance.OnScroll;
                 @Scroll.canceled += instance.OnScroll;
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
             }
         }
     }
@@ -1345,6 +1385,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnWeaponToggle2(InputAction.CallbackContext context);
         void OnWeaponToggle3(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
