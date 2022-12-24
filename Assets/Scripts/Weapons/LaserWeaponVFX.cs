@@ -8,7 +8,7 @@ namespace Weapons
 {
     public class LaserWeaponVFX : MonoBehaviour
     {
-        private Gradient col;
+        private Color col;
         private VisualEffect effect;
     
         private readonly int lengthID = Shader.PropertyToID("Len");
@@ -28,6 +28,7 @@ namespace Weapons
             effect = GetComponent<VisualEffect>();
             //lightTransform = transform.GetChild(1);
             //myLight = lightTransform.GetComponent<Light>();
+            effect.SetVector4(colorID, col);
             //myLight.color = col;
         
             //effect.SetFloat(lengthID , 100);
@@ -82,13 +83,12 @@ namespace Weapons
             }
         }
 
-        public void Activate(Gradient c, LaserWeapon.ApplyToCharacter myDel)
+        public void Activate(Color c, LaserWeapon.ApplyToCharacter myDel)
         {
             del = myDel;
             col = c;
-            
             effect.SendEvent(startID);
-            effect.SetGradient(colorID, col);
+            effect.SetVector4(colorID, col);
             
             if(childObj)
                 childObj.SetActive(false);

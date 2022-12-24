@@ -34,6 +34,8 @@ namespace Weapons
         private void Shoot()
         {
             Transform t = transform;
+            if (stats.OnFire)
+                Destroy(Instantiate(stats.OnFire.gameObject, t.position, t.rotation, t), 1);
 
             int projectilesFired = stats.ProjectilesFired;
             float randomSpread = stats.RandomSpread;

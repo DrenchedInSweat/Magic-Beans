@@ -5,19 +5,19 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Title.unity
     guid: 4444f7d8f404fd049a8a21d32e3ed432
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CarlosTut.unity
     guid: 611be714ccfa12d4698c43a0e9268e77
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BradleyLevelScene.unity
     guid: 6d5068f3b2b858d4f92a0dcad8ee81db
   - enabled: 0
     path: Assets/OutdoorsScene.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/GabesUIScene.unity
     guid: b9b2ceb104665c0439148bf1b34adea7
   m_configObjects: {}

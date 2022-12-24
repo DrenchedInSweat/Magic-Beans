@@ -3,7 +3,6 @@ using Characters;
 using Characters.BaseStats;
 using Characters.Upgrades;
 using UnityEngine;
-using UnityEngine.VFX;
 
 namespace Weapons
 {
@@ -26,13 +25,8 @@ namespace Weapons
         
         protected float curShotTime;
         private WeaponStatsSo defStats;
-        
-        private VisualEffect flash;
-        private readonly int startID = Shader.PropertyToID("StartFire");
-        private readonly int stopID = Shader.PropertyToID("StopFire");
-        private readonly int delayID = Shader.PropertyToID("Delay");
-        private readonly int colorID = Shader.PropertyToID("Color");
-        [SerializeField] [GradientUsage(true)] protected Gradient gradient;
+
+
         public void Init(Character myOwner)
         {
             owner = myOwner;
@@ -43,11 +37,6 @@ namespace Weapons
             #endif
             idleClip = defStats.IdleNoise;
             owner.SetLoopedNoise(idleClip);
-            
-            flash = GetComponent<VisualEffect>();
-            flash.SetFloat(delayID, defStats.TimeBetweenShots);
-            flash.SetGradient(colorID, gradient);
-            
         }
 
         private void Update()
@@ -71,22 +60,9 @@ namespace Weapons
                 StopFire();
             }
         }
-
-        protected virtual void StartFire()
-        {
-            print("Started firing");
-            flash.SendEvent(startID);
-            owner.SetLoopedNoise(defStats.FireNoise);
-        }
-
-        protected virtual void StopFire()
-        {
-            print("Stopped firing");
-            owner.SetLoopedNoise(defStats.IdleNoise);
-            flash.Stop();
-            flash.SendEvent(stopID);
-        }
-
+        
+        protected abstract void StartFire();
+        protected abstract void StopFire();
         protected abstract void TryShoot();
 
         protected abstract bool CanShoot();
