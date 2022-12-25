@@ -725,10 +725,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3a4b6f317bd1a448ff61f3ab705f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 1ea2836c3751f9e4abbc328621d34ce4, type: 2}
+  statsID: 0
   animator: {fileID: 8609500799161918173}
-  mouseSensitivity: 0.16
-  wallRunHorLim: 0.2
+  mouseSensitivity: 10
   viewLockY: 60
   recoilResetTime: 0.4
   head: {fileID: 730901219336788429}
@@ -1401,8 +1400,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1844503718421610584}
-  - component: {fileID: 6636753793876417723}
   - component: {fileID: 2395145354937879009}
+  - component: {fileID: 6636753793876417723}
   - component: {fileID: 3529259225723569310}
   m_Layer: 0
   m_Name: WEP_Bomb
@@ -1426,6 +1425,43 @@ Transform:
   m_Father: {fileID: 730901218614887216}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!2083052967 &2395145354937879009
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844503718421610586}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: 9c261916ef9b75d408f4e198a7d114a1, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array: []
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array: []
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array: []
 --- !u!114 &6636753793876417723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1468,43 +1504,6 @@ MonoBehaviour:
     m_NumColorKeys: 4
     m_NumAlphaKeys: 4
   stats: {fileID: 11400000, guid: be877ea1752a4fa45aac9cb8102691e3, type: 2}
---- !u!2083052967 &2395145354937879009
-VisualEffect:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1844503718421610586}
-  m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: de5f1cdda6eaf3e46a386a44984f524a, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
-  m_StartSeed: 0
-  m_ResetSeedOnPlay: 1
-  m_ResourceVersion: 1
-  m_PropertySheet:
-    m_Float:
-      m_Array: []
-    m_Vector2f:
-      m_Array: []
-    m_Vector3f:
-      m_Array: []
-    m_Vector4f:
-      m_Array: []
-    m_Uint:
-      m_Array: []
-    m_Int:
-      m_Array: []
-    m_Matrix4x4f:
-      m_Array: []
-    m_AnimationCurve:
-      m_Array: []
-    m_Gradient:
-      m_Array: []
-    m_NamedObject:
-      m_Array: []
-    m_Bool:
-      m_Array: []
 --- !u!73398921 &3529259225723569310
 VFXRenderer:
   serializedVersion: 1
@@ -3256,7 +3255,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7921603483293790314}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -28,8 +28,6 @@ namespace Weapons
         private WeaponStatsSo defStats;
         
         private VisualEffect flash;
-        private readonly int startID = Shader.PropertyToID("StartFire");
-        private readonly int stopID = Shader.PropertyToID("StopFire");
         private readonly int delayID = Shader.PropertyToID("Delay");
         private readonly int colorID = Shader.PropertyToID("Color");
         [SerializeField] [GradientUsage(true)] protected Gradient gradient;
@@ -43,11 +41,12 @@ namespace Weapons
             #endif
             idleClip = defStats.IdleNoise;
             owner.SetLoopedNoise(idleClip);
+
             
             flash = GetComponent<VisualEffect>();
             flash.SetFloat(delayID, defStats.TimeBetweenShots);
             flash.SetGradient(colorID, gradient);
-            
+            flash.pause = true; // Why does stopping them not work for all?
         }
 
         private void Update()
@@ -56,10 +55,11 @@ namespace Weapons
 
             if (tryingToShoot)
             {
-                if (!isShooting)
+                if (!isShooting && CanShoot())
                 {
                     isShooting = true;
                     owner.MultSpeed(defStats.SlowDown);
+                    print("trying to fire");
                     StartFire();
                 }
                 TryShoot();
@@ -74,8 +74,8 @@ namespace Weapons
 
         protected virtual void StartFire()
         {
-            print("Started firing");
-            flash.SendEvent(startID);
+            flash.pause = false;
+            flash.Play();
             owner.SetLoopedNoise(defStats.FireNoise);
         }
 
@@ -84,7 +84,7 @@ namespace Weapons
             print("Stopped firing");
             owner.SetLoopedNoise(defStats.IdleNoise);
             flash.Stop();
-            flash.SendEvent(stopID);
+           // flash.SendEvent(stopID);
         }
 
         protected abstract void TryShoot();

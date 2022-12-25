@@ -13,13 +13,7 @@ namespace Weapons
         [SerializeField] protected ProjectileWeaponStats stats;
         
         private int curBullets;
-        protected override void StartFire()
-        {
-        }
 
-        protected override void StopFire()
-        {
-        }
 
         protected override void TryShoot()
         { 

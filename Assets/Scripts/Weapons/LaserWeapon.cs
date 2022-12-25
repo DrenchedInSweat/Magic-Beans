@@ -20,8 +20,6 @@ namespace Weapons
         private ApplyToCharacter onHit;
 
         
-        
-       
         private void Start()
         {
             
@@ -35,9 +33,10 @@ namespace Weapons
 
         protected override void StartFire()
         {
-            base.StopFire();
             StopAllCoroutines();
+            base.StartFire();
             StartCoroutine(StartBeam());
+            print("Started Firing");
         }
 
 
@@ -46,6 +45,11 @@ namespace Weapons
             base.StopFire();
             myWeapon.DeActivate();
             myWeapon.gameObject.SetActive(false);
+        }
+
+        protected override void TryShoot()
+        {
+            
         }
 
         private IEnumerator StartBeam()
@@ -68,18 +72,11 @@ namespace Weapons
 
             myWeapon = transform.GetChild(0).GetComponent<LaserWeaponVFX>();
         }
-
-        //I'm lazy
-        protected override void TryShoot()
-        {
-            
-        }
-        
         protected override bool CanShoot()
         {
             //TODO add check, cannot shoot in safe zones, or if hand is being used to wall run.
             //return (curShotTime > stats.TimeBetweenShots && stats.ProjectilesFired > 0);
-            return false;
+            return true;
         }
 
         public override void Upgrade<T>(T upgrade)

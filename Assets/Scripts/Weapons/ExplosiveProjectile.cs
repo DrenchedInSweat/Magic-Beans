@@ -57,15 +57,15 @@ namespace Weapons
             if(recursion == 0) return;
             // explode
             float degs = 360f / recursiveProjectiles;
-            print("Spawning objects");
             for (int i = 0; i < recursiveProjectiles; ++i)
             {
-                GameObject go = Instantiate(obj, position, Quaternion.identity);
-
+                
                 Vector3 forward = Vector3.Cross(n, Vector3.right);
-                Vector3 rot = Quaternion.AngleAxis(i * degs,  n) * forward;
+                Vector3 rot = Quaternion.AngleAxis(i * degs, n) * forward;
                 rot = Vector3.RotateTowards(rot, n, 1, 15);
-                    
+                
+                GameObject go = Instantiate(obj, position + rot, Quaternion.identity);
+
                 go.GetComponent<ExplosiveProjectile>().Init(myOwner, aoe, damage, recursion-1, bounces, obj, rot * recursiveForce);
                 Destroy(go, 10);
             }
