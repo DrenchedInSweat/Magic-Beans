@@ -32,6 +32,6 @@ MonoBehaviour:
   <BulletSpeed>k__BackingField: 30
   <RandomSpread>k__BackingField: 1
   <AreaOfEffect>k__BackingField: 4
-  <RecursionFactor>k__BackingField: 0
-  <Recoil>k__BackingField: {x: 0.1, y: -1}
+  <RecursionFactor>k__BackingField: 3
+  <Recoil>k__BackingField: {x: 0.1, y: -6}
   <RecoilMultiplier>k__BackingField: 1

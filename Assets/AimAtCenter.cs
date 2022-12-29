@@ -3,12 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AimAtCenter : MonoBehaviour
 {
-
+    [SerializeField] private Image img;
     private Transform root;
     private float handDist;
+    private int enemyLayer;
+    private int prv;
+
+    [SerializeField] private AimAtColor[] colors;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -20,10 +26,28 @@ public class AimAtCenter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Physics.Raycast(root.position, root.forward, out RaycastHit hit, 1000);
+        bool b = Physics.Raycast(root.position, root.forward, out RaycastHit hit, 1000);
         Vector3 hitToHand = Vector3.Normalize(hit.point - transform.position );
-
         transform.forward = hitToHand;
+        if (!b) return;
+        int n = 1 << hit.transform.gameObject.layer;
+        if (n == prv) return;
+        prv = n;
+        foreach (AimAtColor c in colors)
+        {
+            if (n == c.layer)
+            {
+                img.color = c.color;
+                return;
+            }
+        }
+    }
+    
+    [Serializable]
+    private struct AimAtColor
+    {
+        public LayerMask layer;
+        public Color color; 
     }
 
 #if UNITY_EDITOR
