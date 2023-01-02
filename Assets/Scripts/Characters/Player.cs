@@ -90,7 +90,7 @@ namespace Characters
             controls.InGame.Jump.canceled += _ =>  tryingToJump = false;
             controls.InGame.Shoot.started += _ =>
             {
-                if (canAttack) SetWeaponState(true);
+                if (canAttack && !GameManager.Instance.GameIsPaused) SetWeaponState(true);
             };
             controls.InGame.Shoot.canceled += _ => SetWeaponState(false);
             controls.InGame.WeaponToggle1.started += _ => ToggleWeaponSlot(0);

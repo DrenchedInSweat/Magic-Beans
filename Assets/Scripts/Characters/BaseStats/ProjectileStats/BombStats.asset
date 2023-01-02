@@ -33,5 +33,5 @@ MonoBehaviour:
   <RandomSpread>k__BackingField: 1
   <AreaOfEffect>k__BackingField: 4
   <RecursionFactor>k__BackingField: 3
-  <Recoil>k__BackingField: {x: 0.1, y: -6}
+  <Recoil>k__BackingField: {x: 0.1, y: -12}
   <RecoilMultiplier>k__BackingField: 1
